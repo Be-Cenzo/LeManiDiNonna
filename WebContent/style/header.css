@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+
+.header{
+	text-align: center;
+	background-color: #caafca;
+	padding: 15px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
