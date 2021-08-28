@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -27,8 +28,11 @@ import model.Fornitura;
 import model.FornituraModelDS;
 import model.Indirizzo;
 import model.IndirizzoModelDS;
+import model.Ordine;
+import model.OrdineModelDS;
 import model.Prodotto;
 import model.ProdottoModelDS;
+import model.RelatoDS;
 
 /**
  * Servlet implementation class provaServlet
@@ -51,17 +55,39 @@ public class provaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataSource ds = (DataSource) getServletConfig().getServletContext().getAttribute("DataSource");
 		
-		Fornitura forn = new Fornitura(4, "Nonna Franca", new Date(1500000000l), 15, 1, 65.65f);
-		FornituraModelDS mod = new FornituraModelDS(ds);
+		Ordine ord = new Ordine(7, new Date(15000000000l), 65, 10, "no scusa o sbagliato", "contabilizzato", "vincenzo.offertucci@gmail.com", 1, "Bartolini");
+		ProdottoModelDS modprod = new ProdottoModelDS(ds);
+		OrdineModelDS mod = new OrdineModelDS(ds);
+		Prodotto prod = null;
+		Prodotto due = null;
 		try {
-			mod.doDelete(forn);
+			prod = modprod.doRetrieveByKey("1");
+			due = modprod.doRetrieveByKey("2");
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		HashMap<Prodotto, Integer> quant = new HashMap<Prodotto, Integer>();
+		quant.put(prod, 10);
+		quant.put(due, 5);
+		ord.setQuantità(quant);
+		RelatoDS rel = new RelatoDS(ds);
+		int quantità = 0;
+		try {
+			//mod.creaOrdine(ord);
+			rel.doDelete(prod, ord);
+			rel.doDelete(due, ord);
+			/*HashMap<Prodotto, Integer> capocchia = rel.doRetrieveAll("", ord);
+			capocchia.forEach((p, q) -> {
+				System.out.println("Prodotto: " + p.getDescrizione() + "quantità: " + q);
+			});*/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		response.getWriter().append("<html><head></head><body>");
-		if(forn!=null)
-			response.getWriter().append("ha funzionato:<br><p>Fornitore: " + forn.getFornitore() + "</p><p>Quantità: " + forn.getQuantità() + "</p><p>Prezzo: " + forn.getPrezzo() + "</p>").append("Served at: ").append(request.getContextPath());
+		if(ord!=null)
+			response.getWriter().append("ha funzionato:<br><p>prodotto: " + prod.getDescrizione() + "</p><p>ordine: " + ord.getID() + "</p><p>quantità: " + quantità + "</p>").append("Served at: ").append(request.getContextPath());
 		else
 			response.getWriter().append("non a funzionato<br>").append("Served at: ").append(request.getContextPath());
 		response.getWriter().append("</body>");

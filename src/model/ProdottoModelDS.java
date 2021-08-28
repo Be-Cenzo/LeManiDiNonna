@@ -108,7 +108,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO prodotto" + " (tipo, prezzo, colore, descrizione, marca, modello, taglia) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO prodotto (tipo, prezzo, colore, descrizione, marca, modello, taglia) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();

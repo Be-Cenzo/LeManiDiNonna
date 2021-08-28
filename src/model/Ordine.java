@@ -20,6 +20,19 @@ public class Ordine {
 		
 	}
 	
+	public Ordine(int ID, Date data, float prezzo, float costoSped, String note, String stato, String email, int indirizzo, String corriere) {
+		this.ID = ID;
+		this.data = data;
+		this.prezzo = prezzo;
+		this.costoSped = costoSped;
+		this.note = note;
+		this.stato = stato;
+		this.email = email;
+		this.indirizzo = indirizzo;
+		this.corriere = corriere;
+		quantità = new HashMap<Prodotto, Integer>();
+	}
+	
 	/**
 	 * @return l'ID
 	 */
@@ -149,14 +162,14 @@ public class Ordine {
 	/**
 	 * @return la quantità di prodotti nell'ordine
 	 */
-	public HashMap<Prodotto, Integer> getDisponibilità() {
+	public HashMap<Prodotto, Integer> getQuantità() {
 		return (HashMap<Prodotto, Integer>) quantità.clone();
 	}
 
 	/**
 	 * @param quantità la quantità di prodotti da settare
 	 */
-	public void setDisponibilità(HashMap<Prodotto, Integer> quantità) {
+	public void setQuantità(HashMap<Prodotto, Integer> quantità) {
 		this.quantità = (HashMap<Prodotto, Integer>) quantità.clone();
 	}
 	

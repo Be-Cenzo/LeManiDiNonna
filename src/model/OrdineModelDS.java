@@ -5,13 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 
 import javax.sql.DataSource;
 
 public class OrdineModelDS implements Model<Ordine>{
 
 	private DataSource ds = null;
+	private Connection connection = null;
+	private PreparedStatement preparedStatement = null;
 
 	public OrdineModelDS(DataSource ds) {
 		this.ds = ds;
@@ -19,8 +21,8 @@ public class OrdineModelDS implements Model<Ordine>{
 	
 	@Override
 	public Ordine doRetrieveByKey(String ID) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		connection = null;
+		preparedStatement = null;
 
 		Ordine ordine = new Ordine();
 
@@ -60,8 +62,8 @@ public class OrdineModelDS implements Model<Ordine>{
 
 	@Override
 	public ArrayList<Ordine> doRetrieveAll(String order) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		connection = null;
+		preparedStatement = null;
 
 		ArrayList<Ordine> ordini = new ArrayList<Ordine>();
 
@@ -106,21 +108,146 @@ public class OrdineModelDS implements Model<Ordine>{
 	}
 
 	@Override
-	public void doSave(Ordine product) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void doSave(Ordine ordine) throws SQLException {
+		connection = null;
+		preparedStatement = null;
+
+		String insertSQL = "INSERT INTO Ordine (ID, data, prezzo, costoSped, note, stato, email, indirizzo, corriere) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
+
+			preparedStatement.setInt(1, ordine.getID());
+			preparedStatement.setDate(2, ordine.getData());
+			preparedStatement.setFloat(3, ordine.getPrezzo());
+			preparedStatement.setFloat(4, ordine.getCostoSped());
+			preparedStatement.setString(5, ordine.getNote());
+			preparedStatement.setString(6, ordine.getStato());
+			preparedStatement.setString(7, ordine.getEmail());
+			preparedStatement.setInt(8, ordine.getIndirizzo());
+			preparedStatement.setString(9, ordine.getCorriere());
+			
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
 	}
 
 	@Override
-	public void doUpdate(Ordine product) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void doUpdate(Ordine ordine) throws SQLException {
+		connection = null;
+		preparedStatement = null;
+
+		String updateSQL = "UPDATE ordine SET data = ?, prezzo = ?, costoSped = ?, note = ?, stato = ?, email = ?, indirizzo = ?, corriere = ? WHERE ID = ?";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(updateSQL);
+
+			preparedStatement.setDate(1, ordine.getData());
+			preparedStatement.setFloat(2, ordine.getPrezzo());
+			preparedStatement.setFloat(3, ordine.getCostoSped());
+			preparedStatement.setString(4, ordine.getNote());
+			preparedStatement.setString(5, ordine.getStato());
+			preparedStatement.setString(6, ordine.getEmail());
+			preparedStatement.setInt(7, ordine.getIndirizzo());
+			preparedStatement.setString(8, ordine.getCorriere());
+			preparedStatement.setInt(9, ordine.getID());
+
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
 	}
 
 	@Override
-	public void doDelete(Ordine product) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void doDelete(Ordine ordine) throws SQLException {
+		connection = null;
+		preparedStatement = null;
+
+		String deleteSQL = "DELETE FROM ordine WHERE ID = ?";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, ordine.getID());
+
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+	}
+	
+	public void creaOrdine(Ordine ordine) throws SQLException {
+		doSave(ordine);
+		connection = null;
+		preparedStatement = null;
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			HashMap<Prodotto, Integer> quantità = ordine.getQuantità();
+			quantità.forEach((prod, quant) -> {
+				String insertSQL = "INSERT INTO relato (ordine, prodotto, quantità) VALUES (?, ?, ?)";
+				try {
+					preparedStatement = connection.prepareStatement(insertSQL);
+
+					preparedStatement.setInt(1, ordine.getID());
+					preparedStatement.setInt(2, prod.getCodice());
+					preparedStatement.setFloat(3, quant);
+					preparedStatement.executeUpdate();
+
+					connection.commit();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
 	}
 
 }
