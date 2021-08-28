@@ -73,18 +73,18 @@ public class provaServlet extends HttpServlet {
 		ord.setQuantità(quant);
 		RelatoDS rel = new RelatoDS(ds);
 		int quantità = 0;
-		try {
-			//mod.creaOrdine(ord);
+		/*try {
+			mod.creaOrdine(ord);
 			rel.doDelete(prod, ord);
 			rel.doDelete(due, ord);
-			/*HashMap<Prodotto, Integer> capocchia = rel.doRetrieveAll("", ord);
-			capocchia.forEach((p, q) -> {
+			HashMap<Prodotto, Integer> quantitàOrd = rel.doRetrieveAll("", ord);
+			quantitàOrd.forEach((p, q) -> {
 				System.out.println("Prodotto: " + p.getDescrizione() + "quantità: " + q);
-			});*/
+			});
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		response.getWriter().append("<html><head></head><body>");
 		if(ord!=null)
 			response.getWriter().append("ha funzionato:<br><p>prodotto: " + prod.getDescrizione() + "</p><p>ordine: " + ord.getID() + "</p><p>quantità: " + quantità + "</p>").append("Served at: ").append(request.getContextPath());
