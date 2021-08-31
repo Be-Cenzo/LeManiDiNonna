@@ -19,6 +19,9 @@
 			<span id="menuIcon" onClick="$('.menu').animate({width: 'toggle'});">
 				<img src="./icon/menu.svg" alt="menu"/>
 			</span>
+			<span id="invisibleIcon" style="opacity: 0">
+				<img src="./icon/menu.svg" alt="menu"/>
+			</span>
 			<a href="<%=response.encodeURL("./") %>">
 				Le Mani di Nonna
 			</a>

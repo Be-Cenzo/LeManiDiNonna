@@ -44,6 +44,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 				prodotto.setMarca(rs.getString("marca"));
 				prodotto.setModello(rs.getString("modello"));
 				prodotto.setTaglia(rs.getString("taglia"));
+				prodotto.setImgurl(rs.getString("imgurl"));
 			}
 
 		} finally {
@@ -89,6 +90,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 				prodotto.setMarca(rs.getString("marca"));
 				prodotto.setModello(rs.getString("modello"));
 				prodotto.setTaglia(rs.getString("taglia"));
+				prodotto.setImgurl(rs.getString("imgurl"));
 
 				prodotti.add(prodotto);
 			}

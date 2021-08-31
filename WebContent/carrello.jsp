@@ -27,14 +27,14 @@
 				Prodotto prod = cart.getProdotti().get(prodID);
 		%>
 			
-			<div class="row product-row">
+		<div class="row product-row">
 			<div class="product-img">
-				<img src="./img/aereoplano.jpg" alt="esempio">
+				<img src="./img/<%=prod.getImgurl() %>" alt="esempio">
 			</div>
 			<div class="product-container">
 				<div class="product-description">
 					<%=prod.getDescrizione()%>
-					<a href="<%=response.encodeURL("./RimuoviDalCarrello?id=" + prod.getCodice())%>">
+					<a href="<%=response.encodeURL("./RimuoviDalCarrello?action=remove&id=" + prod.getCodice())%>">
 						<span id="deleteIcon">
 							<img src="./icon/trash.svg" alt="edit"/>
 						</span>
@@ -51,11 +51,19 @@
 			</div>
 		</div>
 	<%	
-		}
+		}%>
+		<div class="row justify-content-center">
+			<button class="svuota-carrello">
+				<a href="<%=response.encodeURL("./RimuoviDalCarrello?action=all")%>">
+					Svuota Carrello
+				</a>
+			</button>
+		</div>
+		<%
 		}
 		else{
 			%>
-			<div class="vuoto">
+			<div class="row justify-content-center">
 				Non c'è niente qui.
 			</div>
 			<%

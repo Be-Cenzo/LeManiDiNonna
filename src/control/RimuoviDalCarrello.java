@@ -33,6 +33,7 @@ public class RimuoviDalCarrello extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		String action = request.getParameter("action");
 		
 		Carrello cart = (Carrello) request.getSession(true).getAttribute("carrello");
 		if (cart == null) {
@@ -40,22 +41,32 @@ public class RimuoviDalCarrello extends HttpServlet {
 			request.getSession().setAttribute("carrello", cart);
 		}
 		
-		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
-		
-		ProdottoModelDS model = new ProdottoModelDS(ds);
-		Prodotto prod = null;
-		try {
-			prod = model.doRetrieveByKey(id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(action!=null) {
+			if(action.equals("all")) {
+				cart.deleteList();
+				request.getSession().setAttribute("carrello", cart);
+			}
+			else if(action.equals("remove")){
+				DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
+				
+				ProdottoModelDS model = new ProdottoModelDS(ds);
+				Prodotto prod = null;
+				try {
+					prod = model.doRetrieveByKey(id);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(prod != null) {
+					cart.removeProdotto(prod.getCodice());
+					System.out.println("rimosso " + cart.getProdotti().size());
+					request.getSession().setAttribute("carrello", cart);
+				}
+			}
 		}
 		
-		if(prod != null) {
-			cart.removeProdotto(prod.getCodice());
-			System.out.println("rimosso " + cart.getProdotti().size());
-			request.getSession().setAttribute("carrello", cart);
-		}
+		
 		
 		response.sendRedirect(response.encodeURL("./carrello.jsp"));
 	}

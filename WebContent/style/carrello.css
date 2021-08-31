@@ -13,11 +13,11 @@ body{
 .contenuto{
 	margin: 1rem;
 	padding-bottom: 100px;
+	font-family: 'Handlee', cursive;
 }
 
 .titolo{
 	font-size: 1.2rem;
-	font-family: 'Handlee', cursive;
 	text-align: center;
 }
 
@@ -30,18 +30,18 @@ body{
 }
 
 .row{
-	margin: 10px;
-	margin-bottom: 0;
+	padding: 10px;
 }
 
-.product-row{
-	border-top: 1px solid #caafca;
+.product-row, .titolo{
+	border-bottom: 1px solid #caafca;
 }
 
 .product-container{
 	font-family: 'Handlee', cursive;
 	width: 85%;
 	padding: 10px;
+	font-size: 1rem;
 }
 
 .product-details > *{
@@ -71,6 +71,13 @@ body{
 
 .show{
 	display: unset;
+}
+
+.svuota-carrello{
+	width: auto;
+	border: 0;
+	background-color: #caafca;
+	border-radius: 10px;
 }
 
 @media screen and (max-width:1250px){

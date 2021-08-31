@@ -51,7 +51,6 @@ body{
 
 .card-description{
 	width: 90%;
-	font-family: 'Handlee', cursive;
 }
 
 .card-add-cart{
@@ -94,6 +93,7 @@ body{
 
 .contenuto{
 	padding-bottom: 100px;
+	font-family: 'Handlee', cursive;
 }
 
 .collapse{

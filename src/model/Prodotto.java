@@ -10,6 +10,7 @@ public class Prodotto {
 	private String marca;
 	private String modello;
 	private String taglia;
+	private String imgurl;
 	private int quantità;
 	
 	public Prodotto() {
@@ -142,6 +143,14 @@ public class Prodotto {
 	
 	public void addQuantità(int quantità) {
 		this.quantità += quantità;
+	}
+
+	public String getImgurl() {
+		return imgurl;
+	}
+
+	public void setImgurl(String imgurl) {
+		this.imgurl = imgurl;
 	}
 	
 }
