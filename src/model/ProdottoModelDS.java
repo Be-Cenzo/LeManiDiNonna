@@ -22,7 +22,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Prodotto prodotto = new Prodotto();
+		Prodotto prodotto = null;
 
 		String selectSQL = "SELECT * FROM prodotto WHERE codice = ?";
 
@@ -34,6 +34,8 @@ public class ProdottoModelDS implements Model<Prodotto> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
+				if(prodotto == null)
+					prodotto = new Prodotto();
 				prodotto.setCodice(rs.getInt("codice"));
 				prodotto.setTipo(rs.getString("tipo"));
 				prodotto.setPrezzo(rs.getFloat("prezzo"));

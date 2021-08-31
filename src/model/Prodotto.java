@@ -10,6 +10,7 @@ public class Prodotto {
 	private String marca;
 	private String modello;
 	private String taglia;
+	private int quantità;
 	
 	public Prodotto() {
 		
@@ -130,7 +131,17 @@ public class Prodotto {
 	public void setTaglia(String taglia) {
 		this.taglia = taglia;
 	}
+
+	public int getQuantità() {
+		return quantità;
+	}
+
+	public void setQuantità(int quantità) {
+		this.quantità = quantità;
+	}
 	
-	
+	public void addQuantità(int quantità) {
+		this.quantità += quantità;
+	}
 	
 }
