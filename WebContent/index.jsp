@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +7,8 @@
 <link href="./style/index.css" rel="stylesheet">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Le Mani Di Nonna</title>
 </head>
 <body>
 <div class="wrapper">
@@ -43,11 +43,11 @@
 					</div>
 				</div>
 			</div>
-	
-			<div onclick="$('#mah').animate({width: 'toggle'});">bah</div>
-			<div id="mah" style="width: 100px; height: 100px; background-color: violet;"></div>
+
 		</div>
 	</div>
+	
+	
 	
 	
 	<%@ include file="footer.jsp" %> 

@@ -67,11 +67,11 @@ public class provaServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		HashMap<Prodotto, Integer> quant = new HashMap<Prodotto, Integer>();
+		/*HashMap<Integer, Integer> quant = new HashMap<Integer, Integer>();
 		quant.put(prod, 10);
 		quant.put(due, 5);
 		ord.setQuantità(quant);
-		RelatoDS rel = new RelatoDS(ds);
+		RelatoDS rel = new RelatoDS(ds);*/
 		int quantità = 0;
 		/*try {
 			mod.creaOrdine(ord);

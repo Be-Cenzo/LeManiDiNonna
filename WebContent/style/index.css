@@ -49,6 +49,29 @@ body{
 	display: none;
 }
 
+.card-description{
+	width: 90%;
+	font-family: 'Handlee', cursive;
+}
+
+.card-add-cart{
+	float: left;
+	margin: 5px;
+	position: relative;
+	bottom: 0.3rem;
+	right: 0.3rem;
+	font-size: 16px;
+}
+
+#addCartIcon{
+	background-color: transparent;
+	border: none;
+}
+
+.numberForm{
+	width: 100%;
+}
+
 .card-span{
 	position:absolute;
 	top: 0;
@@ -63,13 +86,10 @@ body{
 	margin-bottom: 0;
 }
 
-a{
-	color: inherit;
-	text-decoration: none;
-}
-
-a:hover{
-	color: inherit;
+@media screen and (max-width: 719px){
+	.row{
+		justify-content: center;
+	}
 }
 
 .contenuto{
