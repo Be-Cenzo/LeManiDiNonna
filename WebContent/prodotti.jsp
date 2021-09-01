@@ -16,10 +16,12 @@
 	
 	<div class="contenuto">
 		<div class="row justify-content-center">
-			<input id="cerca-input" type="text" name="cerca" placeholder="cerca" onchange="cercaProdotto()">
-			<button class="cerca-button" id="cerca-btn" onClick="cercaProdotto()" >
-				<img src="./icon/search.svg" alt="cerca">
-			</button>
+			<form class="cerca-form" action="<%=response.encodeURL("CercaProdotto")%>" method="GET">
+				<input id="cerca-input" type="text" name="cerca" placeholder="cerca" onchange="cercaProdotto()">
+				<button class="cerca-button" type="submit" id="cerca-btn" onClick="cercaProdotto()" >
+					<img src="./icon/search.svg" alt="cerca">
+				</button>
+			</form>
 		</div>
 		<div class="row justify-content-center">
 			<div class="filter-title">Filtri:</div> 

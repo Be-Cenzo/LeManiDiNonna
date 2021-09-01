@@ -35,6 +35,7 @@ public class CercaProdotto extends HttpServlet {
 		System.out.println("cerca: " + cerca);
 		
 		request.getSession().setAttribute("cerca", cerca);
+		response.sendRedirect(response.encodeURL("./prodotti.jsp"));
 	}
 
 	/**
