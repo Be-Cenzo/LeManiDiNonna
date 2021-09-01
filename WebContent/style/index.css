@@ -10,6 +10,11 @@ body{
 	position: relative;
 }
 
+.contenuto{
+	padding-bottom: 100px;
+	font-family: 'Handlee', cursive;
+}
+
 .card-img-top{
 	width: 100%;
 	height: 100%;
@@ -91,12 +96,43 @@ body{
 	}
 }
 
-.contenuto{
-	padding-bottom: 100px;
-	font-family: 'Handlee', cursive;
-}
-
 .collapse{
 	padding: 0;
     z-index: 1;
+}
+
+.filter-title{
+	width: auto;
+	margin: 10px 5px;
+}
+
+.filter-button{
+	width: auto;
+	border-radius: 10px;
+	margin: 5px;
+	background-color: white;
+	border-color: #caafca;
+}
+
+.selected{
+	background-color: #caafca;
+	border-color: white;
+}
+
+.remove-filter{
+	width: auto;
+	background-color: transparent;
+	border: 0;
+	margin: 5px;
+}
+
+#cerca-input{
+	width: auto;
+}
+
+.cerca-button{
+	width: auto;
+	background-color: transparent;
+	border: 0;
+	margin: 5px;
 }

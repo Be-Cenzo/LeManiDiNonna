@@ -15,14 +15,35 @@
 	<%@ include file="header.jsp" %>
 	
 	<div class="contenuto">
-		<div class="row">
+		<div class="row justify-content-center">
+			<input id="cerca-input" type="text" name="cerca" placeholder="cerca" onchange="cercaProdotto()">
+			<button class="cerca-button" id="cerca-btn" onClick="cercaProdotto()" >
+				<img src="./icon/search.svg" alt="cerca">
+			</button>
+		</div>
+		<div class="row justify-content-center">
+			<div class="filter-title">Filtri:</div> 
+			<button class="filter-button" id="t-shirt" onClick="addFiltro('t-shirt')" >T-Shirt</button>
+			<button class="filter-button" id="felpa" onClick="addFiltro('felpa')" >Felpa</button>
+			<button class="filter-button" id="borsello" onClick="addFiltro('borsello')" >Borsello</button>
+			<button class="filter-button" id="grembiule" onClick="addFiltro('grembiule')" >Grembiule</button>
+			<button class="filter-button" id="shopper" onClick="addFiltro('shopper')" >Shopper</button>
+			<button class="remove-filter" id="remove" onClick="addFiltro('remove')" >
+				<img src="./icon/remove.svg" alt="rimuovi filtri">
+			</button>
+		</div>
+		
+		<div id="container-prodotti">
+		<div class="row" id="prodotti">
 	<%
-	DataSource ds = (DataSource) application.getAttribute("DataSource");
-			ProdottoModelDS model = new ProdottoModelDS(ds);
-			ArrayList<Prodotto> prodotti = model.doRetrieveAll("");
-			int i;
-			for(i=0; i<prodotti.size(); i++){
-			Prodotto prodotto = prodotti.get(i);
+		DataSource ds = (DataSource) application.getAttribute("DataSource");
+		ProdottoModelDS model = new ProdottoModelDS(ds);
+		ArrayList<String> filtri = (ArrayList<String>) session.getAttribute("filter");
+		String cerca = (String) session.getAttribute("cerca");
+		ArrayList<Prodotto> prodotti = model.doRetrieveAll("", filtri, cerca);
+		int i;
+		for(i=0; i<prodotti.size(); i++){
+		Prodotto prodotto = prodotti.get(i);
 	%>
 			<div class="card">
 				<img src="./img/<%=prodotto.getImgurl() %>" class="card-img-top" onclick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" alt="esempio">
@@ -52,6 +73,7 @@
 		}
 	%>
 		</div>
+		</div>
 	</div>
 	
 	
@@ -59,7 +81,16 @@
 	
 	<%@ include file="footer.jsp" %>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
 <script>
+
+$(document).ready(function(){
+	const cerca = document.getElementById('cerca-input');
+	cerca.addEventListener('input', cercaProdotto);
+});
+
 function toggle(id, span){
 	/*var collapse = document.getElementById("collapseExample");
 	var sem = 0;
@@ -81,9 +112,26 @@ function aggiungiAlCarrello(id, quantità){
 	xhttp.open("GET", url, true);
 	xhttp.send();
 }
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
+function addFiltro(filtro){
+	xhttp = new XMLHttpRequest();
+	xhttp.open("GET", "FiltraProdotti?filtro=" + filtro);
+	xhttp.send();
+	if(filtro == "remove"){
+		$(".filter-button").removeClass("selected");
+	}
+	else
+		$("#" + filtro).toggleClass("selected");
+	$("#container-prodotti").load("./prodotti.jsp #prodotti");
+}
+
+function cercaProdotto(){
+	xhttp = new XMLHttpRequest();
+	var cerca = $("#cerca-input").val();
+	xhttp.open("GET", "CercaProdotto?cerca=" + cerca);
+	xhttp.send();
+	$("#container-prodotti").load("./prodotti.jsp #prodotti");
+}
+</script>
 </body>
 </html>

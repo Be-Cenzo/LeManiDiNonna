@@ -106,6 +106,81 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		}
 		return prodotti;
 	}
+	
+	public ArrayList<Prodotto> doRetrieveAll(String order, ArrayList<String> filter, String search) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<Prodotto> prodotti = new ArrayList<Prodotto>();
+
+		String selectSQL = "SELECT * FROM prodotto";
+		if(filter != null) {
+			if(!filter.isEmpty()) {
+				selectSQL += " WHERE (tipo = '" + filter.get(0) + "'";
+			}
+			
+			for(int i=1; i<filter.size(); i++) {
+				selectSQL += " || tipo = '" + filter.get(i) + "'";
+			}
+			
+			if(!filter.isEmpty()) {
+				selectSQL += ")";
+			}
+		}
+		
+		if(search != null)
+			if(!search.equals("")) {
+				if(selectSQL.contains("WHERE"))
+					selectSQL += " && descrizione LIKE ?";
+				else
+					selectSQL += " WHERE descrizione LIKE ?";
+			}
+
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY " + order;
+		}
+		
+		System.out.println(selectSQL);
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			if(search != null) 
+				if(!search.equals(""))
+					preparedStatement.setString(1, "%" + search + "%");
+			
+			System.out.println(preparedStatement.toString());
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Prodotto prodotto = new Prodotto();
+
+				prodotto.setCodice(rs.getInt("codice"));
+				prodotto.setTipo(rs.getString("tipo"));
+				prodotto.setPrezzo(rs.getFloat("prezzo"));
+				prodotto.setColore(rs.getString("colore"));
+				prodotto.setDescrizione(rs.getString("descrizione"));
+				prodotto.setMarca(rs.getString("marca"));
+				prodotto.setModello(rs.getString("modello"));
+				prodotto.setTaglia(rs.getString("taglia"));
+				prodotto.setImgurl(rs.getString("imgurl"));
+
+				prodotti.add(prodotto);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return prodotti;
+	}
 
 	@Override
 	public void doSave(Prodotto prodotto) throws SQLException {
