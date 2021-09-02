@@ -26,7 +26,7 @@
 			<a href="<%=response.encodeURL("./") %>">
 				Le Mani di Nonna
 			</a>
-			<span id="userIcon">
+			<span id="userIcon" onclick="document.getElementById('id01').style.display='block'">
 				<img src="./icon/user.svg" alt="user"/>
 			</span>
 			<a href="<%=response.encodeURL("./carrello.jsp") %>">
@@ -39,6 +39,12 @@
 	<div class="menu">
 		<a class="menu-element" href="<%=response.encodeURL("./prodotti.jsp") %>">Prodotti</a>
 	</div>
-
+	
+	
+	
+<%@ include file="login.jsp" %> 
+	
+	
+	
 </body>
 </html>
