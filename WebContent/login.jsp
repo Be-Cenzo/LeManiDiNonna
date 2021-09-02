@@ -8,8 +8,8 @@
  
  <script type="text/javascript">  
 function validateform(){  
-var name=document.myform.uname.value;  
-var password=document.myform.psw.value;  
+var name=$("#name").val();  
+var password=$("#psw").val();
   console.log("pisello");
 if (name==null || name==""){  
   alert("Name can't be blank");  
@@ -25,7 +25,7 @@ if (name==null || name==""){
 <body>
 
 <!-- The Modal -->
-<div id="id01" class="modal">
+<div id="login" class="modal">
   
 
   <!-- Modal Content -->
@@ -34,19 +34,16 @@ if (name==null || name==""){
 
     <div class="container">
       <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname">
+      <input type="text" placeholder="Enter Username" id="name" name="uname">
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+      <input type="password" placeholder="Enter Password" id="psw" name="psw">
 
       <button type="submit" onclick="validateform()">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
     </div>
     
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbtn">Cancel</button>
     </div>
   </form>
 </div> 

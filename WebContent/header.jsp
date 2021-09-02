@@ -26,7 +26,7 @@
 			<a href="<%=response.encodeURL("./") %>">
 				Le Mani di Nonna
 			</a>
-			<span id="userIcon" onclick="document.getElementById('id01').style.display='block'">
+			<span id="userIcon" onclick="document.getElementById('login').style.display='block'">
 				<img src="./icon/user.svg" alt="user"/>
 			</span>
 			<a href="<%=response.encodeURL("./carrello.jsp") %>">
@@ -42,7 +42,20 @@
 	
 	
 	
-<%@ include file="login.jsp" %> 
+	<% 
+		String role = (String)session.getAttribute("role");
+		if(role == null || role.equals("guest")){
+	%> 
+	<h1>PISELLONE</h1>
+	<%@include file="login.jsp" %>
+	<% 
+		}
+		else if(role.equals("admin") || role.equals("user")){
+	%>
+	<%@include file="logout.jsp" %>
+	<% 
+		}
+	%>
 	
 	
 	
