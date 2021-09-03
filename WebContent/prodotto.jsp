@@ -43,12 +43,12 @@
 							if(prodotto.getTaglia() == null){ %>
 							<div>
 								<label for="taglia">Taglia:</label>
-								<input class="radio-button" type="radio" id="s" name="taglia" value="S" checked>
 								<label for="s">S</label>
-								<input class="radio-button" type="radio" id="m" name="taglia" value="M">
+								<input class="radio-button" type="radio" id="s" name="taglia" value="S" checked>
 								<label for="m">M</label>
-								<input class="radio-button" type="radio" id="l" name="taglia" value="L">
+								<input class="radio-button" type="radio" id="m" name="taglia" value="M">
 								<label for="l">L</label> 
+								<input class="radio-button" type="radio" id="l" name="taglia" value="L">
 							</div>
 						<%} %>
 							<div>
