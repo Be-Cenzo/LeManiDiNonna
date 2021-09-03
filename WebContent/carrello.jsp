@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, model.*, javax.sql.DataSource"%>
-    
-   <%! String link = "GestisciCarrello"; %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +31,9 @@
 			</div>
 			<div class="product-container">
 				<div class="product-description">
-					<%=prod.getDescrizione()%>
+					<a href="<%=response.encodeURL("ProdottoPage?id=" + prod.getCodice())%>">
+							<%= prod.getDescrizione() %>
+						</a>
 					<a href="<%=response.encodeURL("./RimuoviDalCarrello?action=remove&id=" + prod.getCodice())%>">
 						<span id="deleteIcon">
 							<img src="./icon/trash.svg" alt="edit"/>
@@ -41,8 +41,13 @@
 					</a>
 				</div>
 				<div class="product-details">
+				<%if(prod.getTaglia() != null && !prod.getTaglia().equals("N")){ %>
+					<div class="product-size" id="size<%=prod.getCodice()%>">
+						Taglia: <%=prod.getTaglia() %>
+					</div>
+				<%} %>
 					<div class="product-quantity" id="quantity<%=prod.getCodice()%>">
-						<%=prod.getQuantità()%>
+						Quantità: <%=prod.getQuantità()%>
 					</div>
 					<div class="product-price" id="price<%=prod.getCodice()%>">
 						<%=prod.getQuantità()*prod.getPrezzo() %>€
@@ -53,9 +58,14 @@
 	<%	
 		}%>
 		<div class="row justify-content-center">
-			<button class="svuota-carrello">
+			<button class="carrello-button">
 				<a href="<%=response.encodeURL("./RimuoviDalCarrello?action=all")%>">
 					Svuota Carrello
+				</a>
+			</button>
+			<button class="carrello-button">
+				<a href="<%=response.encodeURL("./")%>">
+					Prosegui al Pagamento
 				</a>
 			</button>
 		</div>

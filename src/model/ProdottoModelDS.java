@@ -43,8 +43,57 @@ public class ProdottoModelDS implements Model<Prodotto> {
 				prodotto.setDescrizione(rs.getString("descrizione"));
 				prodotto.setMarca(rs.getString("marca"));
 				prodotto.setModello(rs.getString("modello"));
-				prodotto.setTaglia(rs.getString("taglia"));
 				prodotto.setImgurl(rs.getString("imgurl"));
+				String tipo = prodotto.getTipo();
+				if(!tipo.equals("t-shirt") && !tipo.equals("felpa")) {
+					prodotto.setTaglia("N");
+				}
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return prodotto;
+	}
+	
+	public Prodotto doRetrieve(String descrizione, String taglia) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Prodotto prodotto = null;
+
+		String selectSQL = "SELECT * FROM prodotto WHERE descrizione = ? AND taglia = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, descrizione);
+			preparedStatement.setString(2, taglia);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				if(prodotto == null)
+					prodotto = new Prodotto();
+				prodotto.setCodice(rs.getInt("codice"));
+				prodotto.setTipo(rs.getString("tipo"));
+				prodotto.setPrezzo(rs.getFloat("prezzo"));
+				prodotto.setColore(rs.getString("colore"));
+				prodotto.setDescrizione(rs.getString("descrizione"));
+				prodotto.setMarca(rs.getString("marca"));
+				prodotto.setModello(rs.getString("modello"));
+				prodotto.setImgurl(rs.getString("imgurl"));
+				String tipo = prodotto.getTipo();
+				if(!tipo.equals("t-shirt") && !tipo.equals("felpa")) {
+					prodotto.setTaglia("N");
+				}
 			}
 
 		} finally {
@@ -89,8 +138,11 @@ public class ProdottoModelDS implements Model<Prodotto> {
 				prodotto.setDescrizione(rs.getString("descrizione"));
 				prodotto.setMarca(rs.getString("marca"));
 				prodotto.setModello(rs.getString("modello"));
-				prodotto.setTaglia(rs.getString("taglia"));
 				prodotto.setImgurl(rs.getString("imgurl"));
+				String tipo = prodotto.getTipo();
+				if(!tipo.equals("t-shirt") && !tipo.equals("felpa")) {
+					prodotto.setTaglia("N");
+				}
 
 				prodotti.add(prodotto);
 			}
@@ -139,8 +191,6 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
 		}
-		
-		System.out.println(selectSQL);
 
 		try {
 			connection = ds.getConnection();
@@ -149,8 +199,6 @@ public class ProdottoModelDS implements Model<Prodotto> {
 			if(search != null) 
 				if(!search.equals(""))
 					preparedStatement.setString(1, "%" + search + "%");
-			
-			System.out.println(preparedStatement.toString());
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -164,8 +212,11 @@ public class ProdottoModelDS implements Model<Prodotto> {
 				prodotto.setDescrizione(rs.getString("descrizione"));
 				prodotto.setMarca(rs.getString("marca"));
 				prodotto.setModello(rs.getString("modello"));
-				prodotto.setTaglia(rs.getString("taglia"));
 				prodotto.setImgurl(rs.getString("imgurl"));
+				String tipo = prodotto.getTipo();
+				if(!tipo.equals("t-shirt") && !tipo.equals("felpa")) {
+					prodotto.setTaglia("N");
+				}
 
 				prodotti.add(prodotto);
 			}
@@ -187,7 +238,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO prodotto (tipo, prezzo, colore, descrizione, marca, modello, taglia) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO prodotto (tipo, prezzo, colore, descrizione, marca, modello, imgurl) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -200,7 +251,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 			preparedStatement.setString(4, prodotto.getDescrizione());
 			preparedStatement.setString(5, prodotto.getMarca());
 			preparedStatement.setString(6, prodotto.getModello());
-			preparedStatement.setString(7, prodotto.getTaglia());
+			preparedStatement.setString(7, prodotto.getImgurl());
 			
 			preparedStatement.executeUpdate();
 
@@ -223,7 +274,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ?, taglia = ? WHERE codice = ?";
+		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ?, imgurl = ? WHERE codice = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -236,7 +287,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 			preparedStatement.setString(4, prodotto.getColore());
 			preparedStatement.setString(5, prodotto.getMarca());
 			preparedStatement.setString(6, prodotto.getModello());
-			preparedStatement.setString(7, prodotto.getTaglia());
+			preparedStatement.setString(7, prodotto.getImgurl());
 			
 			preparedStatement.setInt(8, prodotto.getCodice());
 

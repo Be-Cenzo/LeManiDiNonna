@@ -8,7 +8,7 @@
 </head>
 <body>
 	<footer>
-		L'hanno fatto Becienz e Christian 8==D
+		L'hanno fatto Becienz e Christian
 	</footer>
 
 </body>

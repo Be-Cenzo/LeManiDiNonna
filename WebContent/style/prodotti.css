@@ -23,15 +23,6 @@
 	border-radius: 10px;
 }
 
-.card-collapse-due{
-	margin: 15px;
-	margin-top: 0px;
-	width: 20rem;
-	height: fit-content;
-	border: 0px;
-	background-color: white;
-}
-
 .card-collapse{
 	position: absolute;
 	width: 50%;

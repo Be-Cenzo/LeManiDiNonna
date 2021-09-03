@@ -2,7 +2,6 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,23 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import model.Carrello;
-import model.Prodotto;
 import model.Prodotto;
 import model.ProdottoModelDS;
 
 /**
- * Servlet implementation class AggiungiAlCarrello
+ * Servlet implementation class ProdottoPage
  */
-@WebServlet("/AggiungiAlCarrello")
-public class AggiungiAlCarrello extends HttpServlet {
+@WebServlet("/ProdottoPage")
+public class ProdottoPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AggiungiAlCarrello() {
+    public ProdottoPage() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,25 +34,15 @@ public class AggiungiAlCarrello extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String id = request.getParameter("id");
-		int quantità = Integer.parseInt(request.getParameter("quantità"));
-		String taglia = (String) request.getParameter("taglia");
-		if(quantità > 0) {
-			
-			if(taglia == null)
-				taglia = "N";
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		ProdottoModelDS model = new ProdottoModelDS(ds);
 		
-			Carrello cart = (Carrello) request.getSession(true).getAttribute("carrello");
-			if (cart == null) {
-				cart = new Carrello();
-				request.getSession().setAttribute("carrello", cart);
-			}
-			
-			DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
-			
-			ProdottoModelDS model = new ProdottoModelDS(ds);
-			
-			Prodotto prod = null;
+		String id = (String) request.getParameter("id");
+		
+		Prodotto prod = null;
+		System.out.println("id: " + id);
+		
+		if(id != null) {
 			try {
 				prod = model.doRetrieveByKey(id);
 			} catch (SQLException e) {
@@ -62,16 +50,15 @@ public class AggiungiAlCarrello extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			if(prod != null && (taglia.equals("S") || taglia.equals("M") || taglia.equals("L") || taglia.equals("N"))) {
-				prod.setTaglia(taglia);
-				prod.addQuantità(quantità);
-				cart.addProdotto(prod.getCodice(), prod);
-				System.out.println("aggiunto");
-				request.getSession().setAttribute("carrello", cart);
-			}
 		}
 		
-		response.sendRedirect(response.encodeURL("./prodotti.jsp"));
+		if(prod != null) {
+			request.setAttribute("prodotto-page", prod);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/prodotto.jsp");
+			dispatcher.forward(request, response);
+		}
+		//prodotto non trovato
+		System.out.println("nient");
 	}
 
 	/**
