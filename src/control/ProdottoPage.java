@@ -58,7 +58,7 @@ public class ProdottoPage extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		//prodotto non trovato
-		System.out.println("nient");
+		response.sendRedirect(response.encodeRedirectURL("./notfound.jsp"));
 	}
 
 	/**

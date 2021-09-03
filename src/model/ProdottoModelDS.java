@@ -62,52 +62,6 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		}
 		return prodotto;
 	}
-	
-	public Prodotto doRetrieve(String descrizione, String taglia) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		Prodotto prodotto = null;
-
-		String selectSQL = "SELECT * FROM prodotto WHERE descrizione = ? AND taglia = ?";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, descrizione);
-			preparedStatement.setString(2, taglia);
-
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				if(prodotto == null)
-					prodotto = new Prodotto();
-				prodotto.setCodice(rs.getInt("codice"));
-				prodotto.setTipo(rs.getString("tipo"));
-				prodotto.setPrezzo(rs.getFloat("prezzo"));
-				prodotto.setColore(rs.getString("colore"));
-				prodotto.setDescrizione(rs.getString("descrizione"));
-				prodotto.setMarca(rs.getString("marca"));
-				prodotto.setModello(rs.getString("modello"));
-				prodotto.setImgurl(rs.getString("imgurl"));
-				String tipo = prodotto.getTipo();
-				if(!tipo.equals("t-shirt") && !tipo.equals("felpa")) {
-					prodotto.setTaglia("N");
-				}
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null) {
-					connection.close();
-				}
-			}
-		}
-		return prodotto;
-	}
 
 	@Override
 	public ArrayList<Prodotto> doRetrieveAll(String order) throws SQLException {

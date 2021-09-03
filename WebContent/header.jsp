@@ -17,7 +17,7 @@
 <body>
 	<div class="header">
 		<div class="navTitle">
-			<span id="menuIcon" onClick="$('.menu').animate({width: 'toggle'});">
+			<span id="menuIcon" onClick="$('.menu').animate({height: 'toggle'}, 'slow');">
 				<img src="./icon/menu.svg" alt="menu"/>
 			</span>
 			<span id="invisibleIcon" style="opacity: 0">
@@ -55,8 +55,6 @@
 	<% 
 		}
 	%>
-	
-	
 	
 </body>
 </html>

@@ -53,8 +53,25 @@
 	width: 50px;
 }
 
+.radio-container{
+	display: flex;
+	align-items: center;
+}
+
+.radio{
+	margin-left: 10px;
+}
+
+.radio-element{
+	display:block;
+}
+
 label{
 	margin: 0.5rem 0;
+}
+
+.radio-element > label{
+	margin: 0.25rem 0;
 }
 
 @media screen and (max-width:500px){
