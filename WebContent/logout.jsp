@@ -16,8 +16,8 @@
 
     <div class="container">
       <% 
-		//String role = (String)session.getAttribute("role");
-		if(role.equals("admin")){
+		String ruolo = (String)session.getAttribute("role");
+		if(ruolo.equals("admin")){
 	  %> 
 	<button type="submit" name="button" value="admin-area">Area amministratore</button>
 	<% 
