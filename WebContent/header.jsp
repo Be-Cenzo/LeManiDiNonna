@@ -46,7 +46,6 @@
 		String role = (String)session.getAttribute("role");
 		if(role == null || role.equals("guest")){
 	%> 
-	<h1>PISELLONE</h1>
 	<%@include file="login.jsp" %>
 	<% 
 		}

@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, model.*, javax.sql.DataSource"%>
+    pageEncoding="UTF-8" import="java.util.*, model.*"%>
+    <%
+	  
+  	ArrayList<Prodotto> prodotti = (ArrayList<Prodotto>) request.getAttribute("prodotti");
+	
+	if(prodotti == null) {
+		response.sendRedirect(response.encodeRedirectURL("./ProdottiControl"));
+		return;
+	}
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +27,7 @@
 	<div class="contenuto">
 		<div class="row justify-content-center">
 			<form class="cerca-form" action="<%=response.encodeURL("CercaProdotto")%>" method="GET">
-				<input id="cerca-input" type="text" name="cerca" placeholder="cerca" onchange="cercaProdotto()">
+				<input id="cerca-input" type="text" name="cerca" placeholder="cerca">
 				<button class="cerca-button" type="submit" id="cerca-btn" onClick="cercaProdotto()" >
 					<img src="./icon/search.svg" alt="cerca">
 				</button>
@@ -28,6 +38,7 @@
 			<button class="filter-button" id="t-shirt" onClick="addFiltro('t-shirt')" >T-Shirt</button>
 			<button class="filter-button" id="felpa" onClick="addFiltro('felpa')" >Felpa</button>
 			<button class="filter-button" id="borsello" onClick="addFiltro('borsello')" >Borsello</button>
+			<button class="filter-button" id="cappello" onClick="addFiltro('cappello')" >Cappello</button>
 			<button class="filter-button" id="grembiule" onClick="addFiltro('grembiule')" >Grembiule</button>
 			<button class="filter-button" id="shopper" onClick="addFiltro('shopper')" >Shopper</button>
 			<button class="remove-filter" id="remove" onClick="addFiltro('remove')" >
@@ -38,34 +49,42 @@
 		<div id="container-prodotti">
 		<div class="row" id="prodotti">
 	<%
-		DataSource ds = (DataSource) application.getAttribute("DataSource");
-		ProdottoModelDS model = new ProdottoModelDS(ds);
-		ArrayList<String> filtri = (ArrayList<String>) session.getAttribute("filter");
-		String cerca = (String) session.getAttribute("cerca");
-		ArrayList<Prodotto> prodotti = model.doRetrieveAll("", filtri, cerca);
 		int i;
 		for(i=0; i<prodotti.size(); i++){
 		Prodotto prodotto = prodotti.get(i);
 	%>
 			<div class="card">
-				<img src="./img/<%=prodotto.getImgurl() %>" class="card-img-top" onclick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" alt="esempio">
+				<img src="./img/<%=prodotto.getImgurl() %>" class="card-img-top" onclick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" alt="<%= prodotto.getDescrizione() %>">
 				<span class="card-span" onclick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" id="fadeSpan<%=i %>">+</span>
 				<div class="card-collapse card-body collapse-body" id="collapse<%=i %>">
 					<span class="card-span" onClick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" style="color: black;">-</span>
 					<div class="card-description">
-						<%= prodotto.getDescrizione() %>
+						<a href="<%=response.encodeURL("ProdottoPage?id=" + prodotto.getCodice())%>">
+							<%= prodotto.getDescrizione() %>
+						</a>
 					</div>
 					<div class="card-add-cart">
+							<p>
+								Prezzo: <%= prodotto.getPrezzo() %>€
+							</p>
 						<form action="<%=response.encodeURL("AggiungiAlCarrello")%>" method="GET">
+						<%
+							if(prodotto.getTaglia() == null){ %>
+							<label for="taglia" style="width:100%">Taglia: </label>
+							<input class="radio-button" type="radio" id="s" name="taglia" value="S" checked>
+							<label for="s">S</label>
+							<input class="radio-button" type="radio" id="m" name="taglia" value="M">
+							<label for="m">M</label>
+							<input class="radio-button" type="radio" id="l" name="taglia" value="L">
+							<label for="l">L</label> 
+						<%} %>
+							<label for="quantità">Quantità: </label>
 							<input class="numberForm" type="number" name="quantità" value="1" min="1">
 							<input type="hidden" name="id" value=<%=prodotto.getCodice() %>>
 							<input type="hidden" name="action" value="add">
 							<button id="addCartIcon" type="submit">
 								<img src="./icon/aggiungi-al-carrello.svg" alt="aggiungi"/>
 							</button>
-							<label>
-								<%= prodotto.getPrezzo() %>€
-							</label>
 						</form>
 						
 					</div>
@@ -94,25 +113,8 @@ $(document).ready(function(){
 });
 
 function toggle(id, span){
-	/*var collapse = document.getElementById("collapseExample");
-	var sem = 0;
-	for(classe in collapse.classList){
-		if(classe === "show")
-			sem = 1;
-	}
-	if(sem)
-		collapse.classList.remove("show");
-	else
-		collapse.classList.add("show");*/
 	$(id).fadeToggle();
 	$(span).fadeToggle();
-}
-
-function aggiungiAlCarrello(id, quantità){
-	var xhttp = new XMLHttpRequest();
-	var url = encodeURI("GestisciCarrello?id="+id+"&action=add&quantità="+quantità);
-	xhttp.open("GET", url, true);
-	xhttp.send();
 }
 
 function addFiltro(filtro){

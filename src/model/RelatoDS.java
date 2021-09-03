@@ -21,7 +21,7 @@ public class RelatoDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String selectSQL = "SELECT * FROM relato WHERE prodotto = ? AND ordine = ?";
+		String selectSQL = "SELECT * FROM relato WHERE prodotto = ? AND ordine = ? AND taglia = ?";
 		int quantità = -1;
 
 		try {
@@ -29,6 +29,7 @@ public class RelatoDS {
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, prodotto.getCodice());
 			preparedStatement.setInt(2, ordine.getID());
+			preparedStatement.setString(1, prodotto.getTaglia());
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -82,6 +83,7 @@ public class RelatoDS {
 				int idProdotto = rs.getInt("prodotto");
 				int quantità = rs.getInt("quantità");
 				prodotto = mod.doRetrieveByKey("" + idProdotto);
+				prodotto.setTaglia(rs.getString("taglia"));
 				
 				prodotti.put(prodotto, quantità);
 			}
@@ -102,7 +104,7 @@ public class RelatoDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO relato (prodotto, ordine, quantità) VALUES (?, ?, ?)";
+		String insertSQL = "INSERT INTO relato (prodotto, ordine, quantità, taglia) VALUES (?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -112,6 +114,7 @@ public class RelatoDS {
 			preparedStatement.setInt(1, prodotto.getCodice());
 			preparedStatement.setInt(2, ordine.getID());
 			preparedStatement.setInt(3, quantità);
+			preparedStatement.setString(4, prodotto.getTaglia());
 			
 			preparedStatement.executeUpdate();
 
@@ -133,7 +136,7 @@ public class RelatoDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE relato SET quantità = ? WHERE prodotto = ? AND ordine = ?";
+		String updateSQL = "UPDATE relato SET quantità = ? WHERE prodotto = ? AND ordine = ? AND taglia = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -143,6 +146,7 @@ public class RelatoDS {
 			preparedStatement.setInt(1, quantità);
 			preparedStatement.setInt(2, prodotto.getCodice());
 			preparedStatement.setInt(3, ordine.getID());
+			preparedStatement.setString(4, prodotto.getTaglia());
 
 			preparedStatement.executeUpdate();
 
@@ -164,7 +168,7 @@ public class RelatoDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String deleteSQL = "DELETE FROM relato WHERE prodotto = ? AND ordine = ?";
+		String deleteSQL = "DELETE FROM relato WHERE prodotto = ? AND ordine = ? AND taglia = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -172,6 +176,7 @@ public class RelatoDS {
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, prodotto.getCodice());
 			preparedStatement.setInt(2, ordine.getID());
+			preparedStatement.setString(3, prodotto.getTaglia());
 
 			preparedStatement.executeUpdate();
 

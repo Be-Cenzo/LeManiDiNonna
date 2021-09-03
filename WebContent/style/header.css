@@ -1,5 +1,22 @@
 @charset "ISO-8859-1";
 
+body{
+	background-color: #FEFFB8;
+	height: 100vh;
+}
+
+.wrapper{
+	min-height: 100%;
+	position: relative;
+}
+
+.contenuto{
+	margin: 1rem;
+	margin-bottom: 0;
+	padding-bottom: 100px;
+	font-family: 'Handlee', cursive;
+}
+
 a{
 	color: inherit;
 	text-decoration: none;
