@@ -26,7 +26,7 @@
 			<a href="<%=response.encodeURL("./") %>">
 				Le Mani di Nonna
 			</a>
-			<span id="userIcon" onclick="document.getElementById('login').style.display='block'">
+			<span id="userIcon" onclick="document.getElementById('log').style.display='block'">
 				<img src="./icon/user.svg" alt="user"/>
 			</span>
 			<a href="<%=response.encodeURL("./carrello.jsp") %>">

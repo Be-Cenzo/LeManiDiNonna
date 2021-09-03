@@ -17,7 +17,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @WebServlet("/login")
-public class login extends HttpServlet {
+public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -73,14 +73,14 @@ public class login extends HttpServlet {
 		else if("vincenzo.offertucci@gmail.com".equals(acc.getEmail()) || "christian.gambardella@gmail.com".equals(acc.getEmail()))
 			return "admin";
 		else {
-			request.getSession().setAttribute("account", acc);
+			request.getSession().setAttribute("user", acc);
 			return "user";
 		}
 	}
 	
 	private static final long serialVersionUID = 1L;
 
-	public login() {
+	public Login() {
 		super();
 	}	
 
