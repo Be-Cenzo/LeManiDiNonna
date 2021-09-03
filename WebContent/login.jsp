@@ -19,13 +19,29 @@ if (name==null || name==""){
   return false;  
   }  
 }  
+
+function ValidateEmail(inputText)
+{
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(inputText.value.match(mailformat))
+{
+document.form1.text1.focus();
+return true;
+}
+else
+{
+alert("You have entered an invalid email address!");
+document.form1.text1.focus();
+return false;
+}
+}
 </script>  
 
 </head>
 <body>
 
 <!-- The Modal -->
-<div id="login" class="modal">
+<div id="log" class="modal">
   
 
   <!-- Modal Content -->
@@ -43,7 +59,7 @@ if (name==null || name==""){
     </div>
     
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="document.getElementById('log').style.display='none'" class="cancelbtn">Cancel</button>
     </div>
   </form>
 </div> 
