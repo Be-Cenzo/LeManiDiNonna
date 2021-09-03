@@ -91,6 +91,39 @@ input{
 	margin-bottom: 0;
 }
 
+#container-prodotti{
+	display:flex;
+	justify-content: center;
+}
+
+#prodotti{
+	max-width: 1750px;
+}
+
+@media screen and (max-width: 1802px){
+	#prodotti{
+		max-width: 1400px;
+	}
+}
+
+@media screen and (max-width: 1451px){
+	#prodotti{
+		max-width: 1050px;
+	}
+}
+
+@media screen and (max-width: 1102px){
+	#prodotti{
+		max-width: 700px;
+	}
+}
+
+@media screen and (max-width: 751px){
+	#prodotti{
+		max-width: 350px;
+	}
+}
+
 @media screen and (max-width: 719px){
 	.row{
 		justify-content: center;
@@ -129,10 +162,12 @@ input{
 }
 
 #cerca-input{
-	width: auto;
+	width: 30vw;
+	min-width: 175px;
 	border-radius: 10px;
 	border-style : solid;
 	padding: 5px;
+	margin: 0;
 }
 
 .cerca-button{

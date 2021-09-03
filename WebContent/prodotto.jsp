@@ -41,14 +41,22 @@
 						<form action="<%=response.encodeURL("AggiungiAlCarrello")%>" method="GET">
 						<%
 							if(prodotto.getTaglia() == null){ %>
-							<div>
+							<div class="radio-container">
 								<label for="taglia">Taglia:</label>
-								<label for="s">S</label>
-								<input class="radio-button" type="radio" id="s" name="taglia" value="S" checked>
-								<label for="m">M</label>
-								<input class="radio-button" type="radio" id="m" name="taglia" value="M">
-								<label for="l">L</label> 
-								<input class="radio-button" type="radio" id="l" name="taglia" value="L">
+								<div class="radio">
+									<div class="radio-element">
+										<input class="radio-button" type="radio" id="s" name="taglia" value="S" checked>
+										<label for="s">S</label>
+									</div>
+									<div class="radio-element">
+										<input class="radio-button" type="radio" id="m" name="taglia" value="M">
+										<label for="m">M</label>
+									</div>
+									<div class="radio-element"> 
+										<input class="radio-button" type="radio" id="l" name="taglia" value="L">
+										<label for="l">L</label>
+									</div>
+								</div>
 							</div>
 						<%} %>
 							<div>
