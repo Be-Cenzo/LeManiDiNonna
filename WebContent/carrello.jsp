@@ -20,9 +20,11 @@
 	<div class="titolo">Carrello</div>
 	<%
 		Carrello cart = (Carrello)session.getAttribute("carrello");
-				if(cart!=null && !cart.isEmpty()){
-				for(int prodID : cart.getProdotti().keySet()){
-				Prodotto prod = cart.getProdotti().get(prodID);
+		Float totale = 0f;
+		if(cart!=null && !cart.isEmpty()){
+		for(int prodID : cart.getProdotti().keySet()){
+			Prodotto prod = cart.getProdotti().get(prodID);
+			totale += prod.getQuantità()*prod.getPrezzo();
 		%>
 			
 		<div class="row product-row">
@@ -58,13 +60,16 @@
 	<%	
 		}%>
 		<div class="row justify-content-center">
+				Totale: <%=totale %>€
+		</div>
+		<div class="row justify-content-center">
 			<button class="carrello-button">
 				<a href="<%=response.encodeURL("./RimuoviDalCarrello?action=all")%>">
 					Svuota Carrello
 				</a>
 			</button>
 			<button class="carrello-button">
-				<a href="<%=response.encodeURL("./")%>">
+				<a href="<%=response.encodeURL("./Pagamento")%>">
 					Prosegui al Pagamento
 				</a>
 			</button>

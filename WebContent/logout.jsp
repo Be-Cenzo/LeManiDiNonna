@@ -10,30 +10,28 @@
 
 <!-- The Modal -->
 <div id="log" class="modal">
+<div class="close" onclick="$('#log').fadeToggle()"></div>
 
-  <!-- Modal Content -->
-  <form name="myform" class="modal-content animate" action="logout" method="get">
-
-    <div class="container">
-      <% 
-		String ruolo = (String)session.getAttribute("role");
-		if(ruolo.equals("admin")){
-	  %> 
-	<button type="submit" name="button" value="admin-area">Area amministratore</button>
-	<% 
-		}
-	%>
-		
-      <button type="submit" name="button" value="user-area">Area Utente</button>
-      <button type="submit" name="button" value="logout" id="logout">Logout</button>
+	<div class="login-container animate">
+	    <div class="container">
+	      <% 
+			String ruolo = (String)session.getAttribute("role");
+			if(ruolo.equals("admin")){
+		  %> 
+		<button type="submit" name="button" value="admin-area">Area amministratore</button>
+		<% 
+			}
+		%>
+			
+		<button type="submit" name="button" value="user-area">Area Utente</button>
+		<button type="submit" name="button" value="logout" id="logout">
+			<a href="<%=response.encodeURL("./logout")%>">
+				Logout	
+			</a>
+		</button>
+	    </div>
     </div>
-    
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('log').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-    
-  </form>
-</div> 
+</div>  
 
 </body>
 </html>

@@ -42,26 +42,24 @@ return false;
 
 <!-- The Modal -->
 <div id="log" class="modal">
-  
+<div class="close" onclick="$('#log').fadeToggle()"></div>
 
   <!-- Modal Content -->
-  <form name="myform" class="modal-content animate" action="login" method="post">
-
-
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" id="name" name="uname">
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" id="psw" name="psw">
-
-      <button type="submit" onclick="validateform()">Login</button>
+    <div class="login-container animate">
+	    <form class="login-form" action="login" method="post">
+		    <label for="uname"><b>Username</b></label>
+		    <input type="text" placeholder="Enter Username" id="name" name="uname">
+		
+		    <label for="psw"><b>Password</b></label>
+		    <input type="password" placeholder="Enter Password" id="psw" name="psw">
+		
+	      	<button class="login-btn" type="submit" onclick="validateform()">Login</button>
+	  	</form>
+	  	
+	  	
     </div>
     
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('log').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </form>
+    
 </div> 
 
 </body>

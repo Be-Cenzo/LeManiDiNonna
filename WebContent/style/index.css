@@ -100,25 +100,25 @@ input{
 	max-width: 1750px;
 }
 
-@media screen and (max-width: 1802px){
+@media screen and (max-width: 1822px){
 	#prodotti{
 		max-width: 1400px;
 	}
 }
 
-@media screen and (max-width: 1451px){
+@media screen and (max-width: 1471px){
 	#prodotti{
 		max-width: 1050px;
 	}
 }
 
-@media screen and (max-width: 1102px){
+@media screen and (max-width: 1150px){
 	#prodotti{
 		max-width: 700px;
 	}
 }
 
-@media screen and (max-width: 751px){
+@media screen and (max-width: 771px){
 	#prodotti{
 		max-width: 350px;
 	}

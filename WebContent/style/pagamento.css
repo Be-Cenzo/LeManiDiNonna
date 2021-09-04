@@ -1,0 +1,148 @@
+@charset "ISO-8859-1";
+
+.contenuto > h3{
+	text-align: center;
+}
+
+.contenitore-flex{
+	display:flex;
+}
+
+.carrello{
+	width: 40%;
+	padding: 10px;
+}
+
+.titolo{
+	font-size: 1.3rem;
+	text-align: center;
+}
+
+.informazioni{
+	width: 60%;
+	padding: 10px;
+}
+
+.indirizzi{
+	display: grid;
+	justify-content: center;
+}
+
+.informaizoni, .titolo{
+	border: 0 !important;
+}
+
+.indirizzo-row > *{
+	width: auto;
+}
+
+.corrieri{
+	display: none;
+	justify-content: center;
+}
+
+.paga{
+	display: none;
+}
+
+.card{
+	margin: 15px;
+	width: 20rem;
+	height: 20rem;
+	border: 0px;
+	padding: 0;
+}
+
+.row{
+	padding: 10px;
+}
+
+.product-row, .titolo{
+	border-bottom: 1px solid #caafca;
+}
+
+.product-container{
+	font-family: 'Handlee', cursive;
+	width: 85%;
+	padding: 10px;
+	font-size: 1rem;
+}
+
+.product-details > *{
+	display: inline-block;
+}
+
+.product-size{
+	width: 100%;
+}
+
+.product-price{
+	float: right;
+}
+
+.product-description{
+	font-weight: bolder;
+	font-size: 1.2rem;
+}
+
+.product-img{
+	width: 15%;
+}
+
+.product-img > img{
+	width: 100%;
+	padding: 5px;
+}
+
+#deleteIcon{
+	float: right;
+}
+
+.show{
+	display: unset;
+}
+
+.carrello-button{
+	margin: 10px;
+	width: auto;
+	border: 0;
+	background-color: #caafca;
+	border-radius: 10px;
+	padding: 5px 10px;
+}
+
+@media screen and (max-width:1250px){
+	.product-img{
+		width: 25%;
+	}
+	.product-container{
+		width: 75%;
+	}
+}
+
+@media screen and (max-width:750px){
+	.product-img{
+		width: 35%;
+	}
+	.product-container{
+		width: 65%;
+	}
+	.contenitore-flex{
+		display: block;
+	}
+	.carrello{
+		width: 100%;
+	}
+	.informazioni{
+		width:100%;
+	}
+}
+
+@media screen and (max-width:520px){
+	.product-img{
+		width: 45%;
+	}
+	.product-container{
+		width: 55%;
+	}
+}

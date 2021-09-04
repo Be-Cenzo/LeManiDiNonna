@@ -147,6 +147,10 @@ public class Account {
 		return indirizzi;
 	}
 	
+	public void setIndirizzi(ArrayList<Indirizzo> indirizzi) {
+		this.indirizzi = indirizzi;
+	}
+	
 	/**
 	 * @param indirizzo l'indirizzo da aggiungere
 	 */

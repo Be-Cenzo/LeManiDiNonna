@@ -27,7 +27,7 @@ public class Logout extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String button = request.getParameter("button");
+		/*String button = request.getParameter("button");
 		String redirectedPage = null;
 		if(button.equals("logout")) {
 			request.getSession().setAttribute("role", "guest");
@@ -38,7 +38,10 @@ public class Logout extends HttpServlet {
 			redirectedPage = "/prova.html";
 		else if(button.equals("admin-area"))
 			redirectedPage = "/prova.html";
-		response.sendRedirect(request.getContextPath() + redirectedPage);
+		response.sendRedirect(request.getContextPath() + redirectedPage);*/
+		request.getSession().setAttribute("role", "guest");
+		request.getSession().setAttribute("user", null);
+		response.sendRedirect(response.encodeURL("./index.jsp"));
 	}
 
 	/**
