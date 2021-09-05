@@ -54,16 +54,6 @@
 </div>
 <script>
 function toggle(id, span){
-	/*var collapse = document.getElementById("collapseExample");
-	var sem = 0;
-	for(classe in collapse.classList){
-		if(classe === "show")
-			sem = 1;
-	}
-	if(sem)
-		collapse.classList.remove("show");
-	else
-		collapse.classList.add("show");*/
 	$(id).fadeToggle();
 	$(span).fadeToggle();
 }
