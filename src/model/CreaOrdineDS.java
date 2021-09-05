@@ -150,5 +150,50 @@ public class CreaOrdineDS {
         }
         return 1;
 	}
+	
+	public ArrayList<Integer> checkDisponibilità(HashMap<Integer, Prodotto> prodotti) {
+		Connection con = null;
+        PreparedStatement st = null;
+        ResultSet ris = null;
+        int res, id = 0, dispo = 0;
+        ArrayList<Integer> prodottiND = new ArrayList<Integer>();
 
+        try{
+            con = ds.getConnection();
+
+				for(int prodID : prodotti.keySet()){
+					Prodotto prodotto = prodotti.get(prodID);
+		        	int quantita = prodotto.getQuantità();
+		            st = con.prepareStatement("SELECT SUM(disponibilità) AS quantità FROM Conservato WHERE prodotto = ? AND taglia = ?;");
+		            st.setInt(1, prodotto.getCodice());
+		            st.setString(2, prodotto.getTaglia());
+		            ris = st.executeQuery();
+		
+		            while(ris.next()){
+		                dispo = ris.getInt("quantità");
+		            }
+		
+		            if(dispo<quantita) {
+		                prodottiND.add(prodotto.getCodice());
+		            	System.out.println("Non c'è abbastanza disponibilità.");
+		            }
+		 }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if (ris != null)
+                    ris.close();
+                if (st != null)
+                    st.close();
+                if (con != null)
+                	con.close();
+            }catch(SQLException s){
+                s.printStackTrace();
+            }
+        }
+        return prodottiND;
+	}
+	
 }

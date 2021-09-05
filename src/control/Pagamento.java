@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import model.Account;
+import model.Carrello;
 import model.Corriere;
 import model.CorriereModelDS;
+import model.CreaOrdineDS;
 import model.IndirizzoModelDS;
+import model.Prodotto;
 
 /**
  * Servlet implementation class Pagamento
@@ -60,6 +63,16 @@ public class Pagamento extends HttpServlet {
 		}
 		request.getSession().setAttribute("corrieri", corrieri);
 		
+		CreaOrdineDS crea = new CreaOrdineDS(ds);
+		Carrello cart = (Carrello) request.getSession().getAttribute("carrello");
+		
+		ArrayList<Integer> prodotti = crea.checkDisponibilità(cart.getProdotti());
+		
+		if(!prodotti.isEmpty()) {
+			request.setAttribute("nonDisponibili", prodotti);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/carrello.jsp");
+			dispatcher.forward(request, response);
+		}
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/pagamento.jsp");
 		dispatcher.forward(request, response);

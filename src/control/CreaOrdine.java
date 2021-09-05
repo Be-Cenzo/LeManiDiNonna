@@ -1,6 +1,9 @@
 package control;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,6 +59,14 @@ public class CreaOrdine extends HttpServlet {
 		for(int prodID : cart.getProdotti().keySet()){
 			Prodotto prod = cart.getProdotti().get(prodID);
 			totale += prod.getQuantità()*prod.getPrezzo();
+		}
+		
+		ArrayList<Integer> prodotti = crea.checkDisponibilità(cart.getProdotti());
+		
+		if(!prodotti.isEmpty()) {
+		request.setAttribute("nonDisponibili", prodotti);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/carrello.jsp");
+		dispatcher.forward(request, response);
 		}
 		
 		int ris = crea.newOrdine(account.getEmail(), "", idIndirizzo, corriere, cart.getProdotti());
