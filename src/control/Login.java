@@ -34,6 +34,7 @@ public class Login extends HttpServlet {
 				request.getSession().setAttribute("role", "guest");
 				redirectedPage = "/carrello.jsp";
 			}
+			request.getSession().setMaxInactiveInterval(-1);
 			response.sendRedirect(request.getContextPath() + redirectedPage);
 		}
 	}
