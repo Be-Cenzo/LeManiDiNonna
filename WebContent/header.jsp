@@ -14,7 +14,6 @@
 <meta charset="UTF-8">
 <base href="/LeManiDiNonna/">
 <link href="./style/login.css" rel="stylesheet">
-<link href="./style/login.css" rel="stylesheet"> 
 </head>
 <body>
 	<div class="header">
