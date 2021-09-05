@@ -29,13 +29,15 @@ public class Login extends HttpServlet {
 			try {
 				role = checkLogin(username, password, request);
 				request.getSession().setAttribute("role", role);
-				redirectedPage = "/index.jsp";
+				request.getSession().setAttribute("loginError", 0);
+				redirectedPage = "./index.jsp";
 			} catch (Exception e) {
 				request.getSession().setAttribute("role", "guest");
-				redirectedPage = "/carrello.jsp";
+				request.getSession().setAttribute("loginError", 1);
+				redirectedPage = "./login.jsp";
 			}
 			request.getSession().setMaxInactiveInterval(-1);
-			response.sendRedirect(request.getContextPath() + redirectedPage);
+			response.sendRedirect(response.encodeURL(redirectedPage));
 		}
 	}
 
