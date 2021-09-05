@@ -7,34 +7,25 @@
 <link href="./style/login.css" rel="stylesheet">
  
  <script type="text/javascript">  
-function validateform(){  
+function validateForm(){  
 var name=$("#name").val();  
 var password=$("#psw").val();
-  console.log("pisello");
+var valide;
 if (name==null || name==""){  
   alert("Name can't be blank");  
+  document.getElementById("form").addEventListener("submit", function(event){
+	  event.preventDefault()
+	});
   return false;  
 }else if(password.length<6){  
-  alert("Password must be at least 6 characters long.");  
+  alert("Password must be at least 6 characters long.");
+  document.getElementById("form").addEventListener("submit", function(event){
+	  event.preventDefault()
+	});
   return false;  
   }  
 }  
 
-function ValidateEmail(inputText)
-{
-var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-if(inputText.value.match(mailformat))
-{
-document.form1.text1.focus();
-return true;
-}
-else
-{
-alert("You have entered an invalid email address!");
-document.form1.text1.focus();
-return false;
-}
-}
 </script>  
 
 </head>
@@ -46,14 +37,14 @@ return false;
 
   <!-- Modal Content -->
     <div class="login-container animate">
-	    <form class="login-form" action="login" method="post">
+	    <form class="login-form" action="<%= response.encodeURL("login")%>" id="form" method="post">
 		    <label for="uname"><b>Username</b></label>
 		    <input type="text" placeholder="Enter Username" id="name" name="uname">
 		
 		    <label for="psw"><b>Password</b></label>
 		    <input type="password" placeholder="Enter Password" id="psw" name="psw">
 		
-	      	<button class="login-btn" type="submit" onclick="validateform()">Login</button>
+	      	<button class="login-btn" type="submit" onclick="validateForm()">Login</button>
 	  	</form>
 	  	
 	  	
