@@ -14,7 +14,7 @@
 	<% 
 		String role1 = (String)session.getAttribute("role");
 		if(role1 == null || role1.equals("guest")){
-			response.sendRedirect("./accessdenied.jsp");
+			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
 		}
 	%> 
 	

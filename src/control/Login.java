@@ -71,8 +71,10 @@ public class Login extends HttpServlet {
 	
 		if(acc.getEmail() == null || !(psw.equals(acc.getPassword())))
 			throw new Exception("Invalid login and password");
-		else if("vincenzo.offertucci@gmail.com".equals(acc.getEmail()) || "christian.gambardella@gmail.com".equals(acc.getEmail()))
+		else if("vincenzo.offertucci@gmail.com".equals(acc.getEmail()) || "christian.gambardella@gmail.com".equals(acc.getEmail())) {
+			request.getSession().setAttribute("user", acc);
 			return "admin";
+		}
 		else {
 			request.getSession().setAttribute("user", acc);
 			return "user";
