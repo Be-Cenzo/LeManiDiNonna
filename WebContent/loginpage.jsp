@@ -17,7 +17,7 @@
 	<div class="contenuto">
 		<div class="login-container-page">
 		    <form class="login-form-page" action="login" method="post">
-		    	<div class="row">
+		    	<div class="row riga">
 		    		<div class="titolo">Effettua il Login:</div>
 				    <label for="uname"><b>Username</b></label>
 				    <input type="text" placeholder="Enter Username" id="name" name="uname">

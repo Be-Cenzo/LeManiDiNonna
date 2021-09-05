@@ -41,7 +41,7 @@ if (name==null || name==""){
 <body>
 	<div class="header">
 		<div class="navTitle">
-			<span id="menuIcon" onClick="$('.menu').animate({height: 'toggle'}, 'slow');">
+			<span id="menuIcon" onClick="$('.menu').animate({height: 'toggle'}, 400);">
 				<img src="./icon/menu.svg" alt="menu"/>
 			</span>
 			<span id="invisibleIcon" style="opacity: 0">
@@ -77,19 +77,18 @@ if (name==null || name==""){
   <!-- Modal Content -->
     <div class="login-container animate">
 	    <form class="login-form" action="<%= response.encodeURL("login")%>" id="form" method="post">
-		    <label for="uname"><b>Username</b></label>
-		    <input type="text" placeholder="Enter Username" id="name" name="uname">
-		
-		    <label for="psw"><b>Password</b></label>
-		    <input type="password" placeholder="Enter Password" id="psw" name="psw">
-		
-	      	<button class="login-btn" type="submit" onclick="validateForm()">Login</button>
+	    	<div class="row  riga">
+	    		<div class="titolo">Effettua il Login:</div>
+			    <label for="uname"><b>Username</b></label>
+			    <input type="text" placeholder="Enter Username" id="name" name="uname">
+			
+			    <label for="psw"><b>Password</b></label>
+			    <input type="password" placeholder="Enter Password" id="psw" name="psw">
+			
+		      	<button class="login-btn" type="submit" onclick="validateForm()">Login</button>
+	      	</div>
 	  	</form>
-	  	
-	  	
     </div>
-    
-    
 </div> 
 
 	<% 
