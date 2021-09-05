@@ -15,6 +15,7 @@ import javax.sql.*;
 import java.lang.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
@@ -35,14 +36,20 @@ public class Login extends HttpServlet {
 				redirectedPage = "/carrello.jsp";
 			}
 			request.getSession().setMaxInactiveInterval(-1);
-			response.sendRedirect(request.getContextPath() + redirectedPage);
+			response.sendRedirect(response.encodeURL(request.getContextPath() + redirectedPage));
 		}
 	}
 
-	private String checkLogin(String username, String password, HttpServletRequest request) throws Exception {
+	private String checkLogin(String username, String password, HttpServletRequest request) throws Exception{
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		AccountModelDS model = new AccountModelDS(ds);
-		Account acc = model.doRetrieveByKey(username);
+		Account acc = null;
+		try {
+		acc = model.doRetrieveByKey(username);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 		String psw = new String();
 		/*md5 pass*/
 		try {
