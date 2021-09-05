@@ -64,6 +64,10 @@
 	width: 100%;
 }
 
+.error input{
+	border: 1px solid red;
+}
+
 .login-btn{
 	background-color: transparent;
 	border: 1px solid black;

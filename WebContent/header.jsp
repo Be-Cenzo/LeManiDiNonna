@@ -14,29 +14,7 @@
 <meta charset="UTF-8">
 <base href="/LeManiDiNonna/">
 <link href="./style/login.css" rel="stylesheet">
-<link href="./style/login.css" rel="stylesheet">
- 
- <script type="text/javascript">  
-function validateForm(){  
-var name=$("#name").val();  
-var password=$("#psw").val();
-var valide;
-if (name==null || name==""){  
-  alert("Name can't be blank");  
-  document.getElementById("form").addEventListener("submit", function(event){
-	  event.preventDefault()
-	});
-  return false;  
-}else if(password.length<6){  
-  alert("Password must be at least 6 characters long.");
-  document.getElementById("form").addEventListener("submit", function(event){
-	  event.preventDefault()
-	});
-  return false;  
-  }  
-}  
-
-</script>  
+<link href="./style/login.css" rel="stylesheet"> 
 </head>
 <body>
 	<div class="header">
@@ -76,16 +54,16 @@ if (name==null || name==""){
 
   <!-- Modal Content -->
     <div class="login-container animate">
-	    <form class="login-form" action="<%= response.encodeURL("login")%>" id="form" method="post">
-	    	<div class="row  riga">
+	    <form class="login-form" action="<%= response.encodeURL("login")%>" id="form-login" method="post">
+	    	<div class="row riga">
 	    		<div class="titolo">Effettua il Login:</div>
-			    <label for="uname"><b>Username</b></label>
+			    <label id="name-label" for="uname"><b>Username</b></label>
 			    <input type="text" placeholder="Enter Username" id="name" name="uname">
 			
-			    <label for="psw"><b>Password</b></label>
+			    <label id="psw-label" for="psw"><b>Password</b></label>
 			    <input type="password" placeholder="Enter Password" id="psw" name="psw">
 			
-		      	<button class="login-btn" type="submit" onclick="validateForm()">Login</button>
+		      	<button class="login-btn" type="submit">Login</button>
 	      	</div>
 	  	</form>
     </div>
@@ -121,6 +99,5 @@ if (name==null || name==""){
 	<% 
 		}
 	%>
-	
 </body>
 </html>

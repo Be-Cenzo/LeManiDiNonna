@@ -148,15 +148,15 @@ $(document).ready(function(){
 		var patternCard = /^\d{16}$/;
 		var patternCVV = /^\d{3}$/
 		if(!$("#nome-carta").val().match(pattern)){
-			$("#nome-carta").css("border-color", "red");
+			$("#nome-carta").css("border", "1px solid red");
 			event.preventDefault();
 		}
 		if(!$("#numero-carta").val().match(patternCard)){
-			$("#numero-carta").css("border-color", "red");
+			$("#numero-carta").css("border-color", "1px solid red");
 			event.preventDefault();
 		}
 		if(!$("#cvv").val().match(patternCVV)){
-			$("#cvv").css("border-color", "red");
+			$("#cvv").css("border-color", "1px solid red");
 			event.preventDefault();
 		}
 	});
