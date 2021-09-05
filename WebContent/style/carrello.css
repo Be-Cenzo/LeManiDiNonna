@@ -40,6 +40,11 @@
 	float: right;
 }
 
+.product-not-available{
+	color: red;
+	width: 100%;
+}
+
 .product-description{
 	font-weight: bolder;
 	font-size: 1.2rem;
@@ -63,6 +68,7 @@
 }
 
 .carrello-button{
+	text-align: center;
 	margin: 10px;
 	width: auto;
 	border: 0;

@@ -21,7 +21,7 @@
 	<%@ include file="header.jsp" %>
 	
 	<div class="contenuto">
-		<h3>Il tuo Ordine</h1>
+		<h3>Il tuo Ordine</h3>
 		<div class="contenitore-flex">
 			<div class="carrello">
 				<div class="titolo">Riepilogo</div>
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 			<div class="informazioni">
-				<form action="<%=response.encodeURL("./CreaOrdine")%>" method="post">
+				<form id="paga-form" action="<%=response.encodeURL("./CreaOrdine")%>" method="post">
 				<div class="indirizzi" id="indirizzi">
 					<div class="titolo">Seleziona un Indirizzo</div>
 					<%
@@ -112,22 +112,22 @@
 					<div class="titolo">Inserisci i Dati di Pagamento</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>Nome Titolare</label>
-						<input type="text" name="indirizzo">
+						<input id="nome-carta" type="text" name="nome-carta">
 					</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>Numero di carta</label>
-						<input type="text" name="indirizzo">
+						<input id="numero-carta" type="text" name="numero-carta">
 					</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>CVV</label>
-						<input type="text" name="indirizzo">
+						<input id="cvv" type="text" name="cvv">
 					</div>
 					<div class="row justify-content-center">
 						<div class="carrello-button" onclick="showAndHide('#paga', '#corrieri')">Indietro</div>
-						<button class="carrello-button" onclick="showAndHide('#paga', '#paga')" type="submit">Paga</button>
-					</form>
+						<button class="carrello-button" id="paga-btn" type="submit">Paga</button>
 					</div>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -139,6 +139,31 @@
 <script>
 function showAndHide(hide, show){
 	$(hide).animate({height: "toggle"}, 400, "swing", $(show).animate({height: "toggle"}));
+}
+
+$(document).ready(function(){
+	const paga = document.getElementById('paga-form');
+	paga.addEventListener('submit', function(event){
+		var pattern = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+		var patternCard = /^\d{16}$/;
+		var patternCVV = /^\d{3}$/
+		if(!$("#nome-carta").val().match(pattern)){
+			$("#nome-carta").css("border-color", "red");
+			event.preventDefault();
+		}
+		if(!$("#numero-carta").val().match(patternCard)){
+			$("#numero-carta").css("border-color", "red");
+			event.preventDefault();
+		}
+		if(!$("#cvv").val().match(patternCVV)){
+			$("#cvv").css("border-color", "red");
+			event.preventDefault();
+		}
+	});
+});
+
+const validate = function(event){
+		event.preventDefault();
 }
 </script>
 </body>

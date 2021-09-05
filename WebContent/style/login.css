@@ -25,30 +25,54 @@
 }
 
 /* Modal Content/Box */
-.login-container{
+.login-container, .login-container-page{
 	background-color: #caafca;
 	margin: 5px auto; /* 15% from the top and centered */
 	border-radius: 10px;
 	width: 50%; /* Could be more or less, depending on screen size */
 	z-index: 4;
-	padding: 30px;
+	padding: 30px 0;
 	display: flex;
 	justify-content: center;
 }
 
-.login-form{
-	display: grid;
-	width: 60%
+@media screen and (max-width: 760px){
+	.login-container, .login-container-page{
+		width:65%;
+	}
 }
 
-.login-form > *{
+@media screen and (max-width: 450px){
+	.login-container, .login-container-page{
+		width:85%;
+	}
+}
+
+.login-container-page{
+	height:50vh;
+		
+}
+
+.login-form, .login-form-page{
+	display: grid;
+	width: 60%;
+	align-content: center;
+}
+
+.row > *{
 	margin: 5px;
+	width: 100%;
 }
 
 .login-btn{
 	background-color: transparent;
 	border: 1px solid black;
 	border-radius: 10px;
+}
+
+.titolo{
+	font-size: 1.3rem;
+	text-align: center;
 }
 
 /* Add Zoom Animation */

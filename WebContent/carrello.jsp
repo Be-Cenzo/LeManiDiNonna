@@ -19,6 +19,7 @@
 	
 	<div class="titolo">Carrello</div>
 	<%
+		ArrayList<Integer> nonDisponibili = (ArrayList<Integer>)request.getAttribute("nonDisponibili");
 		Carrello cart = (Carrello)session.getAttribute("carrello");
 		Float totale = 0f;
 		if(cart!=null && !cart.isEmpty()){
@@ -54,6 +55,11 @@
 					<div class="product-price" id="price<%=prod.getCodice()%>">
 						<%=prod.getQuantità()*prod.getPrezzo() %>€
 					</div>
+					<%if(nonDisponibili != null && nonDisponibili.contains(prod.getCodice())){ %>
+					<div class="product-not-available" id="price<%=prod.getCodice()%>">
+						Prodotto non disponibile
+					</div>
+					<%} %>
 				</div>
 			</div>
 		</div>
@@ -68,11 +74,13 @@
 					Svuota Carrello
 				</a>
 			</button>
+			<%if(nonDisponibili == null){ %>
 			<button class="carrello-button">
 				<a href="<%=response.encodeURL("./Pagamento")%>">
 					Prosegui al Pagamento
 				</a>
 			</button>
+			<%}%>
 		</div>
 		<%
 		}
