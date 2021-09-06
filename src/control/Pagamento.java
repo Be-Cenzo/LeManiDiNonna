@@ -39,10 +39,12 @@ public class Pagamento extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("role") == null || request.getSession().getAttribute("role") == "guest") {
+		//controllo accesso
+		if(request.getSession().getAttribute("role") == null || (request.getSession().getAttribute("role")).equals("guest")) {
 			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
 			return;
 		}
+		//fine
 		Account user = (Account) request.getSession().getAttribute("user");
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		IndirizzoModelDS model = new IndirizzoModelDS(ds, user.getEmail());
