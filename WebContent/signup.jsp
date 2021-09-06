@@ -14,6 +14,13 @@
 	
 	<%@ include file="header.jsp" %>
 	
+	<% 
+		String role1 = (String)session.getAttribute("role");
+		if(role1.equals("user") || role1.equals("admin")){
+			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
+		}
+	%> 
+	
 	<div class="contenuto">
 		<div class="signup-container">
 			<form class="signup-form" action="<%= response.encodeURL("./Signup")%>" method="post">
