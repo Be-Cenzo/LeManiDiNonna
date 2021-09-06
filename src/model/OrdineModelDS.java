@@ -106,6 +106,53 @@ public class OrdineModelDS implements Model<Ordine>{
 		}
 		return ordini;
 	}
+	
+	public ArrayList<Ordine> doRetrieveAll(String order, String email) throws SQLException {
+		connection = null;
+		preparedStatement = null;
+
+		ArrayList<Ordine> ordini = new ArrayList<Ordine>();
+
+		String selectSQL = "SELECT * FROM ordine WHERE email = ?";
+
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY " + order;
+		}
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Ordine ordine = new Ordine();
+
+				ordine.setID(rs.getInt("ID"));
+				ordine.setData(rs.getDate("data"));
+				ordine.setPrezzo(rs.getFloat("prezzo"));
+				ordine.setCostoSped(rs.getFloat("costoSped"));
+				ordine.setNote(rs.getString("note"));
+				ordine.setStato(rs.getString("stato"));
+				ordine.setEmail(rs.getString("email"));
+				ordine.setIndirizzo(rs.getInt("indirizzo"));
+				ordine.setCorriere(rs.getString("corriere"));
+
+				ordini.add(ordine);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		return ordini;
+	}
 
 	@Override
 	public void doSave(Ordine ordine) throws SQLException {
@@ -212,7 +259,8 @@ public class OrdineModelDS implements Model<Ordine>{
 		}
 	}
 	
-	public void creaOrdine(Ordine ordine) throws SQLException {
+	//crea ordine si trova in una classe apposita
+	/*public void creaOrdine(Ordine ordine) throws SQLException {
 		doSave(ordine);
 		connection = null;
 		preparedStatement = null;
@@ -248,6 +296,6 @@ public class OrdineModelDS implements Model<Ordine>{
 				}
 			}
 		}
-	}
+	}*/
 
 }

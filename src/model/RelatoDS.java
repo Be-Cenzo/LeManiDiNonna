@@ -54,14 +54,14 @@ public class RelatoDS {
 	 * recupera tutti i prodotti relativi ad un determinato ordine
 	 * @param order l'ordinamento della lista
 	 * @param ordine l'ordine di riferimento
-	 * @return una hashmap di prodotti con relativa quantità appartenenti all'ordine
+	 * @return un'arraylist di prodotti appartenenti all'ordine
 	 * @throws SQLException
 	 */
-	public HashMap<Prodotto, Integer> doRetrieveAll(String order, Ordine ordine) throws SQLException {
+	public ArrayList<Prodotto> doRetrieveAll(String order, Ordine ordine) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		HashMap<Prodotto, Integer> prodotti = new HashMap<Prodotto, Integer>();
+		ArrayList<Prodotto> prodotti = new ArrayList<Prodotto>();
 
 		String selectSQL = "SELECT * FROM relato WHERE ordine = ?";
 
@@ -84,8 +84,9 @@ public class RelatoDS {
 				int quantità = rs.getInt("quantità");
 				prodotto = mod.doRetrieveByKey("" + idProdotto);
 				prodotto.setTaglia(rs.getString("taglia"));
+				prodotto.setQuantità(quantità);
 				
-				prodotti.put(prodotto, quantità);
+				prodotti.add(prodotto);
 			}
 		} finally {
 			try {

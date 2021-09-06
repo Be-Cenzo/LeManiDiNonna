@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import model.Account;
@@ -44,6 +45,7 @@ public class Pagamento extends HttpServlet {
 			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
 			return;
 		}
+		HttpSession sessione = request.getSession();
 		//fine
 		Object obj = request.getSession().getAttribute("user");;
 		Account user = (Account) obj;
@@ -57,6 +59,7 @@ public class Pagamento extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.getSession().setAttribute("user", user);
+		//System.out.println("sto in pagamento.java l'user è : " + user.getEmail());
 		
 		ArrayList<Corriere> corrieri = null;
 		CorriereModelDS corrmod = new CorriereModelDS(ds);

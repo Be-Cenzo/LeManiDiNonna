@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ordine {
@@ -14,7 +15,7 @@ public class Ordine {
 	private String email;
 	private int indirizzo;
 	private String corriere;
-	private HashMap<Prodotto, Integer> quantità;
+	private ArrayList<Prodotto> prodotti;
 	
 	public Ordine() {
 		
@@ -30,7 +31,7 @@ public class Ordine {
 		this.email = email;
 		this.indirizzo = indirizzo;
 		this.corriere = corriere;
-		quantità = new HashMap<Prodotto, Integer>();
+		prodotti = new ArrayList<Prodotto>();
 	}
 	
 	/**
@@ -162,31 +163,15 @@ public class Ordine {
 	/**
 	 * @return la quantità di prodotti nell'ordine
 	 */
-	public HashMap<Prodotto, Integer> getQuantità() {
-		return (HashMap<Prodotto, Integer>) quantità.clone();
+	public ArrayList<Prodotto> getProdotti() {
+		return prodotti;
 	}
 
 	/**
 	 * @param quantità la quantità di prodotti da settare
 	 */
-	public void setQuantità(HashMap<Prodotto, Integer> quantità) {
-		this.quantità = (HashMap<Prodotto, Integer>) quantità.clone();
-	}
-	
-	/**
-	 * Aggiorna l'hashmap aggiungendo la coppia chiave-valore se non era già presente la chiave al suo interno,
-	 *  aggiornando il valore della chiave se era già presente
-	 * @param prod la chiave da aggiornare
-	 * @param quantità il valore della chiave da aggiornare
-	 * @return l'hashmap aggiornata
-	 */
-	public HashMap<Prodotto, Integer> updateDisponibilità(Prodotto prod, int quantità){
-		if(this.quantità.containsKey(prod))
-			this.quantità.replace(prod, quantità);
-		else
-			this.quantità.put(prod, quantità);
-		
-		return (HashMap<Prodotto, Integer>) this.quantità.clone();
+	public void setProdotti(ArrayList<Prodotto> prodotti) {
+		this.prodotti = prodotti;
 	}
 
 }

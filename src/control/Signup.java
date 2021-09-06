@@ -32,7 +32,9 @@ public class Signup extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// TODO Auto-generated method stub
 		//controllo accesso
-		if((request.getSession().getAttribute("role")).equals("user") || (request.getSession().getAttribute("role")).equals("admin")) {
+		//se role è null allora non è ne user ne admin 
+		//(controllo aggiunto perchè se era null non poteva chiamare la equals)
+		if((request.getSession() != null) && (request.getSession().getAttribute("role") != null) && ((request.getSession().getAttribute("role")).equals("user") || (request.getSession().getAttribute("role")).equals("admin"))) {
 			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
 			return;
 		}

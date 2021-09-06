@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -69,7 +70,13 @@ public class CreaOrdine extends HttpServlet {
 		dispatcher.forward(request, response);
 		}
 		
-		int ris = crea.newOrdine(account.getEmail(), "", idIndirizzo, corriere, cart.getProdotti());
+		int ris = 0;
+		try {
+			ris = crea.newOrdine(account.getEmail(), "", idIndirizzo, corriere, cart.getProdotti(), totale);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(ris == 1)
 			System.out.println("WOW");
 		

@@ -1,0 +1,96 @@
+@charset "ISO-8859-1";
+
+.ordine{
+	background-color: #caafca;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 10px;
+}
+
+.collapse-ordine{
+	background-color: #dfc6df;
+    border-radius: 10px;
+    display: none;
+}
+
+.dettagli-ordine{
+	padding: 10px;
+}
+
+.product-row{
+	padding: 10px;
+	border-bottom: 1px solid #caafca;
+}
+
+.product-container{
+	font-family: 'Handlee', cursive;
+	width: 85%;
+	padding: 10px;
+	font-size: 1rem;
+}
+
+.product-details > *{
+	display: inline-block;
+}
+
+.product-size{
+	width: 100%;
+}
+
+.product-price{
+	float: right;
+}
+
+.product-not-available{
+	color: red;
+	width: 100%;
+}
+
+.product-description{
+	font-weight: bolder;
+	font-size: 1.2rem;
+}
+
+.product-img{
+	width: 15%;
+}
+
+.product-img > img{
+	width: 100%;
+	padding: 5px;
+}
+
+.totale-row, .corriere-row{
+	padding:10px;
+}
+
+.price-span{
+	float: right;
+}
+
+@media screen and (max-width:1250px){
+	.product-img{
+		width: 25%;
+	}
+	.product-container{
+		width: 75%;
+	}
+}
+
+@media screen and (max-width:750px){
+	.product-img{
+		width: 35%;
+	}
+	.product-container{
+		width: 65%;
+	}
+}
+
+@media screen and (max-width:520px){
+	.product-img{
+		width: 45%;
+	}
+	.product-container{
+		width: 55%;
+	}
+}

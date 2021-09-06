@@ -112,15 +112,15 @@
 					<div class="titolo">Inserisci i Dati di Pagamento</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>Nome Titolare</label>
-						<input id="nome-carta" type="text" name="nome-carta">
+						<input id="nome-carta" type="text" placeholder="Inserisci il nome del titolare" name="nome-carta">
 					</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>Numero di carta</label>
-						<input id="numero-carta" type="text" name="numero-carta">
+						<input id="numero-carta" type="text" placeholder="Inserisci il numero di carta" name="numero-carta">
 					</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>CVV</label>
-						<input id="cvv" type="text" name="cvv">
+						<input id="cvv" type="text" placeholder="CVV" name="cvv">
 					</div>
 					<div class="row justify-content-center">
 						<div class="carrello-button" onclick="showAndHide('#paga', '#corrieri')">Indietro</div>
@@ -148,17 +148,25 @@ $(document).ready(function(){
 		var patternCard = /^\d{16}$/;
 		var patternCVV = /^\d{3}$/
 		if(!$("#nome-carta").val().match(pattern)){
-			$("#nome-carta").css("border", "1px solid red");
+			$("#nome-carta").addClass("error");
 			event.preventDefault();
+		}
+		else{
+			$("#nome-carta").removeClass("error");
 		}
 		if(!$("#numero-carta").val().match(patternCard)){
-			$("#numero-carta").css("border-color", "1px solid red");
+			$("#numero-carta").addClass("error");
 			event.preventDefault();
+		}else{
+			$("#numero-carta").removeClass("error");
 		}
 		if(!$("#cvv").val().match(patternCVV)){
-			$("#cvv").css("border-color", "1px solid red");
+			$("#cvv").addClass("error");
 			event.preventDefault();
+		}else{
+			$("#cvv").removeClass("error");
 		}
+		
 	});
 });
 

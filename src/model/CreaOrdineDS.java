@@ -17,12 +17,12 @@ public class CreaOrdineDS {
 		this.ds = ds;
 	}
 	
-	public int newOrdine(String email, String note, int indirizzo, String corriere, HashMap<Integer, Prodotto> prodotti) {
+	public int newOrdine(String email, String note, int indirizzo, String corriere, HashMap<Integer, Prodotto> prodotti, float totale) throws SQLException {
 		Connection con = null;
         PreparedStatement st = null;
         ResultSet ris = null;
         int res, id = 0, dispo = 0;
-        float totale = 0, costoSped = 0;
+        float costoSped = 0;
         System.out.println(email);
 
         try{
@@ -58,7 +58,6 @@ public class CreaOrdineDS {
                 for(int prodID : prodotti.keySet()){
         			Prodotto prodotto = prodotti.get(prodID);
                 	int quantita = prodotto.getQuantità();
-        			totale += quantita*prodotto.getPrezzo();
 	                st = con.prepareStatement("SELECT SUM(disponibilità) AS quantità FROM Conservato WHERE prodotto = ? AND taglia = ?;");
 	                st.setInt(1, prodotto.getCodice());
 	                st.setString(2, prodotto.getTaglia());
@@ -82,8 +81,9 @@ public class CreaOrdineDS {
 	                        while(quantita > 0){
 	                            int deposito = 1;
 	                            int quantitaDep = 0;
-	                            st = con.prepareStatement("SELECT MIN(deposito) as dep, disponibilità FROM Conservato WHERE prodotto = ? AND disponibilità > 0;");
+	                            st = con.prepareStatement("SELECT MIN(deposito) as dep, disponibilità FROM Conservato WHERE prodotto = ? AND taglia = ? AND disponibilità > 0;");
 	                            st.setInt(1, prodotto.getCodice());
+                                st.setString(2, prodotto.getTaglia());
 	                            ris = st.executeQuery();
 	                            while(ris.next()) {
 	                                deposito = ris.getInt("dep");
@@ -98,20 +98,22 @@ public class CreaOrdineDS {
 	                                res = st.executeUpdate();
 	                                if(res <= 0) {
 	                                    con.rollback();
-	                                    System.out.println("Errore nell'update del deposito.");
+	                                    System.out.println("Errore nell'update del deposito. 1");
 	                                    break;
 	                                }
 	                                quantita-=quantitaDep;
 	                            }
 	                            else{
-	                                st = con.prepareStatement("UPDATE Conservato SET disponibilità = ? WHERE deposito = ? AND prodotto = ?;");
-	                                st.setInt(1, quantitaDep-prodotto.getQuantità());
+	                                st = con.prepareStatement("UPDATE Conservato SET disponibilità = ? WHERE deposito = ? AND prodotto = ? AND taglia = ?;");
+	                                int rest = quantitaDep - prodotto.getQuantità();
+	                                st.setInt(1, rest);
 	                                st.setInt(2, deposito);
 	                                st.setInt(3, prodotto.getCodice());
+	                                st.setString(4, prodotto.getTaglia());
 	                                res = st.executeUpdate();
 	                                if(res <= 0) {
 	                                    con.rollback();
-	                                    System.out.println("Errore nell'update del deposito.");
+	                                    System.out.println("Errore nell'update del deposito. 2");
 	                                    break;
 	                                }
 	                                quantita = 0;
