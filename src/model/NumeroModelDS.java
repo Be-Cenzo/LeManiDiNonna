@@ -53,7 +53,7 @@ public class NumeroModelDS{
 		return tel;
 	}
 
-	public Collection<String> doRetrieveAll(String order) throws SQLException {
+	public ArrayList<String> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

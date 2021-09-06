@@ -46,7 +46,14 @@ public class Signup extends HttpServlet {
 		catch(Exception e) {
 			//codice per ritornare email non valida
 		}
-		//aggiungere controllo num tel e creare bean
+		String numero = null;
+		try {
+			numero = checkNumero(request.getParameter("phone"), email);
+			acc.addNumeroTel(numero);
+		}
+		catch(Exception e) {
+			//codice numero non valido
+		}
 		String psw = request.getParameter("psw");
 		String name = request.getParameter("name");
 		String surnname = request.getParameter("surname");
@@ -56,7 +63,7 @@ public class Signup extends HttpServlet {
 		acc.setPassword(psw);
 		acc.setCognome(surnname);
 		acc.setNome(name);
-		//acc.setDataNascita(birth);
+		acc.setDataNascita(birth);
 		acc.setNomeIG(ig);
 		String provincia = request.getParameter("provincia");
 		String comune = request.getParameter("comune");
@@ -68,6 +75,7 @@ public class Signup extends HttpServlet {
 		this.save(acc, address);
 		request.getSession().setAttribute("role", "user");
 		request.getSession().setAttribute("user", acc);
+		request.getSession().setMaxInactiveInterval(-1);
 		response.sendRedirect(response.encodeURL("./index.jsp"));
 		
 	}
@@ -87,6 +95,20 @@ public class Signup extends HttpServlet {
 		else
 			throw new Exception("Invalid Email");
 
+	}
+	
+	private String checkNumero(String phone, String email) throws Exception {
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		NumeroModelDS model = new NumeroModelDS(ds, email);
+		ArrayList<String> all = model.doRetrieveAll(null);
+		boolean sem = true;
+		for(String s : all)
+			if(s.equals(phone))
+				sem = false;
+		if(sem)
+			return phone;
+		else throw new Exception("Invalid phone number");
+		
 	}
 	
 	private int findID(String email) {

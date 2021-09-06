@@ -1,10 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.sql.Date;
 
-public class Account {
+public class Account implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String email;
 	private String nome;
 	private String cognome;

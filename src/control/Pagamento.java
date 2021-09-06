@@ -45,7 +45,8 @@ public class Pagamento extends HttpServlet {
 			return;
 		}
 		//fine
-		Account user = (Account) request.getSession().getAttribute("user");
+		Object obj = request.getSession().getAttribute("user");;
+		Account user = (Account) obj;
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		IndirizzoModelDS model = new IndirizzoModelDS(ds, user.getEmail());
 		

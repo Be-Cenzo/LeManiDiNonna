@@ -71,16 +71,16 @@ public class Login extends HttpServlet {
             e.printStackTrace();
         }
 		/*end*/
-		
+		Object account = acc;
 	
 		if(acc.getEmail() == null || !(psw.equals(acc.getPassword())))
 			throw new Exception("Invalid login and password");
 		else if("vincenzo.offertucci@gmail.com".equals(acc.getEmail()) || "christian.gambardella@gmail.com".equals(acc.getEmail())) {
-			request.getSession().setAttribute("user", acc);
+			request.getSession().setAttribute("user", account);
 			return "admin";
 		}
 		else {
-			request.getSession().setAttribute("user", acc);
+			request.getSession().setAttribute("user", account);
 			return "user";
 		}
 	}
