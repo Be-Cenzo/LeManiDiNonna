@@ -36,7 +36,7 @@ public class AccountModelDS implements Model<Account>{
 				account.setEmail(rs.getString("email"));
 				account.setNome(rs.getString("nome"));
 				account.setCognome(rs.getString("cognome"));
-				account.setDataNascita(rs.getDate("dataNascita"));
+				account.setDataNascita(rs.getString("dataNascita"));
 				account.setPassword(rs.getString("password"));
 				account.setNomeIG(rs.getString("nomeIG"));
 			}
@@ -79,7 +79,7 @@ public class AccountModelDS implements Model<Account>{
 				account.setEmail(rs.getString("email"));
 				account.setNome(rs.getString("nome"));
 				account.setCognome(rs.getString("cognome"));
-				account.setDataNascita(rs.getDate("dataNascita"));
+				account.setDataNascita(rs.getString("dataNascita"));
 				account.setPassword(rs.getString("password"));
 				account.setNomeIG(rs.getString("nomeIG"));
 
@@ -113,7 +113,7 @@ public class AccountModelDS implements Model<Account>{
 			preparedStatement.setString(1, account.getEmail());
 			preparedStatement.setString(2, account.getNome());
 			preparedStatement.setString(3, account.getCognome());
-			preparedStatement.setDate(4, account.getDataNascita());
+			preparedStatement.setString(4, account.getDataNascita());
 			preparedStatement.setString(5, account.getPassword());
 			preparedStatement.setString(6, account.getNomeIG());
 			
@@ -147,7 +147,7 @@ public class AccountModelDS implements Model<Account>{
 
 			preparedStatement.setString(1, account.getNome());
 			preparedStatement.setString(2, account.getCognome());
-			preparedStatement.setDate(3, account.getDataNascita());
+			preparedStatement.setString(3, account.getDataNascita());
 			preparedStatement.setString(4, account.getPassword());
 			preparedStatement.setString(5, account.getNomeIG());
 			

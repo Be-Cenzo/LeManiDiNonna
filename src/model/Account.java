@@ -8,7 +8,7 @@ public class Account {
 	private String email;
 	private String nome;
 	private String cognome;
-	private Date dataNascita;
+	private String dataNascita;
 	private String password;
 	private String nomeIG;
 	private ArrayList<String> numeriTel;
@@ -18,7 +18,7 @@ public class Account {
 		
 	}
 	
-	public Account(String email, String nome, String cognome, Date dataNascita, String password, String nomeIG, String numeroTel, Indirizzo indirizzo) {
+	public Account(String email, String nome, String cognome, String dataNascita, String password, String nomeIG, String numeroTel, Indirizzo indirizzo) {
 		this.email = email;
 		this.nome = nome;		
 		this.cognome = cognome;
@@ -31,7 +31,7 @@ public class Account {
 		this.indirizzi.add(indirizzo);
 	}
 	
-	public Account(String email, String nome, String cognome, Date dataNascita, String password, String nomeIG, ArrayList<String> numeriTel, ArrayList<Indirizzo> indirizzi) {
+	public Account(String email, String nome, String cognome, String dataNascita, String password, String nomeIG, ArrayList<String> numeriTel, ArrayList<Indirizzo> indirizzi) {
 		this.email = email;
 		this.nome = nome;		
 		this.cognome = cognome;
@@ -87,14 +87,14 @@ public class Account {
 	/**
 	 * @return la data di nascita
 	 */
-	public Date getDataNascita() {
+	public String getDataNascita() {
 		return dataNascita;
 	}
 
 	/**
 	 * @param dataNascita la data di nascita da settare
 	 */
-	public void setDataNascita(Date dataNascita) {
+	public void setDataNascita(String dataNascita) {
 		this.dataNascita = dataNascita;
 	}
 
