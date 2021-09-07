@@ -5,9 +5,6 @@ import java.util.ArrayList;
 
 public class Account implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String email;
 	private String nome;
@@ -15,8 +12,8 @@ public class Account implements Serializable{
 	private String dataNascita;
 	private String password;
 	private String nomeIG;
-	private ArrayList<String> numeriTel;
-	private ArrayList<Indirizzo> indirizzi;
+	private ArrayList<String> numeriTel = new ArrayList<String>();
+	private ArrayList<Indirizzo> indirizzi = new ArrayList<Indirizzo>();
 	
 	public Account() {
 		

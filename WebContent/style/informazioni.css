@@ -1,0 +1,63 @@
+@charset "ISO-8859-1";
+
+.informazioni{
+	background-color: #caafca;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 10px;
+	width: 65%;
+}
+
+@media screen and (max-width: 760px){
+	.informazioni{
+		width:75%;
+	}
+}
+
+@media screen and (max-width: 450px){
+	.informazioni{
+		width:90%;
+	}
+}
+
+.modifica-btn{
+	border-radius: 10px;
+	background-color: transparent;
+	border: 1px solid black;
+	width: 100%;
+	text-align: center;
+	cursor: pointer;
+}
+
+#edit-collapse{
+	display: none;
+}
+
+.edit-info{
+	display: flex;
+	justify-content: center;	
+}
+
+.edit-info-form{
+	width: 70%;
+    display: grid;
+    justify-content: center;
+}
+
+.info-row{
+	padding: 5px;
+	justify-content: center;
+}
+
+.info-row > *{
+	margin: 5px 0;
+	width: 80%;
+}
+
+input.error{
+	border: 1px solid red;
+}
+
+.errore{
+	color: #bf1b1b;
+}

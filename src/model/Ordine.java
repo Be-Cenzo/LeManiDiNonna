@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Ordine {
+public class Ordine implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int ID;
 	private Date data;
 	private float prezzo;

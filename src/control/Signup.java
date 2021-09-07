@@ -3,7 +3,13 @@ package control;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import model.*;
+import utility.Validazione;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,77 +45,130 @@ public class Signup extends HttpServlet {
 			return;
 		}
 		//fine
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		
+		Integer error = 0;
+		request.setAttribute("errore-registrazione", error);
 		String email = request.getParameter("email");
 		Account acc = null;
 		try {
-			acc = this.checkEmail(email);
+			acc = Validazione.checkEmail(email, ds);
+			acc.setEmail(email);
 		}
 		catch(Exception e) {
-			//codice per ritornare email non valida
+			error = 1;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
 		}
 		String numero = null;
 		try {
-			numero = checkNumero(request.getParameter("phone"), email);
+			numero = Validazione.checkNumero(request.getParameter("phone"));
 			acc.addNumeroTel(numero);
 		}
 		catch(Exception e) {
-			//codice numero non valido
+			error = 2;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
 		}
 		String psw = request.getParameter("psw");
+		String pswr = request.getParameter("psw-repeat");
+		try {
+			psw = Validazione.checkPassword(psw, pswr);
+			acc.setPassword(psw);
+		}catch(Exception e) {
+			error = 3;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
+		
 		String name = request.getParameter("name");
-		String surnname = request.getParameter("surname");
+		try {
+			name = Validazione.checkStringaVuota(name);
+			acc.setNome(name);
+		}catch(Exception e) {
+			error = 4;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
+		String surname = request.getParameter("surname");
+		try {
+			surname = Validazione.checkStringaVuota(surname);
+			acc.setCognome(surname);
+		}catch(Exception e) {
+			error = 5;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
 		String birth = request.getParameter("birth");
+		try {
+			birth = Validazione.checkStringaVuota(birth);
+			acc.setDataNascita(birth);
+		}catch(Exception e) {
+			error = 6;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
 		String ig = request.getParameter("ig");
-		acc.setEmail(email);
-		acc.setPassword(psw);
-		acc.setCognome(surnname);
-		acc.setNome(name);
-		acc.setDataNascita(birth);
 		acc.setNomeIG(ig);
 		String provincia = request.getParameter("provincia");
+		try {
+			provincia = Validazione.checkStringaVuota(provincia);
+		}catch(Exception e) {
+			error = 7;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
 		String comune = request.getParameter("comune");
+		try {
+			comune = Validazione.checkStringaVuota(comune);
+		}catch(Exception e) {
+			error = 8;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
 		String via = request.getParameter("via");
-		int civico = Integer.parseInt(request.getParameter("civico"));
+		try {
+			via = Validazione.checkStringaVuota(via);
+		}catch(Exception e) {
+			error = 9;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
+		int civico = 0;
+		try {
+			civico = Integer.parseInt(request.getParameter("civico"));
+		}catch(Exception e) {
+			error = 10;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
 		String cap = request.getParameter("cap");
+		try {
+			cap = Validazione.checkStringaVuota(cap);
+		}catch(Exception e) {
+			error = 11;
+			request.setAttribute("errore-registrazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
 		int id = findID(email);
 		Indirizzo address = new Indirizzo(id, email, provincia, comune, via, civico, cap);
-		this.save(acc, address);
+		this.save(acc, address, numero);
 		request.getSession().setAttribute("role", "user");
 		request.getSession().setAttribute("user", acc);
 		request.getSession().setMaxInactiveInterval(-1);
 		response.sendRedirect(response.encodeURL("./index.jsp"));
-		
-	}
-	
-	private Account checkEmail(String email) throws Exception {
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		AccountModelDS model = new AccountModelDS(ds);
-		Account acc = null;
-		try {
-		acc = model.doRetrieveByKey(email);
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-		if(acc.getEmail() == null)
-			return acc;
-		else
-			throw new Exception("Invalid Email");
-
-	}
-	
-	private String checkNumero(String phone, String email) throws Exception {
-		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		NumeroModelDS model = new NumeroModelDS(ds, email);
-		ArrayList<String> all = model.doRetrieveAll(null);
-		boolean sem = true;
-		for(String s : all)
-			if(s.equals(phone))
-				sem = false;
-		if(sem)
-			return phone;
-		else throw new Exception("Invalid phone number");
 		
 	}
 	
@@ -127,14 +186,15 @@ public class Signup extends HttpServlet {
 		return -1;
 	}
 	
-	private void save(Account acc, Indirizzo address) {
+	private void save(Account acc, Indirizzo address, String numero) {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		IndirizzoModelDS modelI = new IndirizzoModelDS(ds, acc.getEmail());
 		AccountModelDS modelA = new AccountModelDS(ds);
-		//aggiungi num tel
+		NumeroModelDS modelN = new NumeroModelDS(ds, acc.getEmail());
 		try {
 		modelA.doSave(acc);
 		modelI.doSave(address);
+		modelN.doSave(numero);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

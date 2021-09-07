@@ -63,6 +63,11 @@
 			    <input type="password" placeholder="Enter Password" id="psw" name="psw">
 			
 		      	<button class="login-btn" type="submit">Login</button>
+		      	<div class="login-btn">
+			      	<a href="<%=response.encodeURL("./signup.jsp")%>">
+			      		Registrati
+			      	</a>
+		      	</div>
 	      	</div>
 	  	</form>
     </div>
@@ -77,21 +82,32 @@
 
 	<div class="login-container animate">
 	    <div class="container">
-	      <% 
-			String ruolo = (String)session.getAttribute("role");
-			if(ruolo.equals("admin")){
-		  %> 
-		<button type="submit" name="button" value="admin-area">Area amministratore</button>
-		<% 
-			}
-		%>
-			
-		<button type="submit" name="button" value="user-area">Area Utente</button>
-		<button type="submit" name="button" value="logout" id="logout">
-			<a href="<%=response.encodeURL("./logout")%>">
-				Logout	
-			</a>
-		</button>
+		    <div class="row riga-out justify-content-center">
+			      <% 
+					String ruolo = (String)session.getAttribute("role");
+					if(ruolo.equals("admin")){
+				  %> 
+				<button class="login-btn"  type="submit" name="button" value="admin-area">Area amministratore</button>
+				<% 
+					}
+				%>
+					
+				<button class="login-btn" type="submit" name="button" value="user-area">
+					<a href="<%=response.encodeURL("./OrdiniUtente")%>">
+						I Tuoi Ordini
+					</a>
+				</button>
+				<button class="login-btn" type="submit" name="button" value="user-area">
+					<a href="<%=response.encodeURL("./informazioniutente.jsp")%>">
+						Le Tue Informazioni
+					</a>
+				</button>
+				<button class="login-btn" type="submit" name="button" value="logout" id="logout">
+					<a href="<%=response.encodeURL("./logout")%>">
+						Logout	
+					</a>
+				</button>
+			</div>
 	    </div>
     </div>
 </div>  

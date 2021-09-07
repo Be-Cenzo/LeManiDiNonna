@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Fattura {
+public class Fattura implements Serializable{
 
 	//forse da fare immutabile
 	
+	private static final long serialVersionUID = 1L;
 	private int ID;
 	private Date data;
 	private float ammontare;

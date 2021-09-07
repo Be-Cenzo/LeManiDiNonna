@@ -67,7 +67,7 @@
 			<div class="informazioni">
 				<form id="paga-form" action="<%=response.encodeURL("./CreaOrdine")%>" method="post">
 				<div class="indirizzi" id="indirizzi">
-					<div class="titolo">Seleziona un Indirizzo</div>
+					<div class="titolo-informazioni">Seleziona un Indirizzo</div>
 					<%
 						Account user = (Account)session.getAttribute("user");
 						if(user != null && !user.getIndirizzi().isEmpty()){
@@ -75,7 +75,7 @@
 								%>
 								
 								<div class="row indirizzo-row justify-content-center">
-									<input type="radio" name="idIndirizzo" value="<%=ind.getID() %>" checked>
+									<input type="radio" name="idIndirizzo" value="<%=ind.getID() %>" <%if(user.getIndirizzi().indexOf(ind)==0){ %>checked<%} %>>
 									<label for="indirizzo">Via <%=ind.getVia() %>, <%=ind.getCivico() %>, <%=ind.getComune() %>, <%=ind.getCAP() %>, <%=ind.getProvincia() %></label>
 								</div>
 								<%
@@ -85,14 +85,14 @@
 					<div class="carrello-button" onclick="showAndHide('#indirizzi', '#corrieri')">Prosegui</div>
 				</div>
 				<div class="corrieri" id="corrieri">
-					<div class="titolo">Seleziona un Corriere</div>
+					<div class="titolo-informazioni">Seleziona un Corriere</div>
 					<%
 						ArrayList<Corriere> corrieri = (ArrayList<Corriere>)session.getAttribute("corrieri");
 						if(corrieri != null && !corrieri.isEmpty()){
 							for(Corriere corr : corrieri){
 								%>
 								<div class="row indirizzo-row justify-content-center">
-									<input type="radio" name="corriere" value="<%=corr.getNome() %>" checked>
+									<input type="radio" name="corriere" value="<%=corr.getNome() %>" <%if(corrieri.indexOf(corr)==0){ %>checked<%} %>>
 									<div style="display:grid">
 										<label for="corriere"><%=corr.getNome() %></label>
 										<label for="corriere">Prezzo: <%=corr.getPrezzo()%>€</label>
@@ -109,14 +109,14 @@
 					</div>
 				</div>
 				<div class="paga" id="paga">
-					<div class="titolo">Inserisci i Dati di Pagamento</div>
+					<div class="titolo-informazioni">Inserisci i Dati di Pagamento</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>Nome Titolare</label>
-						<input id="nome-carta" type="text" placeholder="Inserisci il nome del titolare" name="nome-carta">
+						<input id="nome-carta" type="text" placeholder="Nome del titolare" name="nome-carta">
 					</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>Numero di carta</label>
-						<input id="numero-carta" type="text" placeholder="Inserisci il numero di carta" name="numero-carta">
+						<input id="numero-carta" type="text" placeholder="Numero di carta" name="numero-carta">
 					</div>
 					<div class="row indirizzo-row justify-content-center">
 						<label>CVV</label>
