@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 
-.informazioni{
+.informazioni, .indirizzi{
 	background-color: #caafca;
 	padding: 10px;
 	border-radius: 10px;
@@ -9,13 +9,13 @@
 }
 
 @media screen and (max-width: 760px){
-	.informazioni{
+	.informazioni, .indirizzi{
 		width:75%;
 	}
 }
 
 @media screen and (max-width: 450px){
-	.informazioni{
+	.informazioni, .indirizzi{
 		width:90%;
 	}
 }
@@ -29,8 +29,12 @@
 	cursor: pointer;
 }
 
-#edit-collapse{
+#edit-collapse, #edit-addr-collapse, #add-addr-collapse{
 	display: none;
+}
+
+#editIcon{
+	float: right;
 }
 
 .edit-info{
@@ -52,6 +56,10 @@
 .info-row > *{
 	margin: 5px 0;
 	width: 80%;
+}
+
+.indirizzo-row{
+	padding: 10px;
 }
 
 input.error{

@@ -11,6 +11,7 @@ import javax.sql.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
@@ -72,6 +73,17 @@ public class Login extends HttpServlet {
         }
 		/*end*/
 		Object account = acc;
+
+		IndirizzoModelDS modelI = new IndirizzoModelDS(ds, acc.getEmail());
+		NumeroModelDS modelN = new NumeroModelDS(ds, acc.getEmail());
+		
+		try {
+			acc.setIndirizzi(modelI.doRetrieveAll(""));
+			acc.setNumeriTel(modelN.doRetrieveAll(""));
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	
 		if(acc.getEmail() == null || !(psw.equals(acc.getPassword())))
 			throw new Exception("Invalid login and password");

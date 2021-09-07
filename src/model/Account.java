@@ -131,7 +131,11 @@ public class Account implements Serializable{
 	 * @return i numeri di telefono
 	 */
 	public ArrayList<String> getNumeriTel() {
-		return (ArrayList<String>)numeriTel.clone();
+		return numeriTel;
+	}
+	
+	public void setNumeriTel(ArrayList<String> numeriTel) {
+		this.numeriTel = numeriTel;
 	}
 
 	/**
