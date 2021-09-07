@@ -89,7 +89,7 @@
 </div>
 
 <script>
-/*$(document).ready(function(){
+$(document).ready(function(){
 	const edit = document.getElementById('edit-info-form');
 	edit.addEventListener('submit', function(event){
 		var name = $("#nome").val();
@@ -123,7 +123,7 @@
 		  	$("#birth-label").html("<b>Data di Nascita</b>");
 		}
 	});
-});*/
+});
 </script>
 </body>
 </html>
