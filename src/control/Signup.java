@@ -164,6 +164,7 @@ public class Signup extends HttpServlet {
 		}
 		int id = findID(email);
 		Indirizzo address = new Indirizzo(id, email, provincia, comune, via, civico, cap);
+		acc.addIndirizzo(address);
 		this.save(acc, address, numero);
 		request.getSession().setAttribute("role", "user");
 		request.getSession().setAttribute("user", acc);

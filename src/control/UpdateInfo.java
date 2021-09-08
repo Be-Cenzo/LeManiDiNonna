@@ -17,6 +17,7 @@ import model.Account;
 import model.AccountModelDS;
 import model.Indirizzo;
 import model.IndirizzoModelDS;
+import model.NumeroModelDS;
 import utility.Validazione;
 
 /**
@@ -227,6 +228,71 @@ public class UpdateInfo extends HttpServlet {
 				e.printStackTrace();
 			}
 			user.addIndirizzo(address);
+			request.getSession().setAttribute("user", user);
+		}
+		else if(action != null && action.equals("add-nmbr")) {
+			String numero = request.getParameter("phone");
+			int error = 0;
+			NumeroModelDS modelN = new NumeroModelDS(ds, user.getEmail());
+			request.setAttribute("errore-add-number", error);
+			if(user.getNumeriTel().contains(numero)) {
+				error = 2;
+				request.setAttribute("errore-add-number", error);
+				dispatcher.forward(request, response);
+				return;
+			}
+			try {
+				Validazione.checkNumero(numero);
+			}catch(Exception e) {
+				error = 1;
+				request.setAttribute("errore-add-number", error);
+				dispatcher.forward(request, response);
+				return;
+			}
+			try {
+				modelN.doSave(numero);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			user.addNumeroTel(numero);
+			request.getSession().setAttribute("user", user);
+		}
+		else if(action != null && action.equals("update-nmbr")) {
+			String numero = request.getParameter("phone");
+			String oldNumero = request.getParameter("numero");
+			int error = 0;
+			ArrayList<String> numeri = user.getNumeriTel();
+			if(numeri.contains(numero)) {
+				error = 2;
+				request.setAttribute("errore-update-number", error);
+				dispatcher.forward(request, response);
+				return;
+			}
+			NumeroModelDS modelN = new NumeroModelDS(ds, user.getEmail());
+			request.setAttribute("errore-update-number", error);
+			try {
+				Validazione.checkNumero(numero);
+			}catch(Exception e) {
+				error = 1;
+				request.setAttribute("errore-update-number", error);
+				dispatcher.forward(request, response);
+				return;
+			}
+			for(String number : numeri) {
+				if(number.equals(oldNumero)) {
+					numeri.remove(number);
+					numeri.add(numero);
+					break;
+				}
+			}
+			try {
+				modelN.doUpdate(oldNumero, numero);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			user.setNumeriTel(numeri);
 			request.getSession().setAttribute("user", user);
 		}
 		

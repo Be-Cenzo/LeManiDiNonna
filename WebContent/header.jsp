@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <link rel="shortcut icon" type="image/png" href="./icon/favicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +12,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css2?family=Princess+Sofia&display=swap" rel="stylesheet"> 
 <link href="./style/header.css" rel="stylesheet">
-<meta charset="UTF-8">
 <base href="/LeManiDiNonna/">
 <link href="./style/login.css" rel="stylesheet">
 </head>
@@ -63,11 +63,12 @@
 			    <input type="password" placeholder="Enter Password" id="psw" name="psw">
 			
 		      	<button class="login-btn" type="submit">Login</button>
-		      	<div class="login-btn">
-			      	<a href="<%=response.encodeURL("./signup.jsp")%>">
+		      	
+			     <a href="<%=response.encodeURL("./signup.jsp")%>">
+			      	<div class="login-btn">
 			      		Registrati
-			      	</a>
-		      	</div>
+		      		</div>
+			     </a>
 	      	</div>
 	  	</form>
     </div>
@@ -87,26 +88,27 @@
 					String ruolo = (String)session.getAttribute("role");
 					if(ruolo.equals("admin")){
 				  %> 
-				<button class="login-btn"  type="submit" name="button" value="admin-area">Area amministratore</button>
+				<button class="login-btn">Area amministratore</button>
 				<% 
 					}
 				%>
 					
-				<button class="login-btn" type="submit" name="button" value="user-area">
-					<a href="<%=response.encodeURL("./OrdiniUtente")%>">
+				
+				<a href="<%=response.encodeURL("./OrdiniUtente")%>">
+					<button class="login-btn">
 						I Tuoi Ordini
-					</a>
-				</button>
-				<button class="login-btn" type="submit" name="button" value="user-area">
-					<a href="<%=response.encodeURL("./informazioniutente.jsp")%>">
+					</button>
+				</a>
+				<a href="<%=response.encodeURL("./informazioniutente.jsp")%>">
+					<button class="login-btn">
 						Le Tue Informazioni
-					</a>
-				</button>
-				<button class="login-btn" type="submit" name="button" value="logout" id="logout">
-					<a href="<%=response.encodeURL("./logout")%>">
+					</button>
+				</a>
+				<a href="<%=response.encodeURL("./logout")%>">
+					<button class="login-btn">
 						Logout	
-					</a>
-				</button>
+					</button>
+				</a>
 			</div>
 	    </div>
     </div>

@@ -22,6 +22,8 @@
 		Integer errore = (Integer) request.getAttribute("errore-modifica");
 		Integer updErr = (Integer) request.getAttribute("errore-update-address");
 		Integer addErr = (Integer) request.getAttribute("errore-add-address");
+		Integer addNmbrErr = (Integer) request.getAttribute("errore-add-number");
+		Integer updNmbrErr = (Integer) request.getAttribute("errore-update-number");
 		System.out.println("indirizzi: " + user.getIndirizzi());
 	%> 
 	
@@ -41,8 +43,8 @@
 					<button class="modifica-btn" onclick="$('#saved-info').animate({height:'toggle'}); $('#edit-collapse').animate({height:'toggle'});">Modifica</button>
 				</div>
 				<div id="edit-collapse">
-					<div class="edit-info" id="edit-info">
-						<form class="edit-info-form" id="edit-info-form" action="<%=response.encodeURL("./UpdateInfo") %>" method="post">
+					<div class="edit-info">
+						<form class="form" id="edit-info-form" action="<%=response.encodeURL("./UpdateInfo") %>" method="post">
 							<div class="row info-row">
 								<%
 									if(errore != null && errore == 1){ 
@@ -105,8 +107,8 @@
 					<button class="modifica-btn" onclick="$('#saved-addr').animate({height:'toggle'}); $('#add-addr-collapse').animate({height:'toggle'});">Aggiungi Indirizzo</button>
 				</div>
 				<div id="add-addr-collapse">
-					<div class="edit-info" id="edit-info">
-						<form class="edit-info-form" id="add-info-form" action="<%=response.encodeURL("./UpdateInfo?action=add-addr") %>" method="post">
+					<div class="edit-info">
+						<form class="form" id="add-addr-form" action="<%=response.encodeURL("./UpdateInfo") %>" method="post">
 							<div class="row info-row">
 								<%
 									if(addErr != null && addErr == 1){ 
@@ -154,7 +156,7 @@
 							    <label id="cap-label" for="cap"><b>CAP</b></label>
 							    <input id="cap" type="text" placeholder="Inserisci CAP" name="cap">
 							    
-							    <input type="hidden" name="action" value="edit">
+							    <input type="hidden" name="action" value="add-addr">
 							    
 							    <button type="submit" class="modifica-btn">Aggiungi</button>
 							    <div class="modifica-btn" onclick="$('#saved-addr').animate({height:'toggle'}); $('#add-addr-collapse').animate({height:'toggle'});">Annulla</div>
@@ -163,8 +165,8 @@
 					</div>
 				</div>
 				<div id="edit-addr-collapse">
-					<div class="edit-info" id="edit-info">
-						<form class="edit-info-form" id="edit-info-form" action="<%=response.encodeURL("./UpdateInfo") %>" method="post">
+					<div class="edit-info">
+						<form class="form" id="edit-addr-form" action="<%=response.encodeURL("./UpdateInfo") %>" method="post">
 							<div class="row info-row">
 								<%
 									if(updErr != null && updErr == 1){ 
@@ -197,20 +199,20 @@
 								<%
 									}
 								%>
-								<label id="provincia-label" for="provincia"><b>Provincia</b></label>
-							    <input id="provincia" type="text" placeholder="Inserisci Provincia" name="provincia">
+								<label id="edit-provincia-label" for="edit-provincia"><b>Provincia</b></label>
+							    <input id="edit-provincia" type="text" placeholder="Inserisci Provincia" name="provincia">
 								
-							    <label id="comune-label" for="comune"><b>Comune</b></label>
-							    <input id="comune" type="text" placeholder="Inserisci Comune" name="comune">
+							    <label id="edit-comune-label" for="edit-comune"><b>Comune</b></label>
+							    <input id="edit-comune" type="text" placeholder="Inserisci Comune" name="comune">
 							
-							    <label id="via-label" for="via"><b>Via</b></label>
-							    <input id="via" type="text" placeholder="Inserisci Via" name="via">
+							    <label id="edit-via-label" for="edit-via"><b>Via</b></label>
+							    <input id="edit-via" type="text" placeholder="Inserisci Via" name="via">
 							
-							    <label id="civico-label" for="civico"><b>Civico</b></label>
-							    <input id="civico" type="number" name="civico" min="0">
+							    <label id="edit-civico-label" for="edit-civico"><b>Civico</b></label>
+							    <input id="edit-civico" type="number" name="civico" min="0">
 							
-							    <label id="cap-label" for="cap"><b>CAP</b></label>
-							    <input id="cap" type="text" placeholder="Inserisci CAP" name="cap">
+							    <label id="edit-cap-label" for="edit-cap"><b>CAP</b></label>
+							    <input id="edit-cap" type="text" placeholder="Inserisci CAP" name="cap">
 							    
 							    <input type="hidden" name="action" value="update-addr">
 							    <input id="id-value" type="hidden" name="id" value="">
@@ -224,6 +226,91 @@
 			</div>
 		</div>
 		
+		<div class="row justify-content-center">
+			<div class="numeri">
+				<div class="titolo">
+					I Tuoi Numeri di Telefono
+				</div>
+				<div class="saved-nmbr" id="saved-nmbr">
+					<ol>
+					<%for(String numero : user.getNumeriTel()){ %>
+							<li>
+								<div class="numero-row">
+									<%=numero %>
+									<a onclick="$('#saved-nmbr').animate({height:'toggle'}); $('#edit-nmbr-collapse').animate({height:'toggle'}); $('#numero-value').val('<%=numero%>')">
+										<span id="editIcon">
+											<img src="./icon/edit.svg" alt="edit"/>
+										</span>
+									</a>
+								</div>
+							</li>
+					<%} %>
+					</ol>
+					<button class="modifica-btn" onclick="$('#saved-nmbr').animate({height:'toggle'}); $('#add-nmbr-collapse').animate({height:'toggle'});">Aggiungi Numero</button>
+				</div>
+				<div id="add-nmbr-collapse">
+					<div class="edit-info">
+						<form class="form" id="add-nmbr-form" action="<%=response.encodeURL("./UpdateInfo") %>" method="post">
+							<div class="row info-row">
+								<%
+									if(addNmbrErr != null && addNmbrErr == 1){ 
+								%>
+										<label class="errore">Inserisci un numero di telefono valido</label>
+								<%
+									}
+								%>
+								<%
+									if(addNmbrErr != null && addNmbrErr == 2){ 
+								%>
+										<label class="errore">Hai già inserito questo numero</label>
+								<%
+									}
+								%>
+								
+								<label id="phone-label" for="phone"><b>Numero di Telefono</b></label>
+				    			<input id="phone" type="text" placeholder="Inserisci Numero Di Telefono" name="phone">
+							    
+							    <input type="hidden" name="action" value="add-nmbr">
+							    
+							    <button type="submit" class="modifica-btn">Aggiungi</button>
+							    <div class="modifica-btn" onclick="$('#saved-nmbr').animate({height:'toggle'}); $('#add-nmbr-collapse').animate({height:'toggle'});">Annulla</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div id="edit-nmbr-collapse">
+					<div class="edit-info">
+						<form class="form" id="edit-nmbr-form" action="<%=response.encodeURL("./UpdateInfo") %>" method="post">
+							<div class="row info-row">
+								<%
+									if(updNmbrErr != null && updNmbrErr == 1){ 
+								%>
+										<label class="errore">Inserisci un numero di telefono valido</label>
+								<%
+									}
+								%>
+								<%
+									if(updNmbrErr != null && updNmbrErr == 2){ 
+								%>
+										<label class="errore">Hai già inserito questo numero</label>
+								<%
+									}
+								%>
+							
+								<label id="edit-phone-label" for="edit-phone"><b>Numero di Telefono</b></label>
+				    			<input id="edit-phone" type="text" placeholder="Inserisci Numero Di Telefono" name="phone">
+								
+							    <input type="hidden" name="action" value="update-nmbr">
+							    <input id="numero-value" type="hidden" name="numero" value="">
+							    
+							    <button type="submit" class="modifica-btn">Modifica</button>
+							    <div class="modifica-btn" onclick="$('#saved-nmbr').animate({height:'toggle'}); $('#edit-nmbr-collapse').animate({height:'toggle'});">Annulla</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<%@ include file="footer.jsp" %>
@@ -262,6 +349,112 @@ $(document).ready(function(){
 		else{
 			$("#birth").removeClass("error");
 		  	$("#birth-label").html("<b>Data di Nascita</b>");
+		}
+	});
+	const addAddress = document.getElementById('add-addr-form');
+	addAddress.addEventListener('submit', function(event){
+		var provincia = $("#provincia").val();
+		var comune = $("#comune").val();
+		var via = $("#via").val();
+		var civico = $("#civico").val();
+		var cap = $("#cap").val();
+		if (provincia==null || provincia === ""){
+			$("#provincia").addClass("error");
+		  	$("#provincia-label").html("<b>Provincia</b> - non può essere vuota");
+		  	event.preventDefault();
+		}
+		else{
+			$("#provincia").removeClass("error");
+		  	$("#provincia-label").html("<b>Provincia</b>");
+		}
+		if (comune==null || comune === ""){
+			$("#comune").addClass("error");
+		  	$("#comune-label").html("<b>Comune</b> - non può essere vuoto");
+		  	event.preventDefault();
+		}
+		else{
+			$("#comune").removeClass("error");
+		  	$("#comune-label").html("<b>Comune</b>");
+		}
+		if (via==null || via === ""){
+			$("#via").addClass("error");
+		  	$("#via-label").html("<b>Via</b> - non può essere vuota");
+		  	event.preventDefault();
+		}
+		else{
+			$("#via").removeClass("error");
+		  	$("#via-label").html("<b>Via</b>");
+		}
+		if (civico==null || civico === ""){
+			$("#civico").addClass("error");
+		  	$("#civico-label").html("<b>Civico</b> - non può essere vuoto");
+		  	event.preventDefault();
+		}
+		else{
+			$("#civico").removeClass("error");
+		  	$("#civico-label").html("<b>Via</b>");
+		}
+		if (cap==null || cap === ""){
+			$("#cap").addClass("error");
+		  	$("#cap-label").html("<b>CAP</b> - non può essere vuoto");
+		  	event.preventDefault();
+		}
+		else{
+			$("#cap").removeClass("error");
+		  	$("#cap-label").html("<b>CAP</b>");
+		}
+	});
+	const editAddress = document.getElementById('edit-addr-form');
+	editAddress.addEventListener('submit', function(event){
+		var provincia = $("#edit-provincia").val();
+		var comune = $("#edit-comune").val();
+		var via = $("#edit-via").val();
+		var civico = $("#edit-civico").val();
+		var cap = $("#edit-cap").val();
+		if (provincia==null || provincia === ""){
+			$("#edit-provincia").addClass("error");
+		  	$("#edit-provincia-label").html("<b>Provincia</b> - non può essere vuota");
+		  	event.preventDefault();
+		}
+		else{
+			$("#edit-provincia").removeClass("error");
+		  	$("#edit-provincia-label").html("<b>Provincia</b>");
+		}
+		if (comune==null || comune === ""){
+			$("#edit-comune").addClass("error");
+		  	$("#edit-comune-label").html("<b>Comune</b> - non può essere vuoto");
+		  	event.preventDefault();
+		}
+		else{
+			$("#edit-comune").removeClass("error");
+		  	$("#edit-comune-label").html("<b>Comune</b>");
+		}
+		if (via==null || via === ""){
+			$("#edit-via").addClass("error");
+		  	$("#edit-via-label").html("<b>Via</b> - non può essere vuota");
+		  	event.preventDefault();
+		}
+		else{
+			$("#edit-via").removeClass("error");
+		  	$("#edit-via-label").html("<b>Via</b>");
+		}
+		if (civico==null || civico === ""){
+			$("#edit-civico").addClass("error");
+		  	$("#edit-civico-label").html("<b>Civico</b> - non può essere vuoto");
+		  	event.preventDefault();
+		}
+		else{
+			$("#edit-civico").removeClass("error");
+		  	$("#edit-civico-label").html("<b>Via</b>");
+		}
+		if (cap==null || cap === ""){
+			$("#edit-cap").addClass("error");
+		  	$("#edit-cap-label").html("<b>CAP</b> - non può essere vuoto");
+		  	event.preventDefault();
+		}
+		else{
+			$("#edit-cap").removeClass("error");
+		  	$("#edit-cap-label").html("<b>CAP</b>");
 		}
 	});
 });
