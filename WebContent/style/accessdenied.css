@@ -1,0 +1,16 @@
+@charset "ISO-8859-1";
+
+.inner{
+	display:block;
+	margin: 10px;
+	max-width: 50%;
+}
+
+#access-denied{
+	margin:10px;
+	max-width: 50%;
+}
+
+.row{
+	padding:20px;
+}

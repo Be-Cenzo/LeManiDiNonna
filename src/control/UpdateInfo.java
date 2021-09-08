@@ -232,6 +232,9 @@ public class UpdateInfo extends HttpServlet {
 		}
 		else if(action != null && action.equals("add-nmbr")) {
 			String numero = request.getParameter("phone");
+			if(!numero.contains("+39"))
+				numero = "+39" + numero;
+			numero = numero.replace(" ", "");
 			int error = 0;
 			NumeroModelDS modelN = new NumeroModelDS(ds, user.getEmail());
 			request.setAttribute("errore-add-number", error);
@@ -260,6 +263,9 @@ public class UpdateInfo extends HttpServlet {
 		}
 		else if(action != null && action.equals("update-nmbr")) {
 			String numero = request.getParameter("phone");
+			if(!numero.contains("+39"))
+				numero = "+39" + numero;
+			numero = numero.replace(" ", "");
 			String oldNumero = request.getParameter("numero");
 			int error = 0;
 			ArrayList<String> numeri = user.getNumeriTel();

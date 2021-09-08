@@ -7,7 +7,19 @@
 </head>
 <body>
 	<footer>
-		L'hanno fatto Becienz e Christian
+		<div>
+			Le Mani di Nonna
+		</div>
+		<span>
+			<a href="https://www.facebook.com/lemanidinonna">
+				<img src="./icon/facebook.svg" alt="facebook">
+			</a>
+		</span>
+		<span>
+			<a href="https://www.instagram.com/lemanidinonna/">
+				<img src="./icon/instagram.svg" alt="instagram">
+			</a>
+		</span>
 	</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
