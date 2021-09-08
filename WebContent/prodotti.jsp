@@ -54,7 +54,7 @@
 		Prodotto prodotto = prodotti.get(i);
 	%>
 			<div class="card">
-				<img src="./img/<%=prodotto.getImgurl() %>" class="card-img-top" onclick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" alt="<%= prodotto.getDescrizione() %>">
+				<img src="./getPicture?id=<%=prodotto.getCodice()%>" class="card-img-top" onclick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" alt="<%= prodotto.getDescrizione() %>">
 				<span class="card-span" onclick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" id="fadeSpan<%=i %>">+</span>
 				<div class="card-collapse card-body collapse-body" id="collapse<%=i %>">
 					<span class="card-span" onClick="toggle('#collapse<%=i %>', 'fadeSpan<%=i %>');" style="color: black;">-</span>

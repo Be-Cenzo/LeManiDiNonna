@@ -30,7 +30,7 @@
 			
 		<div class="row product-row">
 			<div class="product-img">
-				<img src="./img/<%=prod.getImgurl() %>" alt="esempio">
+				<img src="./getPicture?id=<%=prod.getCodice()%>" alt="esempio">
 			</div>
 			<div class="product-container">
 				<div class="product-description">
