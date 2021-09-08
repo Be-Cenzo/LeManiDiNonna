@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Carrello {
+public class Carrello implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private HashMap<Integer, Prodotto> prodotti;
 	
 	public Carrello() {

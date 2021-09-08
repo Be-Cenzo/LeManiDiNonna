@@ -87,7 +87,7 @@
 		else{
 			%>
 			<div class="row justify-content-center">
-				Non c'è niente qui.
+				Non c'è niente qui, corri ad acquistare qualcosa!
 			</div>
 			<%
 		}

@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Deposito {
+public class Deposito implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private int ID;
 	private String luogo;
 	private HashMap<Prodotto, Integer> disponibilità;

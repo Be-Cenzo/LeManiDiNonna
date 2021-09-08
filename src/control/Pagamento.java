@@ -45,10 +45,8 @@ public class Pagamento extends HttpServlet {
 			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
 			return;
 		}
-		HttpSession sessione = request.getSession();
 		//fine
-		Object obj = request.getSession().getAttribute("user");;
-		Account user = (Account) obj;
+		Account user = (Account) request.getSession().getAttribute("user");
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		IndirizzoModelDS model = new IndirizzoModelDS(ds, user.getEmail());
 		

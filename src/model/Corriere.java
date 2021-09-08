@@ -1,7 +1,10 @@
 package model;
 
-public class Corriere {
+import java.io.Serializable;
+
+public class Corriere implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String tempo;
 	private float prezzo;

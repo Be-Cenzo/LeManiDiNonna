@@ -103,7 +103,7 @@ public class AccountModelDS implements Model<Account>{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO account" + " (email, nome, cognome, dataNascita, password, nomeIG) VALUES (?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO account" + " (email, nome, cognome, dataNascita, password, nomeIG) VALUES (?, ?, ?, ?, MD5(?), ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -152,6 +152,41 @@ public class AccountModelDS implements Model<Account>{
 			preparedStatement.setString(5, account.getNomeIG());
 			
 			preparedStatement.setString(6, account.getEmail());
+			
+
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+	}
+	
+	public void doUpdateInfo(Account account) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE account SET " + " nome = ?, cognome = ?, dataNascita = ?, NomeIG = ? WHERE email = ?";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(updateSQL);
+
+			preparedStatement.setString(1, account.getNome());
+			preparedStatement.setString(2, account.getCognome());
+			preparedStatement.setString(3, account.getDataNascita());
+			preparedStatement.setString(4, account.getNomeIG());
+			
+			preparedStatement.setString(5, account.getEmail());
 			
 
 			preparedStatement.executeUpdate();

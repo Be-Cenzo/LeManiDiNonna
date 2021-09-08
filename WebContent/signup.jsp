@@ -21,6 +21,8 @@
 				response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
 			}
 		}
+		
+		Integer errore = (Integer)request.getAttribute("errore-registrazione");
 	%> 
 	
 	<div class="contenuto">
@@ -28,7 +30,78 @@
 			<form id="signup-form" class="signup-form" action="<%= response.encodeURL("./Signup")%>" method="post">
 				<div class="row riga">
 				    <div class="titolo">Registrazione</div>
-				
+					
+					<%
+						if(errore != null && errore == 1){ 
+					%>
+							<label class="errore">L'email inserita non è valida</label>
+					<%
+						}
+					%>
+					<%
+						if(errore != null && errore == 2){ 
+					%>
+							<label class="errore">Il numero di telefono inserito non è valido</label>
+					<%
+						}
+					%>
+					
+					<%
+						if(errore != null && errore == 3){ 
+					%>
+							<label class="errore">La password inserita non è valida</label>
+					<%
+						}
+					%>
+					<%
+						if(errore != null && errore == 4){ 
+					%>
+							<label class="errore">Il Nome non può essere vuoto</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 5){ 
+					%>
+							<label class="errore">Il Cognome non può essere vuoto</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 6){ 
+					%>
+							<label class="errore">La Data di Nascita non può essere vuota</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 7){ 
+					%>
+							<label class="errore">La Provincia non può essere vuota</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 8){ 
+					%>
+							<label class="errore">Il Comune non può essere vuoto</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 9){ 
+					%>
+							<label class="errore">La via non può essere vuota</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 10){ 
+					%>
+							<label class="errore">Il Civico non è valido</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 4){ 
+					%>
+							<label class="errore">Il CAP non può essere vuoto</label>
+					<%
+						}
+					%>
 				    <label id="email-label" for="email"><b>Email</b></label>
 				    <input id="email" type="text" placeholder="Inserisci Email" name="email">
 				
@@ -82,7 +155,7 @@ $(document).ready(function(){
 	const signup = document.getElementById('signup-form');
 	signup.addEventListener('submit', function(event){
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-		var passwordformat = /^\w{6,}$/;
+		var passwordformat = /^[a-zA-Z0-9]{6,}$/;
 		var numeroformat = /^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$/;
 		var email = $("#email").val();
 		var password = $("#pswd").val();
@@ -115,11 +188,11 @@ $(document).ready(function(){
 		  	$("#pswd-label").html("<b>Password</b> - inserire una password di almeno 6 caratteri");
 		  	event.preventDefault();
 		}
-		else{
+		else if(password != null && password !== "" && password.match(passwordformat)){
 			$("#pswd").removeClass("error");
 		  	$("#pswd-label").html("<b>Password</b>");
 		}
-		if(repassword == null || repassword === ""){
+		else if(repassword == null || repassword === ""){
 			$("#re-psw").addClass("error");
 		  	$("#re-psw-label").html("<b>Password</b> - non può essere vuoto");
 		  	event.preventDefault();
@@ -129,6 +202,7 @@ $(document).ready(function(){
 		  	$("#pswd-label").html("<b>Password</b> - le password non coincidono");
 		  	$("#re-psw").addClass("error");
 		  	$("#re-psw-label").html("<b>Reinserisci Password</b> - le password non coincidono");
+		  	event.preventDefault();
 		}
 		else{
 			$("#pswd").removeClass("error");
@@ -142,8 +216,8 @@ $(document).ready(function(){
 		  	event.preventDefault();
 		}
 		else{
-			$("#name").removeClass("error");
-		  	$("#name-label").html("<b>Nome</b>");
+			$("#nome").removeClass("error");
+		  	$("#nome-label").html("<b>Nome</b>");
 		}
 		if(surname == null || surname === ""){
 			$("#surname").addClass("error");

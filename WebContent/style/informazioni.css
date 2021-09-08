@@ -1,0 +1,76 @@
+@charset "ISO-8859-1";
+
+.informazioni, .indirizzi, .numeri{
+	background-color: #caafca;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 10px;
+	width: 65%;
+}
+
+@media screen and (max-width: 760px){
+	.informazioni, .indirizzi, .numeri{
+		width:75%;
+	}
+}
+
+@media screen and (max-width: 450px){
+	.informazioni, .indirizzi, .numeri{
+		width:90%;
+	}
+}
+
+.modifica-btn{
+	border-radius: 10px;
+	background-color: transparent;
+	border: 1px solid black;
+	width: 100%;
+	text-align: center;
+	cursor: pointer;
+}
+
+#edit-collapse, #edit-addr-collapse, #add-addr-collapse, #edit-nmbr-collapse, #add-nmbr-collapse{
+	display: none;
+}
+
+#editIcon{
+	float: right;
+	cursor: pointer;
+}
+
+.edit-info{
+	display: flex;
+	justify-content: center;	
+}
+
+form{
+	width: 70%;
+    display: grid;
+    justify-content: center;
+}
+
+.info-row{
+	padding: 5px;
+	justify-content: center;
+}
+
+.info-row > *{
+	margin: 5px 0;
+	width: 80%;
+}
+
+.indirizzo-row, .numero-row{
+	padding: 10px;
+}
+
+input.error{
+	border: 1px solid red;
+}
+
+.errore{
+	color: #bf1b1b;
+}
+
+li{
+    list-style: disc;
+}

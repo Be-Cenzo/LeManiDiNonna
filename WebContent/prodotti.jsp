@@ -14,7 +14,7 @@
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-<link href="./style/index.css" rel="stylesheet">
+<link href="./style/prodotti.css" rel="stylesheet">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta charset="UTF-8">
@@ -82,7 +82,7 @@
 							<input class="numberForm" type="number" name="quantità" value="1" min="1">
 							<input type="hidden" name="id" value=<%=prodotto.getCodice() %>>
 							<input type="hidden" name="action" value="add">
-							<button id="addCartIcon" type="submit">
+							<button class="addCartIcon" type="submit">
 								<img src="./icon/aggiungi-al-carrello.svg" alt="aggiungi"/>
 							</button>
 						</form>

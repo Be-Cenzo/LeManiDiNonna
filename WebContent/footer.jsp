@@ -4,16 +4,27 @@
 <html>
 <head>
 <link href="./style/footer.css" rel="stylesheet">
-<meta charset="UTF-8">
 </head>
 <body>
 	<footer>
-		L'hanno fatto Becienz e Christian
+		<div>
+			Le Mani di Nonna
+		</div>
+		<span>
+			<a href="https://www.facebook.com/lemanidinonna">
+				<img src="./icon/facebook.svg" alt="facebook">
+			</a>
+		</span>
+		<span>
+			<a href="https://www.instagram.com/lemanidinonna/">
+				<img src="./icon/instagram.svg" alt="instagram">
+			</a>
+		</span>
 	</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-<script type="text/javascript">  
+<script>  
 
 $(document).ready(function(){
  	const login = document.getElementById('form-login');

@@ -80,6 +80,13 @@
 				</div>
 			<%	
 			}
+		if(ordini.size() <= 0){
+			%>
+				<div class="row justify-content-center">
+					Non c'è niente qui, corri ad acquistare qualcosa!
+				</div>
+			<%
+		}
 		%>
 	</div>
 	

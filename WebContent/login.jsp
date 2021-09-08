@@ -48,6 +48,11 @@
 				    <input type="password" placeholder="Enter Password" id="psw-page" name="psw">
 				
 			      	<button class="login-btn" type="submit">Login</button>
+			      	<div class="login-btn">
+				      	<a href="<%=response.encodeURL("./signup.jsp")%>">
+				      		Registrati
+				      	</a>
+			      	</div>
 		      	</div>
 		  	</form>
 	    </div>

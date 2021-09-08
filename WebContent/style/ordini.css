@@ -13,6 +13,14 @@
     display: none;
 }
 
+.titolo{
+	border-bottom: 1px solid #caafca;
+}
+
+.row{
+	padding: 10px;
+}
+
 .dettagli-ordine{
 	padding: 10px;
 }
