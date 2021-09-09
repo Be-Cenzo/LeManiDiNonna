@@ -1,11 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<link href="./style/footer.css" rel="stylesheet">
-</head>
-<body>
+
 	<footer>
 		<div>
 			Le Mani di Nonna
@@ -34,19 +27,17 @@ $(document).ready(function(){
 	 	var name=$("#name").val();  
 	 	var password=$("#psw").val();
 	 	if (name==null || name==""){  
-	 	  	$("#name-label").html("<b>Username</b> - non puÃ² essere vuoto");
+	 	  	$("#name-label").html("<b>Username</b> - non può essere vuoto");
 	 	  	event.preventDefault();
 	 	}else if(!name.match(mailformat)){
 	 	  	$("#name-label").html("<b>Username</b> - email non valida");
 	 		event.preventDefault();
 	 	}else if(password.length == 0){  
-	 		$("#psw-label").html("<b>Password</b> - non puÃ² essere vuota");
+	 		$("#psw-label").html("<b>Password</b> - non può essere vuota");
 	 		event.preventDefault();
 	 	  }  
 	 	});
  	}
  });
 
-</script> 
-</body>
-</html>
+</script>
