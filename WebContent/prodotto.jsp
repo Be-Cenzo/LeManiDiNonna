@@ -27,7 +27,7 @@
 			<div class="prodotto-container">
 				<div class="prodotto-img">
 					<div class="prodotto-img-container">
-						<img src=""><%= response.encodeURL("./getPicture?id=<%=prodotto.getCodice()%>")%>
+						<img src="./getPicture?id=<%=prodotto.getCodice()%>">
 					</div>
 				</div>
 				<div class="prodotto-details">
