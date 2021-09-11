@@ -23,9 +23,10 @@
 	<div class="contenuto">
 		<div class="add-container">
 			<form class="add-form" action="<%= response.encodeURL("UploadPhoto")%>" enctype="multipart/form-data" method="post">
-				<br>
+				
+				<div class="titolo">Aggiungi un Prodotto</div>
+				<label for="talkPhoto"><b>Carica una foto: </b></label>
 				<input class="file" type="file" name="talkPhoto" value="" maxlength="255">	
-				<br>		
 				
 				
 				<label id="tipo-label" for="tipo"><b>Tipo</b></label>
@@ -47,7 +48,7 @@
 				<input id="modello" type="text" placeholder="Inserisci Modello" name="modello" >
 				
 				<div class="radio-container">   
-					<label for="taglia">Taglia: </label>
+					<label for="taglia"><b>Taglia: </b></label>
 					<div class="radio">
 						<div class="radio-element">
 							<input class="radio-button" type="radio" id="s" name="taglia" value="S" checked>
@@ -76,7 +77,7 @@
 					if(dep != null && !dep.isEmpty()){
 						for(Deposito d : dep){
 							%>
-							<div class="row justify-content-center">
+							<div class="radio-element">
 								<input type="radio" name="deposito" id="<%=d.getID() %> "value="<%=d.getID() %>" checked>
 								<label for="<%=d.getID() %>"><%=d.getLuogo() %></label>
 							</div>
@@ -84,6 +85,7 @@
 							}
 						}
 					%>
+				</div>
 				<input class="add-btn" type="submit" value="Upload">
 				<input class="add-btn" type="reset">
 			</form>
