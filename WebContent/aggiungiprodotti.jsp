@@ -36,7 +36,7 @@
 				<input id="prezzo" type="number" name="prezzo">
 						
 				<label id="colore-label" for="colore"><b>Colore</b></label>
-				<input id="colore" type="text" placeholder="Reinserisci Colore" name="colore">
+				<input id="colore" type="text" placeholder="Inserisci Colore" name="colore">
 						    
 				<label id="desc-label" for="desc"><b>Descrizione</b></label>
 				<input id="desc" type="text" placeholder="Inserisci Descrizione" name="desc">

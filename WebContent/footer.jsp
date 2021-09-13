@@ -4,12 +4,12 @@
 			Le Mani di Nonna
 		</div>
 		<span>
-			<a href="https://www.facebook.com/lemanidinonna">
+			<a href="https://www.facebook.com/lemanidinonna" target="_blank">
 				<img src="./icon/facebook.svg" alt="facebook">
 			</a>
 		</span>
 		<span>
-			<a href="https://www.instagram.com/lemanidinonna/">
+			<a href="https://www.instagram.com/lemanidinonna/" target="_blank">
 				<img src="./icon/instagram.svg" alt="instagram">
 			</a>
 		</span>

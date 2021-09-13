@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import model.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.sql.DataSource;
 
 
 
@@ -42,11 +45,51 @@ public class UploadPhoto extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		//controllo
+		if(request.getSession().getAttribute("role") == null || request.getSession().getAttribute("role") != "admin") {
+			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
+			return;
+		}
+		//fine
+		
+		String tipo = request.getParameter("tipo");
+		float prezzo = Float.parseFloat(request.getParameter("prezzo"));
+		String colore = request.getParameter("colore");
+		String marca = request.getParameter("marca");
+		String modello = request.getParameter("modello");
+		String taglia = request.getParameter("taglia");
+		int quantita = Integer.parseInt(request.getParameter("quantita"));
+		int deposito = Integer.parseInt(request.getParameter("deposito"));
+		
+		Prodotto prodotto = new Prodotto();
+		prodotto.setTipo(tipo);
+		prodotto.setPrezzo(prezzo);
+		prodotto.setColore(colore);
+		prodotto.setMarca(marca);
+		prodotto.setTaglia(taglia);
+		
+		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		ProdottoModelDS modelP = new ProdottoModelDS(ds);
+		try {
+		modelP.doSave(prodotto);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		int codice = this.findCodice(modelP);
+		if(codice > 0)
+			prodotto.setCodice(this.findCodice(modelP));
+		else
+			throw new ServletException("Errore");
+		
+		
+		
+		//upload immagine
 		String SAVE_DIR = "/uploadTemp";
 		System.out.println(request.getParameter("id"));
 		//int id = Integer.parseInt(request.getParameter("id"));
-		int id = 1;
 		String appPath = request.getServletContext().getRealPath("");
 		String savePath = appPath + File.separator + SAVE_DIR;
 
@@ -60,15 +103,27 @@ public class UploadPhoto extends HttpServlet {
 			if (fileName != null && !fileName.equals("")) {
 				part.write(savePath + File.separator + fileName);
 				try {
-					PhotoModelDS.updatePhoto(id, savePath + File.separator + fileName);
+					PhotoModelDS.updatePhoto(prodotto.getCodice(), savePath + File.separator + fileName);
 				} catch (SQLException sqlException) {
 					System.out.println(sqlException);
 				}
 			}
 		}
+		//fine
 
-		RequestDispatcher view = request.getRequestDispatcher("/aggiungiProdotti.jsp");
-		view.forward(request, response);
+		RequestDispatcher next = request.getRequestDispatcher("/UploadProdotto");
+		next.forward(request, response);
+	}
+	
+	private int findCodice(ProdottoModelDS modelP) {
+		try {
+		ArrayList<Prodotto> all = modelP.doRetrieveAll(null);
+		return all.size();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 	private String extractFileName(Part part) {

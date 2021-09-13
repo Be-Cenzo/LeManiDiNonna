@@ -43,7 +43,6 @@ public class ProdottoModelDS implements Model<Prodotto> {
 				prodotto.setDescrizione(rs.getString("descrizione"));
 				prodotto.setMarca(rs.getString("marca"));
 				prodotto.setModello(rs.getString("modello"));
-				prodotto.setImgurl(rs.getString("imgurl"));
 				String tipo = prodotto.getTipo();
 				if(!tipo.equals("t-shirt") && !tipo.equals("felpa")) {
 					prodotto.setTaglia("N");
@@ -92,7 +91,6 @@ public class ProdottoModelDS implements Model<Prodotto> {
 				prodotto.setDescrizione(rs.getString("descrizione"));
 				prodotto.setMarca(rs.getString("marca"));
 				prodotto.setModello(rs.getString("modello"));
-				prodotto.setImgurl(rs.getString("imgurl"));
 				String tipo = prodotto.getTipo();
 				if(!tipo.equals("t-shirt") && !tipo.equals("felpa")) {
 					prodotto.setTaglia("N");
@@ -166,7 +164,6 @@ public class ProdottoModelDS implements Model<Prodotto> {
 				prodotto.setDescrizione(rs.getString("descrizione"));
 				prodotto.setMarca(rs.getString("marca"));
 				prodotto.setModello(rs.getString("modello"));
-				prodotto.setImgurl(rs.getString("imgurl"));
 				String tipo = prodotto.getTipo();
 				if(!tipo.equals("t-shirt") && !tipo.equals("felpa")) {
 					prodotto.setTaglia("N");
@@ -192,7 +189,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO prodotto (tipo, prezzo, colore, descrizione, marca, modello, imgurl) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO prodotto (tipo, prezzo, colore, descrizione, marca, modello) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -205,7 +202,6 @@ public class ProdottoModelDS implements Model<Prodotto> {
 			preparedStatement.setString(4, prodotto.getDescrizione());
 			preparedStatement.setString(5, prodotto.getMarca());
 			preparedStatement.setString(6, prodotto.getModello());
-			preparedStatement.setString(7, prodotto.getImgurl());
 			
 			preparedStatement.executeUpdate();
 
@@ -228,7 +224,7 @@ public class ProdottoModelDS implements Model<Prodotto> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ?, imgurl = ? WHERE codice = ?";
+		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ?, WHERE codice = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -241,7 +237,6 @@ public class ProdottoModelDS implements Model<Prodotto> {
 			preparedStatement.setString(4, prodotto.getColore());
 			preparedStatement.setString(5, prodotto.getMarca());
 			preparedStatement.setString(6, prodotto.getModello());
-			preparedStatement.setString(7, prodotto.getImgurl());
 			
 			preparedStatement.setInt(8, prodotto.getCodice());
 
