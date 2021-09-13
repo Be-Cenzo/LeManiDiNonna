@@ -74,3 +74,7 @@ input.error{
 input{
 	margin-bottom: 5px;
 }
+
+#abbigliamento-container{
+	display: grid;
+}

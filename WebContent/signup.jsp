@@ -170,7 +170,7 @@ $(document).ready(function(){
 		var via = $("#via").val();
 		var civico = $("#civico").val();
 		var cap = $("#cap").val();
-		if (email == null || email === ""){
+		if (email == null || email == ""){
 			$("#email").addClass("error");
 		  	$("#email-label").html("<b>Email</b> - non può essere vuota");
 		  	event.preventDefault();
@@ -184,21 +184,21 @@ $(document).ready(function(){
 			$("#email").removeClass("error");
 		  	$("#email-label").html("<b>Email</b>");
 		}
-		if (password == null || password === "" || !password.match(passwordformat)){
+		if (password == null || password == "" || !password.match(passwordformat)){
 			$("#pswd").addClass("error");
 		  	$("#pswd-label").html("<b>Password</b> - inserire una password di almeno 6 caratteri");
 		  	event.preventDefault();
 		}
-		else if(password != null && password !== "" && password.match(passwordformat)){
+		else if(password != null && password != "" && password.match(passwordformat)){
 			$("#pswd").removeClass("error");
 		  	$("#pswd-label").html("<b>Password</b>");
 		}
-		else if(repassword == null || repassword === ""){
+		else if(repassword == null || repassword == ""){
 			$("#re-psw").addClass("error");
 		  	$("#re-psw-label").html("<b>Password</b> - non può essere vuoto");
 		  	event.preventDefault();
 		}
-		else if(!(repassword === password)){
+		else if(!(repassword == password)){
 			$("#pswd").addClass("error");
 		  	$("#pswd-label").html("<b>Password</b> - le password non coincidono");
 		  	$("#re-psw").addClass("error");
@@ -211,7 +211,7 @@ $(document).ready(function(){
 		  	$("#re-psw").removeClass("error");
 		  	$("#re-psw-label").html("<b>Password</b>");
 		}
-		if(name == null || name === ""){
+		if(name == null || name == ""){
 			$("#nome").addClass("error");
 		  	$("#nome-label").html("<b>Nome</b> - non può essere vuoto");
 		  	event.preventDefault();
@@ -220,7 +220,7 @@ $(document).ready(function(){
 			$("#nome").removeClass("error");
 		  	$("#nome-label").html("<b>Nome</b>");
 		}
-		if(surname == null || surname === ""){
+		if(surname == null || surname == ""){
 			$("#surname").addClass("error");
 		  	$("#surname-label").html("<b>Cognome</b> - non può essere vuoto");
 		  	event.preventDefault();
@@ -229,7 +229,7 @@ $(document).ready(function(){
 			$("#surname").removeClass("error");
 		  	$("#surname-label").html("<b>Cognome</b>");
 		}
-		if(birth == null || birth === ""){
+		if(birth == null || birth == ""){
 			$("#birth").addClass("error");
 		  	$("#birth-label").html("<b>Data di Nascita</b> - non può essere vuota");
 		  	event.preventDefault();
@@ -247,7 +247,7 @@ $(document).ready(function(){
 			$("#phone").removeClass("error");
 		  	$("#phone-label").html("<b>Numero di Telefono</b>");
 		}
-		if (provincia==null || provincia === ""){
+		if (provincia == null || provincia == ""){
 			$("#provincia").addClass("error");
 		  	$("#provincia-label").html("<b>Provincia</b> - non può essere vuota");
 		  	event.preventDefault();
@@ -256,7 +256,7 @@ $(document).ready(function(){
 			$("#provincia").removeClass("error");
 		  	$("#provincia-label").html("<b>Provincia</b>");
 		}
-		if (comune==null || comune === ""){
+		if (comune == null || comune == ""){
 			$("#comune").addClass("error");
 		  	$("#comune-label").html("<b>Comune</b> - non può essere vuoto");
 		  	event.preventDefault();
@@ -265,7 +265,7 @@ $(document).ready(function(){
 			$("#comune").removeClass("error");
 		  	$("#comune-label").html("<b>Comune</b>");
 		}
-		if (via==null || via === ""){
+		if (via == null || via == ""){
 			$("#via").addClass("error");
 		  	$("#via-label").html("<b>Via</b> - non può essere vuota");
 		  	event.preventDefault();
@@ -274,7 +274,7 @@ $(document).ready(function(){
 			$("#via").removeClass("error");
 		  	$("#via-label").html("<b>Via</b>");
 		}
-		if (civico==null || civico === ""){
+		if (civico == null || civico == ""){
 			$("#civico").addClass("error");
 		  	$("#civico-label").html("<b>Civico</b> - non può essere vuoto");
 		  	event.preventDefault();
@@ -283,7 +283,7 @@ $(document).ready(function(){
 			$("#civico").removeClass("error");
 		  	$("#civico-label").html("<b>Via</b>");
 		}
-		if (cap==null || cap === ""){
+		if (cap == null || cap == ""){
 			$("#cap").addClass("error");
 		  	$("#cap-label").html("<b>CAP</b> - non può essere vuoto");
 		  	event.preventDefault();

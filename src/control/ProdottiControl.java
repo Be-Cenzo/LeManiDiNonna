@@ -50,9 +50,13 @@ public class ProdottiControl extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("prodotti", prodotti);
+		RequestDispatcher dispatcher = null;
+		String from = request.getParameter("from");
+		if(from!=null && from.equals("add"))
+			dispatcher = this.getServletContext().getRequestDispatcher("/aggiungiquantita.jsp");
+		else
+			dispatcher = this.getServletContext().getRequestDispatcher("/prodotti.jsp");
 		
-
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/prodotti.jsp");
 		dispatcher.forward(request, response);
 		
 	}
