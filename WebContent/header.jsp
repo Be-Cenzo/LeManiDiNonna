@@ -83,6 +83,11 @@
 				 		Aggiungi un Prodotto
 				 	</button>
 				</a>
+				<a href="<%=response.encodeURL("./aggiungiquantita.jsp")%>">
+				 	<button class="login-btn">
+				 		Aggiorna Quantità Prodotto
+				 	</button>
+				</a>
 				<% 
 					}
 				%>

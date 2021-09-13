@@ -5,7 +5,8 @@
   	ArrayList<Prodotto> prodotti = (ArrayList<Prodotto>) request.getAttribute("prodotti");
 	
 	if(prodotti == null) {
-		response.sendRedirect(response.encodeRedirectURL("./ProdottiControl?from=add"));
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(response.encodeRedirectURL("/ProdottiControl?from=add"));
+		dispatcher.forward(request, response);
 		return;
 	}
     %>
@@ -28,6 +29,7 @@
 		if(role1 == null || role1.equals("guest")){
 			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
 		}
+		Integer errore = (Integer)request.getAttribute("errore-operazione");
 	%> 
 	<div class="contenuto">
 		<div class="add-container">
@@ -45,14 +47,34 @@
 								<%= prod.getDescrizione() %>
 							</div>
 						</div>
+						<input type="hidden" id="<%=prod.getCodice() %>" value="<%=prod.getTipo()%>">
 					</div>
 					<% } %>
 			</div>
 			<div class="update-prodotto" id="update">
-				<form id="add-form" class="add-form" action="<%= response.encodeURL("UploadProdotto")%>" enctype="multipart/form-data" method="post">
+				<form id="add-form" class="add-form" action="<%= response.encodeURL("UpdateProdotto")%>" method="post">
 					<div class="titolo">Aggiungi la Quantità:</div>
+					<%
+						if(errore != null && errore == 1){ 
+					%>
+							<label class="errore">La Taglia inserita non è valida</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 2){ 
+					%>
+							<label class="errore">La quantità inserita non è valida</label>
+					<%
+						}
+					%><%
+						if(errore != null && errore == 3){ 
+					%>
+							<label class="errore">Il Deposito inserito non è valido</label>
+					<%
+						}
+					%>
 					<input type="hidden" id="prod" name="prod">
-					<div class="radio-container">   
+					<div class="radio-container" id="taglie">   
 						<label for="taglia"><b>Taglia: </b></label>
 						<div class="radio">
 							<div class="radio-element">
@@ -76,7 +98,7 @@
 						<div class="titolo">Seleziona un Deposito</div>
 						
 					</div>
-					<input class="add-btn" type="submit" value="Upload">
+					<input class="add-btn" type="submit" value="Aggiungi">
 					<div class="add-btn" onclick="$('#update').animate({'height': 'toggle'}); $('#seleziona').animate({'height': 'toggle'});">Indietro</div>
 				</form>
 			</div>	
@@ -114,12 +136,16 @@ $(document).ready(function(){
 		}
 	});
 });
-});
 
 function select(id){
+	if($('#'+id).val() == "t-shirt" || $('#'+id).val() == "felpa")
+		$('#taglie').show();
+	else
+		$('#taglie').hide();
 	$('#seleziona').animate({'height': 'toggle'});
 	$('#update').animate({'height': 'toggle'});
 	$('#prod').val(id);
+	console.log($('#prod').val());
 }
 </script>
 </body>
