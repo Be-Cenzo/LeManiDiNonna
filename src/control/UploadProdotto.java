@@ -23,14 +23,14 @@ import javax.sql.DataSource;
 
 
 
-@WebServlet("/UploadPhoto")
+@WebServlet("/UploadProdotto")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
-public class UploadPhoto extends HttpServlet {
+public class UploadProdotto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public UploadPhoto() {
+	public UploadProdotto() {
 		super();
 	}
 
@@ -58,15 +58,18 @@ public class UploadPhoto extends HttpServlet {
 		String marca = request.getParameter("marca");
 		String modello = request.getParameter("modello");
 		String taglia = request.getParameter("taglia");
-		int quantita = Integer.parseInt(request.getParameter("quantita"));
-		int deposito = Integer.parseInt(request.getParameter("deposito"));
+		int quantita = Integer.parseInt(request.getParameter("quant"));
+		String deposito = request.getParameter("deposito");
+		String descrizione = request.getParameter("desc");
 		
 		Prodotto prodotto = new Prodotto();
 		prodotto.setTipo(tipo);
 		prodotto.setPrezzo(prezzo);
 		prodotto.setColore(colore);
 		prodotto.setMarca(marca);
+		prodotto.setModello(modello);
 		prodotto.setTaglia(taglia);
+		prodotto.setDescrizione(descrizione);
 		
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
@@ -84,6 +87,38 @@ public class UploadPhoto extends HttpServlet {
 		else
 			throw new ServletException("Errore");
 		
+		
+		//taglia
+		TaglieModelDS modelT = new TaglieModelDS(ds);
+		try {
+		modelT.doSave(prodotto.getCodice(), taglia);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		//fine
+		
+		
+		//deposito
+		DepositoModelDS modelD = new DepositoModelDS(ds);
+		Deposito dep = null;
+		try {
+		dep = modelD.doRetrieveByKey(deposito);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		//fine
+		
+		//conservato
+		ConservatoDS modelC = new ConservatoDS(ds);
+		try {
+			modelC.doSave(prodotto, dep, quantita);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		//fine
 		
 		
 		//upload immagine
@@ -111,7 +146,7 @@ public class UploadPhoto extends HttpServlet {
 		}
 		//fine
 
-		RequestDispatcher next = request.getRequestDispatcher("/UploadProdotto");
+		RequestDispatcher next = request.getRequestDispatcher("/chisiamo.jsp");
 		next.forward(request, response);
 	}
 	

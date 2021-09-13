@@ -22,7 +22,7 @@
 	%> 
 	<div class="contenuto">
 		<div class="add-container">
-			<form class="add-form" action="<%= response.encodeURL("UploadPhoto")%>" enctype="multipart/form-data" method="post">
+			<form class="add-form" action="<%= response.encodeURL("UploadProdotto")%>" enctype="multipart/form-data" method="post">
 				
 				<div class="titolo">Aggiungi un Prodotto</div>
 				<label for="talkPhoto"><b>Carica una foto: </b></label>
@@ -33,7 +33,7 @@
 				<input id="tipo" type="text" placeholder="Inserisci Tipo" name="tipo">
 		
 				<label id="prezzo-label" for="prezzo"><b>Prezzo</b></label>
-				<input id="prezzo" type="number" name="prezzo">
+				<input id="prezzo" type="text" placeholder="Inserisci Prezzo" name="prezzo">
 						
 				<label id="colore-label" for="colore"><b>Colore</b></label>
 				<input id="colore" type="text" placeholder="Inserisci Colore" name="colore">
@@ -92,7 +92,7 @@ $(document).ready(function(){
 		for(var i = 0; i<json.length; i++){
 			if(i > 0)
 				checked = "";
-			$("#depositi").append("<div class='radio-element'><input type='radio' name='deposito' id='"+ json[i].ID +"' value='"+ json[i].luogo +"'" + checked + "><label for='" + json[i].ID +"'>" + json[i].luogo + "</label></div>");
+			$("#depositi").append("<div class='radio-element'><input type='radio' name='deposito' id='"+ json[i].ID +"' value='"+ json[i].ID +"'" + checked + "><label for='" + json[i].ID +"'>" + json[i].luogo + "</label></div>");
 		};
 	});
 });
