@@ -28,6 +28,7 @@
 	</div>
 	<div class="menu">
 		<a class="menu-element" href="<%=response.encodeURL("./prodotti.jsp") %>">Prodotti</a>
+		<a class="menu-element" href="<%=response.encodeURL("./chisiamo.jsp") %>">Chi Siamo</a>
 	</div>
 	
 	
