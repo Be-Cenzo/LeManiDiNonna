@@ -40,7 +40,6 @@ public class ProdottoPage extends HttpServlet {
 		String id = (String) request.getParameter("id");
 		
 		Prodotto prod = null;
-		System.out.println("id: " + id);
 		
 		if(id != null) {
 			try {
@@ -56,6 +55,7 @@ public class ProdottoPage extends HttpServlet {
 			request.setAttribute("prodotto-page", prod);
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/prodotto.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 		//prodotto non trovato
 		response.sendRedirect(response.encodeRedirectURL("./notfound.jsp"));

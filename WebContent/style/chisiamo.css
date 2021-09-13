@@ -1,0 +1,77 @@
+@charset "ISO-8859-1";
+
+.carousel{
+	width: 20rem;
+	border-radius: 25%;
+	overflow: hidden;
+}
+
+.image-icon{
+	display: flex;
+	justify-content: center;
+}
+
+.box{
+	display: flex;
+	width: 80%;
+	justify-content: center;
+	margin: 5px;
+}
+
+.box > * {
+	margin: 5px;
+}
+
+.right{
+	float: right;
+}
+
+.text{
+	align-items: center;
+    display: flex;
+    margin: 10px;
+    width: 300px;
+    font-size: larger;
+}
+
+#nonna, #magazine{
+	position: relative;
+	z-index: 1;
+	height: 300px;
+}
+
+.carousel-control-next{
+	z-index: 2;
+}
+
+@media screen and (max-width:1225px){
+	.box{
+		width: 90%;
+	}
+}
+
+@media screen and (max-width:1090px){
+	.box{
+		width: 100%;
+	}
+}
+
+@media screen and (max-width:981px){
+	.box{
+		text-align: center;
+	}
+	
+	#nonna, #magazine{
+		display: none;
+	}
+	
+	.image-icon{
+		justify-content: center;
+	}
+}
+
+@media screen and (max-width:670px){
+	.box{
+		display: grid;
+	}
+}

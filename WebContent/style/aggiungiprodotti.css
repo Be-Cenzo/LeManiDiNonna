@@ -1,0 +1,76 @@
+@charset "ISO-8859-1";
+
+.add-container{
+	background-color: #caafca;
+	margin: 5px auto;
+	border-radius: 10px;
+	width: 50%;
+	z-index: 4;
+	padding: 30px 0;
+	display: flex;
+	justify-content: center;
+}
+
+@media screen and (max-width: 760px){
+	.add-container{
+		width:75%;
+	}
+}
+
+@media screen and (max-width: 450px){
+	.add-container{
+		width:90%;
+	}
+}
+
+.add-form{
+	display: grid;
+	width: 60%;
+	align-content: center;
+}
+
+.riga{
+	padding: 5px;
+}
+
+.riga > *{
+	margin: 5px 0;
+	width: 100%;
+}
+
+.errore{
+	color: #bf1b1b;
+}
+
+input.error{
+	border: 1px solid red;
+}
+
+.add-btn{
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+.titolo{
+	font-size: 1.3rem;
+	text-align: center;
+}
+
+.radio-container{
+	display: flex;
+	align-items: center;
+}
+
+.radio{
+	margin-left: 10px;
+}
+
+.radio-element{
+	display:block;
+	margin-bottom: 5px;
+}
+
+input{
+	margin-bottom: 5px;
+}
