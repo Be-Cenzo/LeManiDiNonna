@@ -30,8 +30,7 @@
 			Carrello cart = (Carrello)session.getAttribute("carrello");
 			Float totale = 0f;
 			if(cart!=null && !cart.isEmpty()){
-				for(int prodID : cart.getProdotti().keySet()){
-					Prodotto prod = cart.getProdotti().get(prodID);
+				for(Prodotto prod : cart.getProdotti()){
 					totale += prod.getQuantità()*prod.getPrezzo();
 					%>
 						

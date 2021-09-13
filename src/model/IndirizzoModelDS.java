@@ -148,7 +148,7 @@ public class IndirizzoModelDS implements Model<Indirizzo>{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE indirizzo SET provincia = ?, comune = ?, civico = ?, cap = ? WHERE ID = ? AND email = ?";
+		String updateSQL = "UPDATE indirizzo SET provincia = ?, comune = ?, via = ?, civico = ?, cap = ? WHERE ID = ? AND email = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -157,11 +157,12 @@ public class IndirizzoModelDS implements Model<Indirizzo>{
 
 			preparedStatement.setString(1, indirizzo.getProvincia());
 			preparedStatement.setString(2, indirizzo.getComune());
-			preparedStatement.setFloat(3, indirizzo.getCivico());
-			preparedStatement.setString(4, indirizzo.getCAP());
+			preparedStatement.setString(3, indirizzo.getVia());
+			preparedStatement.setFloat(4, indirizzo.getCivico());
+			preparedStatement.setString(5, indirizzo.getCAP());
 			
-			preparedStatement.setInt(5, indirizzo.getID());
-			preparedStatement.setString(6, email);
+			preparedStatement.setInt(6, indirizzo.getID());
+			preparedStatement.setString(7, email);
 
 			preparedStatement.executeUpdate();
 

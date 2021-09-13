@@ -65,7 +65,7 @@ public class AggiungiAlCarrello extends HttpServlet {
 			if(prod != null && (taglia.equals("S") || taglia.equals("M") || taglia.equals("L") || taglia.equals("N"))) {
 				prod.setTaglia(taglia);
 				prod.addQuantità(quantità);
-				cart.addProdotto(prod.getCodice(), prod);
+				cart.addProdotto(prod);
 				System.out.println("aggiunto");
 				request.getSession().setAttribute("carrello", cart);
 			}

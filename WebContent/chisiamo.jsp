@@ -17,7 +17,7 @@
 	
 	<div class="contenuto">
 		<div class="image-icon">
-			<div class="box">
+			<div class="box left">
 				<div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
@@ -47,7 +47,7 @@
 		</div>
 			
 		<div class="image-icon">
-			<div class="box  right">
+			<div class="box right">
 				<img id="magazine" src="./icon/magazine.png" alt="magazine">
 				<div class="text">
 					Consulta il nostro catalogo di&nbsp;<a href="<%=response.encodeURL("./prodotti.jsp")%>"> Prodotti</a>

@@ -17,7 +17,7 @@ public class CreaOrdineDS {
 		this.ds = ds;
 	}
 	
-	public int newOrdine(String email, String note, int indirizzo, String corriere, HashMap<Integer, Prodotto> prodotti, float totale) throws SQLException {
+	public int newOrdine(String email, String note, int indirizzo, String corriere, ArrayList<Prodotto> prodotti, float totale) throws SQLException {
 		Connection con = null;
         PreparedStatement st = null;
         ResultSet ris = null;
@@ -55,8 +55,7 @@ public class CreaOrdineDS {
                     id = ris.getInt("Max");
                 }
                 
-                for(int prodID : prodotti.keySet()){
-        			Prodotto prodotto = prodotti.get(prodID);
+                for(Prodotto prodotto : prodotti){
                 	int quantita = prodotto.getQuantità();
 	                st = con.prepareStatement("SELECT SUM(disponibilità) AS quantità FROM Conservato WHERE prodotto = ? AND taglia = ?;");
 	                st.setInt(1, prodotto.getCodice());
@@ -153,18 +152,17 @@ public class CreaOrdineDS {
         return 1;
 	}
 	
-	public ArrayList<Integer> checkDisponibilità(HashMap<Integer, Prodotto> prodotti) {
+	public ArrayList<Prodotto> checkDisponibilità(ArrayList<Prodotto> prodotti) {
 		Connection con = null;
         PreparedStatement st = null;
         ResultSet ris = null;
         int res, id = 0, dispo = 0;
-        ArrayList<Integer> prodottiND = new ArrayList<Integer>();
+        ArrayList<Prodotto> prodottiND = new ArrayList<Prodotto>();
 
         try{
             con = ds.getConnection();
 
-				for(int prodID : prodotti.keySet()){
-					Prodotto prodotto = prodotti.get(prodID);
+	            for(Prodotto prodotto : prodotti){
 		        	int quantita = prodotto.getQuantità();
 		            st = con.prepareStatement("SELECT SUM(disponibilità) AS quantità FROM Conservato WHERE prodotto = ? AND taglia = ?;");
 		            st.setInt(1, prodotto.getCodice());
@@ -176,7 +174,7 @@ public class CreaOrdineDS {
 		            }
 		
 		            if(dispo<quantita) {
-		                prodottiND.add(prodotto.getCodice());
+		                prodottiND.add(prodotto);
 		            	System.out.println("Non c'è abbastanza disponibilità.");
 		            }
 		 }

@@ -1,36 +1,43 @@
 package model;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Carrello implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private HashMap<Integer, Prodotto> prodotti;
+	private ArrayList<Prodotto> prodotti;
 	
 	public Carrello() {
-		prodotti = new HashMap<Integer, Prodotto>();
+		prodotti = new ArrayList<Prodotto>();
 	}
 	
-	public void addProdotto(int prodID, Prodotto prodotto){
-		if(prodotti.containsKey(prodID)) {
-			prodotti.get(prodID).addQuantità(prodotto.getQuantità());
+	public void addProdotto(Prodotto prodotto){
+		for(Prodotto prod : prodotti) {
+			if(prod.getCodice() == prodotto.getCodice() && prod.getTaglia().equals(prodotto.getTaglia())) {
+				prod.addQuantità(prodotto.getQuantità());
+				return;
+			}
 		}
-		else {
-			prodotti.put(prodID, prodotto);
+		prodotti.add(prodotto);
+	}
+	
+	public Prodotto removeProdotto(Prodotto prodotto) {
+		for(Prodotto prod : prodotti) {
+			if(prod.getCodice() == prodotto.getCodice() && prod.getTaglia().equals(prodotto.getTaglia())){
+				prodotti.remove(prod);
+				return prod;
+			}
 		}
+		return null;
 	}
 	
-	public Prodotto removeProdotto(Integer prod) {
-		return prodotti.remove(prod);
-	}
-	
-	public HashMap<Integer, Prodotto> getProdotti(){
+	public ArrayList<Prodotto> getProdotti(){
 		return prodotti;
 	}
 	
 	public void deleteList() {
-		prodotti = new HashMap<Integer, Prodotto>();
+		prodotti = new ArrayList<Prodotto>();
 	}
 	
 	public boolean isEmpty() {

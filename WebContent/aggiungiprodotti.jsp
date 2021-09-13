@@ -68,23 +68,9 @@
 				<label id="quant" for="quant"><b>Quantità</b></label>
 				<input id="quant-input" type="number" name="quant">
 						    
-				<div class="deposito" id="deposito">
+				<div class="deposito"  id="depositi">
 					<div class="titolo">Seleziona un Deposito</div>
-					<%
-					DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-					DepositoModelDS model = new DepositoModelDS(ds);
-					ArrayList<Deposito> dep = (ArrayList<Deposito>)model.doRetrieveAll(null);
-					if(dep != null && !dep.isEmpty()){
-						for(Deposito d : dep){
-							%>
-							<div class="radio-element">
-								<input type="radio" name="deposito" id="<%=d.getID() %> "value="<%=d.getID() %>" checked>
-								<label for="<%=d.getID() %>"><%=d.getLuogo() %></label>
-							</div>
-							<%
-							}
-						}
-					%>
+					
 				</div>
 				<input class="add-btn" type="submit" value="Upload">
 				<input class="add-btn" type="reset">
@@ -95,5 +81,23 @@
 	
 	<%@ include file="footer.jsp" %>
 </div>
+
+<script>
+$(document).ready(function(){
+	$.ajax({
+		url: "GetDepositi",
+		method: "GET"})
+	.done(function (json){
+		var checked = "checked";
+		for(var i = 0; i<json.length; i++){
+			if(i > 0)
+				checked = "";
+			$("#depositi").append("<div class='radio-element'><input type='radio' name='deposito' id='"+ json[i].ID +"' value='"+ json[i].luogo +"'" + checked + "><label for='" + json[i].ID +"'>" + json[i].luogo + "</label></div>");
+		};
+	});
+});
+
+</script>
+
 </body>
 </html>

@@ -23,7 +23,13 @@
 }
 
 .right{
-	float: right;
+	position: relative;
+	right: -100px;
+}
+
+.left{
+	position: relative;
+	left: -100px;
 }
 
 .text{
@@ -50,13 +56,8 @@
 	}
 }
 
-@media screen and (max-width:1090px){
-	.box{
-		width: 100%;
-	}
-}
 
-@media screen and (max-width:981px){
+@media screen and (max-width:1165px){
 	.box{
 		text-align: center;
 	}
@@ -70,8 +71,23 @@
 	}
 }
 
-@media screen and (max-width:670px){
+
+@media screen and (max-width:1090px){
+	.box{
+		width: 100%;
+	}
+}
+
+@media screen and (max-width:850px){
 	.box{
 		display: grid;
+	}
+	
+	.right{
+		position: unset;
+	}
+	
+	.left{
+		position: unset;
 	}
 }

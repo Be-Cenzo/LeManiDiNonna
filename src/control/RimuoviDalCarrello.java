@@ -33,6 +33,7 @@ public class RimuoviDalCarrello extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		String taglia = request.getParameter("taglia");
 		String action = request.getParameter("action");
 		
 		Carrello cart = (Carrello) request.getSession(true).getAttribute("carrello");
@@ -57,9 +58,13 @@ public class RimuoviDalCarrello extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				if(taglia != null && !taglia.equals("N"))
+					prod.setTaglia(taglia);
+				else
+					prod.setTaglia("N");
 				
 				if(prod != null) {
-					cart.removeProdotto(prod.getCodice());
+					cart.removeProdotto(prod);
 					System.out.println("rimosso " + cart.getProdotti().size());
 					request.getSession().setAttribute("carrello", cart);
 				}

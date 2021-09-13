@@ -25,7 +25,6 @@
 		Integer addErr = (Integer) request.getAttribute("errore-add-address");
 		Integer addNmbrErr = (Integer) request.getAttribute("errore-add-number");
 		Integer updNmbrErr = (Integer) request.getAttribute("errore-update-number");
-		System.out.println("indirizzi: " + user.getIndirizzi());
 	%> 
 	
 	<%@ include file="header.jsp" %>
