@@ -20,12 +20,11 @@
 	
 	<div class="titolo">Carrello</div>
 	<%
-		ArrayList<Integer> nonDisponibili = (ArrayList<Integer>)request.getAttribute("nonDisponibili");
+		ArrayList<Prodotto> nonDisponibili = (ArrayList<Prodotto>)request.getAttribute("nonDisponibili");
 		Carrello cart = (Carrello)session.getAttribute("carrello");
 		Float totale = 0f;
 		if(cart!=null && !cart.isEmpty()){
-		for(int prodID : cart.getProdotti().keySet()){
-			Prodotto prod = cart.getProdotti().get(prodID);
+		for(Prodotto prod : cart.getProdotti()){
 			totale += prod.getQuantità()*prod.getPrezzo();
 		%>
 			
@@ -38,7 +37,7 @@
 					<a href="<%=response.encodeURL("ProdottoPage?id=" + prod.getCodice())%>">
 							<%= prod.getDescrizione() %>
 						</a>
-					<a href="<%=response.encodeURL("./RimuoviDalCarrello?action=remove&id=" + prod.getCodice())%>">
+					<a href="<%=response.encodeURL("./RimuoviDalCarrello?action=remove&id=" + prod.getCodice() + "&taglia=" + prod.getTaglia())%>">
 						<span id="deleteIcon">
 							<img src="./icon/trash.svg" alt="edit"/>
 						</span>
@@ -56,7 +55,7 @@
 					<div class="product-price" id="price<%=prod.getCodice()%>">
 						<%=prod.getQuantità()*prod.getPrezzo() %>€
 					</div>
-					<%if(nonDisponibili != null && nonDisponibili.contains(prod.getCodice())){ %>
+					<%if(nonDisponibili != null && nonDisponibili.contains(prod)){ %>
 					<div class="product-not-available" id="price<%=prod.getCodice()%>">
 						Prodotto non disponibile
 					</div>
@@ -70,17 +69,17 @@
 				Totale: <%=totale %>€
 		</div>
 		<div class="row justify-content-center">
-			<button class="carrello-button">
-				<a href="<%=response.encodeURL("./RimuoviDalCarrello?action=all")%>">
+			<a class="button-link" href="<%=response.encodeURL("./RimuoviDalCarrello?action=all")%>">
+				<button class="carrello-button">
 					Svuota Carrello
-				</a>
-			</button>
+				</button>
+			</a>
 			<%if(nonDisponibili == null){ %>
-			<button class="carrello-button">
-				<a href="<%=response.encodeURL("./Pagamento")%>">
-					Prosegui al Pagamento
-				</a>
-			</button>
+			<a class="button-link" href="<%=response.encodeURL("./Pagamento")%>">
+				<button class="carrello-button">	
+					Prosegui al Pagamento	
+				</button>
+			</a>
 			<%}%>
 		</div>
 		<%

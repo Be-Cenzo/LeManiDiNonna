@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,18 +9,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+import com.google.gson.Gson;
+
+import model.Deposito;
+import model.DepositoModelDS;
 
 /**
- * Servlet implementation class CercaProdotto
+ * Servlet implementation class GetDepositi
  */
-@WebServlet("/CercaProdotto")
-public class CercaProdotto extends HttpServlet {
+@WebServlet("/GetDepositi")
+public class GetDepositi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CercaProdotto() {
+    public GetDepositi() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,10 +36,19 @@ public class CercaProdotto extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String cerca = request.getParameter("cerca");
+		response.setContentType("application/json");
 		
-		request.getSession().setAttribute("cerca", cerca);
-		response.sendRedirect(response.encodeURL("./prodotti.jsp"));
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		DepositoModelDS model = new DepositoModelDS(ds);
+		ArrayList<Deposito> dep = null;
+		try {
+			dep = (ArrayList<Deposito>)model.doRetrieveAll(null);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String json = new Gson().toJson(dep);
+		response.getWriter().write(json);
 	}
 
 	/**

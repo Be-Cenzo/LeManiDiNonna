@@ -28,8 +28,6 @@ public class FiltraProdotti extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		System.out.println("richiesta arrivatas");
 		
 		ArrayList<String> filter = (ArrayList<String>) request.getSession(true).getAttribute("filter");
 		if(filter == null) {
@@ -38,7 +36,6 @@ public class FiltraProdotti extends HttpServlet {
 		}
 		
 		String filtro = request.getParameter("filtro");
-		System.out.println("filtro: " + filtro);
 		if(filtro != null) {
 			if(filtro.equals("t-shirt") || filtro.equals("felpa") || filtro.equals("borsello") || filtro.equals("cappello") || filtro.equals("shopper") || filtro.equals("grembiule"))
 				if(filter.contains(filtro))

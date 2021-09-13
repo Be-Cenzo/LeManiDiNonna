@@ -57,12 +57,11 @@ public class CreaOrdine extends HttpServlet {
 		
 		float totale = 0;
 		
-		for(int prodID : cart.getProdotti().keySet()){
-			Prodotto prod = cart.getProdotti().get(prodID);
+		for(Prodotto prod : cart.getProdotti()){
 			totale += prod.getQuantità()*prod.getPrezzo();
 		}
 		
-		ArrayList<Integer> prodotti = crea.checkDisponibilità(cart.getProdotti());
+		ArrayList<Prodotto> prodotti = crea.checkDisponibilità(cart.getProdotti());
 		
 		if(!prodotti.isEmpty()) {
 		request.setAttribute("nonDisponibili", prodotti);
@@ -80,8 +79,7 @@ public class CreaOrdine extends HttpServlet {
 		if(ris == 1)
 			System.out.println("WOW");
 		
-		for(int prodID : cart.getProdotti().keySet()){
-			Prodotto prod = cart.getProdotti().get(prodID);
+		for(Prodotto prod : cart.getProdotti()){
 			System.out.println("Prodotto: " + prod.getDescrizione());
 		}
 		System.out.println("Email: " + account.getEmail());

@@ -73,12 +73,13 @@ public class Pagamento extends HttpServlet {
 		CreaOrdineDS crea = new CreaOrdineDS(ds);
 		Carrello cart = (Carrello) request.getSession().getAttribute("carrello");
 		
-		ArrayList<Integer> prodotti = crea.checkDisponibilità(cart.getProdotti());
+		ArrayList<Prodotto> prodotti = crea.checkDisponibilità(cart.getProdotti());
 		
 		if(!prodotti.isEmpty()) {
 			request.setAttribute("nonDisponibili", prodotti);
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/carrello.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/pagamento.jsp");

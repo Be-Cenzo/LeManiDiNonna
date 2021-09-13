@@ -77,8 +77,12 @@
 			      <% 
 					String ruolo = (String)session.getAttribute("role");
 					if(ruolo.equals("admin")){
-				  %> 
-				<button class="login-btn">Area amministratore</button>
+				  %>
+				<a href="<%=response.encodeURL("./aggiungiprodotti.jsp")%>">
+				 	<button class="login-btn">
+				 		Aggiungi un Prodotto
+				 	</button>
+				</a>
 				<% 
 					}
 				%>
