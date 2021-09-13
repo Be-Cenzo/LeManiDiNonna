@@ -1,13 +1,13 @@
 package control;
 
 import java.io.File;
+import utility.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import model.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,16 +51,108 @@ public class UploadProdotto extends HttpServlet {
 			return;
 		}
 		//fine
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/aggiungiprodotti.jsp");
+		Integer error = 0;
+		request.setAttribute("errore-operazione",  error);
+		String tipo = null;
+		try {
+			tipo = Validazione.checkStringaVuota(request.getParameter("tipo"));
+			tipo = Validazione.checkTipo(request.getParameter("tipo"));
+			
+		}
+		catch(Exception e) {
+			error = 1;
+			request.setAttribute("errore-operazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
+		float prezzo = 0;
+		try {
+			String temp = Validazione.checkStringaVuota(request.getParameter("prezzo"));
+			prezzo = Float.parseFloat(request.getParameter("prezzo"));
+			
+		}
+		catch(Exception e) {
+			error = 2;
+			request.setAttribute("errore-operazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
+		String colore = null;
+		try {
+			colore = Validazione.checkStringaVuota(request.getParameter("colore"));
+		}
+		catch(Exception e) {
+			error = 3;
+			request.setAttribute("errore-operazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
+		String descrizione = null;
+		try {
+			descrizione = Validazione.checkStringaVuota(request.getParameter("desc"));
+		}
+		catch(Exception e) {
+			error = 4;
+			request.setAttribute("errore-operazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
+		String marca = null;
+		if(tipo.equals("felpa") || tipo.equals("t-shirt")) {
+			try {
+				marca = Validazione.checkStringaVuota(request.getParameter("marca"));
+			}
+			catch(Exception e) {
+				error = 5;
+				request.setAttribute("errore-operazione", error);
+				dispatcher.forward(request, response);
+				return;
+			}
+		}
 		
-		String tipo = request.getParameter("tipo");
-		float prezzo = Float.parseFloat(request.getParameter("prezzo"));
-		String colore = request.getParameter("colore");
-		String marca = request.getParameter("marca");
-		String modello = request.getParameter("modello");
-		String taglia = request.getParameter("taglia");
-		int quantita = Integer.parseInt(request.getParameter("quant"));
-		String deposito = request.getParameter("deposito");
-		String descrizione = request.getParameter("desc");
+		String modello = null;
+		if(tipo.equals("felpa") || tipo.equals("t-shirt")) {
+			try {
+				modello = Validazione.checkStringaVuota(request.getParameter("modello"));
+			}
+			catch(Exception e) {
+				error = 6;
+				request.setAttribute("errore-operazione", error);
+				dispatcher.forward(request, response);
+				return;
+			}
+		}
+		
+		String taglia = null;
+		if(tipo.equals("felpa") || tipo.equals("t-shirt"))
+			try {
+				taglia = Validazione.checkStringaVuota(request.getParameter("taglia"));
+				taglia = Validazione.checkTaglia(request.getParameter("taglia"));
+			}
+			catch(Exception e) {
+				error = 7;
+				request.setAttribute("errore-operazione", error);
+				dispatcher.forward(request, response);
+				return;
+			}
+		else
+			taglia = "N";
+		
+		int quantita = 0;
+		try {
+			quantita = Integer.parseInt(request.getParameter("quant"));
+			if(quantita < 0)
+				throw new Exception("Error negative quantity");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			error = 8;
+			request.setAttribute("errore-operazione", error);
+			dispatcher.forward(request, response);
+			return;
+		}
+		
 		
 		Prodotto prodotto = new Prodotto();
 		prodotto.setTipo(tipo);
@@ -91,7 +183,13 @@ public class UploadProdotto extends HttpServlet {
 		//taglia
 		TaglieModelDS modelT = new TaglieModelDS(ds);
 		try {
-		modelT.doSave(prodotto.getCodice(), taglia);
+			if(tipo.equals("t-shirt") || tipo.equals("felpa")) {
+				modelT.doSave(prodotto.getCodice(), "S");
+				modelT.doSave(prodotto.getCodice(), "M");
+				modelT.doSave(prodotto.getCodice(), "L");
+			}
+			else
+				modelT.doSave(prodotto.getCodice(), "N");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -101,12 +199,23 @@ public class UploadProdotto extends HttpServlet {
 		
 		//deposito
 		DepositoModelDS modelD = new DepositoModelDS(ds);
+		String deposito = null;
 		Deposito dep = null;
 		try {
+		int temp = Integer.parseInt(request.getParameter("deposito"));
+		deposito = request.getParameter("deposito");
 		dep = modelD.doRetrieveByKey(deposito);
+		if(dep.getLuogo() == null)
+			throw new Exception("Invalid dep id");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+		}
+		catch(Exception e) {
+			error = 9;
+			request.setAttribute("errore-operazione", error);
+			dispatcher.forward(request, response);
+			return;
 		}
 		//fine
 		
@@ -123,8 +232,6 @@ public class UploadProdotto extends HttpServlet {
 		
 		//upload immagine
 		String SAVE_DIR = "/uploadTemp";
-		System.out.println(request.getParameter("id"));
-		//int id = Integer.parseInt(request.getParameter("id"));
 		String appPath = request.getServletContext().getRealPath("");
 		String savePath = appPath + File.separator + SAVE_DIR;
 

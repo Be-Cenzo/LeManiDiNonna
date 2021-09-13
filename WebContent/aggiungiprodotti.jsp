@@ -19,10 +19,72 @@
 		if(role1 == null || role1.equals("guest")){
 			response.sendRedirect(response.encodeURL("./accessdenied.jsp"));
 		}
+		
+		Integer errore = (Integer)request.getAttribute("errore-operazione");
 	%> 
 	<div class="contenuto">
 		<div class="add-container">
 			<form class="add-form" action="<%= response.encodeURL("UploadProdotto")%>" enctype="multipart/form-data" method="post">
+				
+				<%
+					if(errore != null && errore == 1){ 
+				%>
+						<label class="errore">Il tipo inserito non è valido</label>
+				<%
+					}
+				%>
+				<%
+					if(errore != null && errore == 2){ 
+				%>
+						<label class="errore">Il prezzo inserito non è valido</label>
+				<%
+					}
+				%>
+					
+				<%
+					if(errore != null && errore == 3){ 
+				%>
+						<label class="errore">Il Colore non può essere vuoto</label>
+				<%
+					}
+				%>
+				<%
+					if(errore != null && errore == 4){ 
+				%>
+						<label class="errore">La Descrizione non può essere vuota</label>
+				<%
+					}
+				%><%
+					if(errore != null && errore == 5){ 
+				%>
+						<label class="errore">La Marca non può essere vuota</label>
+				<%
+					}
+				%><%
+					if(errore != null && errore == 6){ 
+				%>
+						<label class="errore">Il Modello non può essere vuota</label>
+				<%
+					}
+				%><%
+					if(errore != null && errore == 7){ 
+				%>
+						<label class="errore">La Taglia inserita non è valida</label>
+				<%
+					}
+				%><%
+					if(errore != null && errore == 8){ 
+				%>
+						<label class="errore">La quantità inserita non è valida</label>
+				<%
+					}
+				%><%
+					if(errore != null && errore == 9){ 
+				%>
+						<label class="errore">Il Deposito inserito non è valido</label>
+				<%
+					}
+				%>
 				
 				<div class="titolo">Aggiungi un Prodotto</div>
 				<label for="talkPhoto"><b>Carica una foto: </b></label>

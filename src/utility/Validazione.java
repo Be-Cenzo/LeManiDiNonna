@@ -72,4 +72,18 @@ public class Validazione {
 			return str;
 	}
 	
+	public static String checkTipo(String str) throws Exception {
+		if(str.equals("t-shirt") || str.equals("cappello") || str.equals("borsello") || str.equals("grembiule") || str.equals("shopper") || str.equals("felpa"))
+			return str;
+		else
+			throw new Exception("Invalid tipo");
+	}
+	
+	public static String checkTaglia(String str) throws Exception{
+		if(str.equals("S") || str.equals("M") || str.equals("L"))
+			return str;
+		else
+			throw new Exception("Invalid taglia");
+	}
+	
 }
