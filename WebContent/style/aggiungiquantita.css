@@ -1,0 +1,139 @@
+@charset "ISO-8859-1";
+
+.row{
+	padding: 10px;
+	background-color: #dfc6df;
+	margin: 0 10px;
+}
+
+.product-row, .titolo{
+	border-bottom: 1px solid #caafca;
+}
+
+.product-container{
+	font-family: 'Handlee', cursive;
+	width: 85%;
+	padding: 10px;
+	font-size: 1rem;
+}
+
+.product-details > *{
+	display: inline-block;
+}
+
+.product-size{
+	width: 100%;
+}
+
+.product-price{
+	float: right;
+}
+
+.product-description{
+	font-weight: bolder;
+	font-size: 1.2rem;
+}
+
+.product-img{
+	width: 15%;
+}
+
+.product-img > img{
+	width: 100%;
+	padding: 5px;
+}
+
+.update-prodotto{
+	display: none;
+}
+
+.add-form{
+	display: grid;
+	width: 60%;
+	align-content: center;
+	margin: auto;
+}
+
+.add-container{
+	background-color: #caafca;
+	margin: 5px auto;
+	border-radius: 10px;
+	width: 50%;
+	z-index: 4;
+	padding: 30px 15px;
+	display: block;
+	justify-content: center;
+}
+
+.errore{
+	color: #bf1b1b;
+}
+
+input.error{
+	border: 1px solid red;
+}
+
+.add-btn{
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 10px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.radio-container{
+	display: flex;
+	align-items: center;
+}
+
+.radio{
+	margin-left: 10px;
+}
+
+.radio-element{
+	display:block;
+	margin-bottom: 5px;
+}
+
+input{
+	margin-bottom: 5px;
+}
+
+@media screen and (max-width: 760px){
+	.add-container{
+		width:75%;
+	}
+}
+
+@media screen and (max-width: 450px){
+	.add-container{
+		width:90%;
+	}
+}
+
+@media screen and (max-width:1250px){
+	.product-img{
+		width: 25%;
+	}
+	.product-container{
+		width: 75%;
+	}
+}
+
+@media screen and (max-width:750px){
+	.product-img{
+		width: 35%;
+	}
+	.product-container{
+		width: 65%;
+	}
+}
+
+@media screen and (max-width:520px){
+	.product-img{
+		width: 45%;
+	}
+	.product-container{
+		width: 55%;
+	}
+}
