@@ -28,9 +28,35 @@
 				<label for="talkPhoto"><b>Carica una foto: </b></label>
 				<input class="file" type="file" name="talkPhoto" value="" maxlength="255">	
 				
-				
-				<label id="tipo-label" for="tipo"><b>Tipo</b></label>
-				<input id="tipo" type="text" placeholder="Inserisci Tipo" name="tipo">
+				<div class="radio-container">   
+					<label for="tipo"><b>Tipo: </b></label>
+					<div class="radio">
+						<div class="radio-element">
+							<input class="radio-button" type="radio" id="t-shirt" name="tipo" value="t-shirt" checked>
+							<label for="t-shirt">T-shirt</label>
+						</div>
+						<div class="radio-element">
+							<input class="radio-button" type="radio" id="felpa" name="tipo" value="felpa">
+							<label for="felpa">Felpa</label>
+						</div>
+						<div class="radio-element">
+							<input class="radio-button" type="radio" id="borsello" name="tipo" value="borsello">
+							<label for="borsello">Borsello</label>
+						</div>
+						<div class="radio-element">
+							<input class="radio-button" type="radio" id="shopper" name="tipo" value="shopper">
+							<label for="shopper">Shopper</label>
+						</div>
+						<div class="radio-element">
+							<input class="radio-button" type="radio" id="cappello" name="tipo" value="cappello">
+							<label for="cappello">Cappello</label>
+						</div>
+						<div class="radio-element">
+							<input class="radio-button" type="radio" id="grembiule" name="tipo" value="grembiule">
+							<label for="grembiule">Grembiule</label>
+						</div>
+					</div>
+				</div>
 		
 				<label id="prezzo-label" for="prezzo"><b>Prezzo</b></label>
 				<input id="prezzo" type="text" placeholder="Inserisci Prezzo" name="prezzo">
