@@ -30,7 +30,7 @@ public class Logout extends HttpServlet {
 		//request.getSession().setAttribute("role", "guest");
 		//request.getSession().setAttribute("user", null);
 		request.getSession().invalidate();
-		response.sendRedirect(response.encodeURL("./index.jsp"));
+		response.sendRedirect(response.encodeURL("./chisiamo.jsp"));
 	}
 
 	/**
