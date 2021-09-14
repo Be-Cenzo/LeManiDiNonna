@@ -2,12 +2,16 @@
 
 .seleziona-prodotto .row{
 	padding: 10px;
-	background-color: #dfc6df;
-	margin: 0 10px;
+	background-color: #ecdbc4;
+}
+
+.prodotti-container{
+	border-radius: 10px;
+	overflow: hidden;
 }
 
 .product-row, .titolo{
-	border-bottom: 1px solid #caafca;
+	border-bottom: 1px solid #f7c5ad;
 }
 
 .product-container{
@@ -55,7 +59,7 @@
 }
 
 .add-container{
-	background-color: #caafca;
+	background-color: #f7c5ad;
 	margin: 5px auto;
 	border-radius: 10px;
 	width: 50%;

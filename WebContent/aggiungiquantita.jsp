@@ -35,6 +35,7 @@
 		<div class="add-container">
 			<div class="seleziona-prodotto" id="seleziona">
 				<div class="titolo">Seleziona un Prodotto:</div>
+				<div class="prodotti-container">
 				<%for(Prodotto prod : prodotti){
 					%>
 						
@@ -50,6 +51,7 @@
 						<input type="hidden" id="<%=prod.getCodice() %>" value="<%=prod.getTipo()%>">
 					</div>
 					<% } %>
+				</div>
 			</div>
 			<div class="update-prodotto" id="update">
 				<form id="add-form" class="add-form" action="<%= response.encodeURL("UpdateProdotto")%>" method="post">

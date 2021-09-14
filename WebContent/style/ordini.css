@@ -1,7 +1,7 @@
 @charset "ISO-8859-1";
 
 .ordine{
-	background-color: #caafca;
+	background-color: #f7c5ad;
 	padding: 10px;
 	border-radius: 10px;
 	margin: 10px;
@@ -9,13 +9,13 @@
 }
 
 .collapse-ordine{
-	background-color: #dfc6df;
+	background-color: #ecdbc4;
     border-radius: 10px;
     display: none;
 }
 
 .titolo{
-	border-bottom: 1px solid #caafca;
+	border-bottom: 1px solid #ffd1bacc;
 }
 
 .row{
@@ -28,7 +28,7 @@
 
 .product-row{
 	padding: 10px;
-	border-bottom: 1px solid #caafca;
+	border-bottom: 1px solid #f7c5ad;
 }
 
 .product-container{

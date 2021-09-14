@@ -58,7 +58,7 @@
 }
 
 .product-row, .titolo{
-	border-bottom: 1px solid #caafca;
+	border-bottom: 1px solid #f7c5ad;
 }
 
 .product-container{
@@ -106,7 +106,7 @@
 	margin: 10px;
 	width: auto;
 	border: 0;
-	background-color: #caafca;
+	background-color: #f7c5ad;
 	border-radius: 10px;
 	padding: 5px 10px;
 	text-align: center;

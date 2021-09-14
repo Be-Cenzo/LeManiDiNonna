@@ -136,12 +136,12 @@ input{
 	border-radius: 10px;
 	margin: 5px;
 	background-color: white;
-	border-color: #caafca;
+	border-color: #f9d3c0;
 	border-style: solid;
 }
 
 .selected{
-	background-color: #caafca;
+	background-color: #f9d3c0;
 	border-color: white;
 }
 
