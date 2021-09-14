@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
 				role = checkLogin(username, password, request);
 				request.getSession().setAttribute("role", role);
 				request.getSession().setAttribute("loginError", 0);
-				redirectedPage = "./index.jsp";
+				redirectedPage = "./chisiamo.jsp";
 			} catch (Exception e) {
 				request.getSession().setAttribute("role", "guest");
 				request.getSession().setAttribute("loginError", 1);

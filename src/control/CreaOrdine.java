@@ -89,7 +89,7 @@ public class CreaOrdine extends HttpServlet {
 		cart.deleteList();
 		request.getSession().setAttribute("carrello", cart);
 		
-		response.sendRedirect(response.encodeURL("./index.jsp"));
+		response.sendRedirect(response.encodeURL("./chisiamo.jsp"));
 	}
 
 }
