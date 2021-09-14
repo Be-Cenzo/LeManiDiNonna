@@ -1,10 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
 	<div class="header">
 		<div class="navTitle">
 			<span id="menuIcon" onClick="$('.menu').animate({height: 'toggle'}, 400);">
@@ -37,11 +30,11 @@
 		String role = (String)session.getAttribute("role");
 		if(role == null || role.equals("guest")){
 	%> 
-	<!-- The Modal -->
+
 <div id="log" class="modal">
 <div class="close" onclick="$('#log').fadeToggle()"></div>
 
-  <!-- Modal Content -->
+  
     <div class="login-container animate">
 	    <form class="login-form" action="<%= response.encodeURL("login")%>" id="form-login" method="post">
 	    	<div class="row riga">
@@ -85,7 +78,7 @@
 				</a>
 				<a href="<%=response.encodeURL("./aggiungiquantita.jsp")%>">
 				 	<button class="login-btn">
-				 		Aggiorna Quantit√† Prodotto
+				 		Aggiorna Quantit‡ Prodotto
 				 	</button>
 				</a>
 				<% 
@@ -115,5 +108,3 @@
 	<% 
 		}
 	%>
-</body>
-</html>
