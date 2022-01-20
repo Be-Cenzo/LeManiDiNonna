@@ -69,7 +69,7 @@
 					%><%
 						if(errore != null && errore == 6){ 
 					%>
-							<label class="errore">La Data di Nascita non può essere vuota</label>
+							<label class="errore">La Data di Nascita non è corretta</label>
 					<%
 						}
 					%><%

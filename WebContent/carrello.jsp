@@ -56,7 +56,7 @@
 						<%=prod.getQuantità()*prod.getPrezzo() %>€
 					</div>
 					<%if(nonDisponibili != null && nonDisponibili.contains(prod)){ %>
-					<div class="product-not-available" id="price<%=prod.getCodice()%>">
+					<div class="product-not-available" id="not<%=prod.getCodice()%>">
 						Prodotto non disponibile
 					</div>
 					<%} %>

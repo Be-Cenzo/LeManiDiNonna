@@ -173,8 +173,8 @@ public class Signup extends HttpServlet {
 			numero = "+39" + numero;
 		numero = numero.replace(" ", "");
 		this.save(acc, address, numero);
-		request.getSession().setAttribute("role", "user");
-		request.getSession().setAttribute("user", acc);
+		/*request.getSession().setAttribute("role", "user");
+		request.getSession().setAttribute("user", acc);*/
 		request.getSession().setMaxInactiveInterval(-1);
 		response.sendRedirect(response.encodeURL("./index.jsp"));
 		
