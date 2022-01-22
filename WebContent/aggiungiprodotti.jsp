@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="javax.sql.DataSource, java.util.ArrayList, model.*"%>
+    pageEncoding="UTF-8" import="javax.sql.DataSource, java.util.ArrayList,catalogoManagement.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="wrapper">
-	<%@ include file="header.jsp" %>
+	<%@ include file="/header.jsp" %>
 	<% 
 		String role1 = (String)session.getAttribute("role");
 		if(role1 == null || role1.equals("guest")){

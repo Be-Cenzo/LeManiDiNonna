@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
-import model.Account;
-import model.AccountModelDS;
+import utenteManagement.Account;
+import utenteManagement.AccountModelDS;
 
 public class Validazione {
 	
