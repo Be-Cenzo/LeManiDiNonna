@@ -1,6 +1,7 @@
 package catalogoManagement;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Prodotto implements Serializable{
 
@@ -13,7 +14,7 @@ public class Prodotto implements Serializable{
 	private String marca;
 	private String modello;
 	private String taglia;
-	private int quantità;
+	private int quantita;
 	
 	public Prodotto() {
 		
@@ -135,17 +136,23 @@ public class Prodotto implements Serializable{
 		this.taglia = taglia;
 	}
 
-	public int getQuantità() {
-		return quantità;
+	public int getQuantita() {
+		return quantita;
 	}
 
-	public void setQuantità(int quantità) {
-		this.quantità = quantità;
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
 	}
 	
-	public void addQuantità(int quantità) {
-		this.quantità += quantità;
+	public void addQuantita(int quantita) {
+		this.quantita += quantita;
 	}
 
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Prodotto o = (Prodotto) obj;
+        return codice == o.codice && quantita == o.quantita && prezzo == o.prezzo && Objects.equals(marca, o.marca) && Objects.equals(taglia, o.taglia) && Objects.equals(colore, o.colore) && Objects.equals(descrizione, o.descrizione) && Objects.equals(modello, o.modello) && Objects.equals(tipo, o.tipo);
+	}
 
 }

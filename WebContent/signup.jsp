@@ -231,7 +231,7 @@ $(document).ready(function(){
 		}
 		if(birth == null || birth == ""){
 			$("#birth").addClass("error");
-		  	$("#birth-label").html("<b>Data di Nascita</b> - non può essere vuota");
+		  	$("#birth-label").html("<b>Data di Nascita</b> - inserire una data valida");
 		  	event.preventDefault();
 		}
 		else{
@@ -240,7 +240,7 @@ $(document).ready(function(){
 		}
 		if(!phone.match(numeroformat)){
 			$("#phone").addClass("error");
-		  	$("#phone-label").html("<b>Numero di Telefono</b> - inserire una numero valido");
+		  	$("#phone-label").html("<b>Numero di Telefono</b> - inserire un numero valido");
 		  	event.preventDefault();
 		}
 		else{

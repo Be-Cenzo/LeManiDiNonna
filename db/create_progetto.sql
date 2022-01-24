@@ -87,7 +87,7 @@ create table Relato(
 prodotto int,
 taglia varchar(1),
 ordine int,
-quantità int not null,
+quantita int not null,
 primary key (prodotto, ordine, taglia),
 foreign key (prodotto, taglia) references Taglie(prodotto, taglia) on update cascade,
 foreign key (ordine) references Ordine(ID) on update cascade
@@ -102,7 +102,7 @@ create table Conservato(
 deposito int,
 prodotto int,
 taglia varchar(1),
-disponibilità int not null,
+disponibilita int not null,
 primary key (deposito, prodotto, taglia),
 foreign key (deposito) references Deposito(ID) on update cascade,
 foreign key (prodotto, taglia) references Taglie(prodotto, taglia) on update cascade

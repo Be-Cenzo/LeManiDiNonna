@@ -58,10 +58,10 @@ public class CreaOrdine extends HttpServlet {
 		float totale = 0;
 		
 		for(Prodotto prod : cart.getProdotti()){
-			totale += prod.getQuantità()*prod.getPrezzo();
+			totale += prod.getQuantita()*prod.getPrezzo();
 		}
 		
-		ArrayList<Prodotto> prodotti = crea.checkDisponibilità(cart.getProdotti());
+		ArrayList<Prodotto> prodotti = crea.checkDisponibilita(cart.getProdotti());
 		
 		if(!prodotti.isEmpty()) {
 		request.setAttribute("nonDisponibili", prodotti);

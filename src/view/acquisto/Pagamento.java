@@ -73,7 +73,7 @@ public class Pagamento extends HttpServlet {
 		CreaOrdineDS crea = new CreaOrdineDS(ds);
 		Carrello cart = (Carrello) request.getSession().getAttribute("carrello");
 		
-		ArrayList<Prodotto> prodotti = crea.checkDisponibilità(cart.getProdotti());
+		ArrayList<Prodotto> prodotti = crea.checkDisponibilita(cart.getProdotti());
 		
 		if(!prodotti.isEmpty()) {
 			request.setAttribute("nonDisponibili", prodotti);

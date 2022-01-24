@@ -25,7 +25,7 @@ public class RelatoDS {
 		PreparedStatement preparedStatement = null;
 
 		String selectSQL = "SELECT * FROM relato WHERE prodotto = ? AND ordine = ? AND taglia = ?";
-		int quantità = -1;
+		int quantita = -1;
 
 		try {
 			connection = ds.getConnection();
@@ -37,7 +37,7 @@ public class RelatoDS {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				quantità = rs.getInt("quantità");
+				quantita = rs.getInt("quantita");
 			}
 
 		} finally {
@@ -50,7 +50,7 @@ public class RelatoDS {
 				}
 			}
 		}
-		return quantità;
+		return quantita;
 	}
 	
 	/**
@@ -84,10 +84,10 @@ public class RelatoDS {
 				Prodotto prodotto = null;
 
 				int idProdotto = rs.getInt("prodotto");
-				int quantità = rs.getInt("quantità");
+				int quantita = rs.getInt("quantita");
 				prodotto = mod.doRetrieveByKey("" + idProdotto);
 				prodotto.setTaglia(rs.getString("taglia"));
-				prodotto.setQuantità(quantità);
+				prodotto.setQuantita(quantita);
 				
 				prodotti.add(prodotto);
 			}
@@ -104,11 +104,11 @@ public class RelatoDS {
 		return prodotti;
 	}
 	
-	public void doSave(Prodotto prodotto, Ordine ordine, int quantità) throws SQLException {
+	public void doSave(Prodotto prodotto, Ordine ordine, int quantita) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO relato (prodotto, ordine, quantità, taglia) VALUES (?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO relato (prodotto, ordine, quantita, taglia) VALUES (?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -117,7 +117,7 @@ public class RelatoDS {
 
 			preparedStatement.setInt(1, prodotto.getCodice());
 			preparedStatement.setInt(2, ordine.getID());
-			preparedStatement.setInt(3, quantità);
+			preparedStatement.setInt(3, quantita);
 			preparedStatement.setString(4, prodotto.getTaglia());
 			
 			preparedStatement.executeUpdate();
@@ -136,18 +136,18 @@ public class RelatoDS {
 		}
 	}
 	
-	public void doUpdate(Prodotto prodotto, Ordine ordine, int quantità) throws SQLException {
+	public void doUpdate(Prodotto prodotto, Ordine ordine, int quantita) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE relato SET quantità = ? WHERE prodotto = ? AND ordine = ? AND taglia = ?";
+		String updateSQL = "UPDATE relato SET quantita = ? WHERE prodotto = ? AND ordine = ? AND taglia = ?";
 
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setInt(1, quantità);
+			preparedStatement.setInt(1, quantita);
 			preparedStatement.setInt(2, prodotto.getCodice());
 			preparedStatement.setInt(3, ordine.getID());
 			preparedStatement.setString(4, prodotto.getTaglia());

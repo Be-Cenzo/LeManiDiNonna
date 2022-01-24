@@ -1,6 +1,7 @@
 package acquistoManagement;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Corriere implements Serializable{
 	
@@ -59,6 +60,13 @@ public class Corriere implements Serializable{
 	 */
 	public void setPrezzo(float prezzo) {
 		this.prezzo = prezzo;
+	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Corriere o = (Corriere) obj;
+        return prezzo == o.prezzo && Objects.equals(nome, o.nome) && Objects.equals(tempo, o.tempo);
 	}
 
 }

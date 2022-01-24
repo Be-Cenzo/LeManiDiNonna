@@ -2,16 +2,17 @@ package catalogoManagement;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Deposito implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private int ID;
 	private String luogo;
-	private HashMap<Prodotto, Integer> disponibilità;
+	private HashMap<Prodotto, Integer> disponibilita;
 	
 	public Deposito() {
-		disponibilità = new HashMap<Prodotto, Integer>();
+		disponibilita = new HashMap<Prodotto, Integer>();
 	}
 	
 	/**
@@ -45,31 +46,38 @@ public class Deposito implements Serializable{
 	/**
 	 * @return la disponibilità di un prodotto
 	 */
-	public HashMap<Prodotto, Integer> getDisponibilità() {
-		return (HashMap<Prodotto, Integer>) disponibilità.clone();
+	public HashMap<Prodotto, Integer> getDisponibilita() {
+		return (HashMap<Prodotto, Integer>) disponibilita.clone();
 	}
 
 	/**
-	 * @param disponibilità la disponibilità da settare
+	 * @param disponibilita la disponibilità da settare
 	 */
-	public void setDisponibilità(HashMap<Prodotto, Integer> disponibilità) {
-		this.disponibilità = (HashMap<Prodotto, Integer>) disponibilità.clone();
+	public void setDisponibilita(HashMap<Prodotto, Integer> disponibilita) {
+		this.disponibilita = (HashMap<Prodotto, Integer>) disponibilita.clone();
 	}
 	
 	/**
 	 * Aggiorna l'hashmap aggiungendo la coppia chiave-valore se non era già presente la chiave al suo interno,
 	 *  aggiornando il valore della chiave se era già presente
 	 * @param prod la chiave da aggiornare
-	 * @param quantità il valore della chiave da aggiornare
+	 * @param quantita il valore della chiave da aggiornare
 	 * @return l'hashmap aggiornata
 	 */
-	public HashMap<Prodotto, Integer> updateDisponibilità(Prodotto prod, int quantità){
-		if(disponibilità.containsKey(prod))
-			disponibilità.replace(prod, quantità);
+	public HashMap<Prodotto, Integer> updateDisponibilita(Prodotto prod, int quantita){
+		if(disponibilita.containsKey(prod))
+			disponibilita.replace(prod, quantita);
 		else
-			disponibilità.put(prod, quantità);
+			disponibilita.put(prod, quantita);
 		
-		return (HashMap<Prodotto, Integer>) disponibilità.clone();
+		return (HashMap<Prodotto, Integer>) disponibilita.clone();
+	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Deposito o = (Deposito) obj;
+        return ID == o.ID && Objects.equals(luogo, o.luogo) && Objects.equals(disponibilita, o.disponibilita);
 	}
 	
 }
