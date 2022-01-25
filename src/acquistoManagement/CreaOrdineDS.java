@@ -58,14 +58,14 @@ public class CreaOrdineDS {
                 }
                 
                 for(Prodotto prodotto : prodotti){
-                	int quantita = prodotto.getQuantità();
-	                st = con.prepareStatement("SELECT SUM(disponibilità) AS quantità FROM Conservato WHERE prodotto = ? AND taglia = ?;");
+                	int quantita = prodotto.getQuantita();
+	                st = con.prepareStatement("SELECT SUM(disponibilita) AS quantita FROM Conservato WHERE prodotto = ? AND taglia = ?;");
 	                st.setInt(1, prodotto.getCodice());
 	                st.setString(2, prodotto.getTaglia());
 	                ris = st.executeQuery();
 	
 	                while(ris.next()){
-	                    dispo = ris.getInt("quantità");
+	                    dispo = ris.getInt("quantita");
 	                }
 	
 	                if(dispo>=quantita) {
@@ -82,17 +82,17 @@ public class CreaOrdineDS {
 	                        while(quantita > 0){
 	                            int deposito = 1;
 	                            int quantitaDep = 0;
-	                            st = con.prepareStatement("SELECT MIN(deposito) as dep, disponibilità FROM Conservato WHERE prodotto = ? AND taglia = ? AND disponibilità > 0;");
+	                            st = con.prepareStatement("SELECT MIN(deposito) as dep, disponibilita FROM Conservato WHERE prodotto = ? AND taglia = ? AND disponibilita > 0;");
 	                            st.setInt(1, prodotto.getCodice());
                                 st.setString(2, prodotto.getTaglia());
 	                            ris = st.executeQuery();
 	                            while(ris.next()) {
 	                                deposito = ris.getInt("dep");
-	                                quantitaDep = ris.getInt("disponibilità");
+	                                quantitaDep = ris.getInt("disponibilita");
 	                            }
 	
 	                            if(quantita > quantitaDep){
-	                                st = con.prepareStatement("UPDATE Conservato SET disponibilità = 0 WHERE deposito = ? AND prodotto = ? AND taglia = ?;");
+	                                st = con.prepareStatement("UPDATE Conservato SET disponibilita = 0 WHERE deposito = ? AND prodotto = ? AND taglia = ?;");
 	                                st.setInt(1, deposito);
 	                                st.setInt(2, prodotto.getCodice());
 	                                st.setString(3, prodotto.getTaglia());
@@ -105,8 +105,8 @@ public class CreaOrdineDS {
 	                                quantita-=quantitaDep;
 	                            }
 	                            else{
-	                                st = con.prepareStatement("UPDATE Conservato SET disponibilità = ? WHERE deposito = ? AND prodotto = ? AND taglia = ?;");
-	                                int rest = quantitaDep - prodotto.getQuantità();
+	                                st = con.prepareStatement("UPDATE Conservato SET disponibilita = ? WHERE deposito = ? AND prodotto = ? AND taglia = ?;");
+	                                int rest = quantitaDep - prodotto.getQuantita();
 	                                st.setInt(1, rest);
 	                                st.setInt(2, deposito);
 	                                st.setInt(3, prodotto.getCodice());
@@ -154,7 +154,7 @@ public class CreaOrdineDS {
         return 1;
 	}
 	
-	public ArrayList<Prodotto> checkDisponibilità(ArrayList<Prodotto> prodotti) {
+	public ArrayList<Prodotto> checkDisponibilita(ArrayList<Prodotto> prodotti) {
 		Connection con = null;
         PreparedStatement st = null;
         ResultSet ris = null;
@@ -165,14 +165,14 @@ public class CreaOrdineDS {
             con = ds.getConnection();
 
 	            for(Prodotto prodotto : prodotti){
-		        	int quantita = prodotto.getQuantità();
-		            st = con.prepareStatement("SELECT SUM(disponibilità) AS quantità FROM Conservato WHERE prodotto = ? AND taglia = ?;");
+		        	int quantita = prodotto.getQuantita();
+		            st = con.prepareStatement("SELECT SUM(disponibilita) AS quantita FROM Conservato WHERE prodotto = ? AND taglia = ?;");
 		            st.setInt(1, prodotto.getCodice());
 		            st.setString(2, prodotto.getTaglia());
 		            ris = st.executeQuery();
 		
 		            while(ris.next()){
-		                dispo = ris.getInt("quantità");
+		                dispo = ris.getInt("quantita");
 		            }
 		
 		            if(dispo<quantita) {

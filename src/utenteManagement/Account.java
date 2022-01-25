@@ -2,6 +2,7 @@ package utenteManagement;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Account implements Serializable{
 
@@ -39,8 +40,8 @@ public class Account implements Serializable{
 		this.dataNascita = dataNascita;
 		this.password = password;
 		this.nomeIG = nomeIG;
-		this.numeriTel = (ArrayList<String>)numeriTel.clone();
-		this.indirizzi = (ArrayList<Indirizzo>)indirizzi.clone();
+		this.numeriTel = numeriTel;
+		this.indirizzi = indirizzi;
 	}
 	
 	/**
@@ -162,4 +163,12 @@ public class Account implements Serializable{
 	public void addIndirizzo(Indirizzo indirizzo) {
 		indirizzi.add(indirizzo);
 	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Account o = (Account) obj;
+        return Objects.equals(cognome, o.cognome) && Objects.equals(dataNascita, o.dataNascita) && Objects.equals(email, o.email) && Objects.equals(nome, o.nome) && Objects.equals(nomeIG, o.nomeIG) && Objects.equals(password, o.password) && Objects.equals(indirizzi, o.indirizzi) && Objects.equals(numeriTel, o.numeriTel); 
+	}
+	
 }

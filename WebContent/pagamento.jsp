@@ -28,11 +28,11 @@
 				<div class="titolo">Riepilogo</div>
 			<%
 			Carrello cart = (Carrello)session.getAttribute("carrello");
-			Float totale = 0f;
-			if(cart!=null && !cart.isEmpty()){
-				for(Prodotto prod : cart.getProdotti()){
-					totale += prod.getQuantità()*prod.getPrezzo();
-					%>
+				Float totale = 0f;
+				if(cart!=null && !cart.isEmpty()){
+					for(Prodotto prod : cart.getProdotti()){
+						totale += prod.getQuantita()*prod.getPrezzo();
+			%>
 						
 					<div class="row product-row">
 						<div class="product-img">
@@ -41,20 +41,24 @@
 						<div class="product-container">
 							<div class="product-description">
 								<a href="<%=response.encodeURL("ProdottoPage?id=" + prod.getCodice())%>">
-										<%= prod.getDescrizione() %>
+										<%=prod.getDescrizione()%>
 									</a>
 							</div>
 							<div class="product-details">
-							<%if(prod.getTaglia() != null && !prod.getTaglia().equals("N")){ %>
+							<%
+							if(prod.getTaglia() != null && !prod.getTaglia().equals("N")){
+							%>
 								<div class="product-size" id="size<%=prod.getCodice()%>">
-									Taglia: <%=prod.getTaglia() %>
+									Taglia: <%=prod.getTaglia()%>
 								</div>
-							<%} %>
+							<%
+							}
+							%>
 								<div class="product-quantity" id="quantity<%=prod.getCodice()%>">
-									Quantità: <%=prod.getQuantità()%>
+									Quantità: <%=prod.getQuantita()%>
 								</div>
 								<div class="product-price" id="price<%=prod.getCodice()%>">
-									<%=prod.getQuantità()*prod.getPrezzo() %>€
+									<%=prod.getQuantita()*prod.getPrezzo()%>€
 								</div>
 							</div>
 						</div>

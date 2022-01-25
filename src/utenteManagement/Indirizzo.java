@@ -1,6 +1,7 @@
 package utenteManagement;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Indirizzo implements Serializable{
 	
@@ -70,6 +71,13 @@ public class Indirizzo implements Serializable{
 	 */
 	public String getCAP() {
 		return CAP;
-	}	
+	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Indirizzo o = (Indirizzo) obj;
+        return ID == o.ID && civico == o.civico && Objects.equals(CAP, o.CAP) && Objects.equals(email, o.email) && Objects.equals(provincia, o.provincia) && Objects.equals(via, o.via) && Objects.equals(comune, o.comune);
+	}
 
 }

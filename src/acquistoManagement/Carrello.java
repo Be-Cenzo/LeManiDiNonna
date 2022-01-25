@@ -2,6 +2,7 @@ package acquistoManagement;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import catalogoManagement.Prodotto;
 
@@ -17,7 +18,7 @@ public class Carrello implements Serializable{
 	public void addProdotto(Prodotto prodotto){
 		for(Prodotto prod : prodotti) {
 			if(prod.getCodice() == prodotto.getCodice() && prod.getTaglia().equals(prodotto.getTaglia())) {
-				prod.addQuantità(prodotto.getQuantità());
+				prod.addQuantita(prodotto.getQuantita());
 				return;
 			}
 		}
@@ -44,6 +45,13 @@ public class Carrello implements Serializable{
 	
 	public boolean isEmpty() {
 		return prodotti == null ? true : (prodotti.size()>0 ? false : true);
+	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Carrello o = (Carrello) obj;
+        return Objects.equals(prodotti, o.prodotti);
 	}
 	
 }

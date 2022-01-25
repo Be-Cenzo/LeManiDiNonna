@@ -36,9 +36,9 @@ public class AggiungiAlCarrello extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String id = request.getParameter("id");
-		int quantità = Integer.parseInt(request.getParameter("quantità"));
+		int quantita = Integer.parseInt(request.getParameter("quantità"));
 		String taglia = (String) request.getParameter("taglia");
-		if(quantità > 0) {
+		if(quantita > 0) {
 			
 			if(taglia == null)
 				taglia = "N";
@@ -63,7 +63,7 @@ public class AggiungiAlCarrello extends HttpServlet {
 			
 			if(prod != null && (taglia.equals("S") || taglia.equals("M") || taglia.equals("L") || taglia.equals("N"))) {
 				prod.setTaglia(taglia);
-				prod.addQuantità(quantità);
+				prod.addQuantita(quantita);
 				cart.addProdotto(prod);
 				System.out.println("aggiunto");
 				request.getSession().setAttribute("carrello", cart);

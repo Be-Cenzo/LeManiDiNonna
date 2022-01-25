@@ -19,7 +19,7 @@ public class ConservatoDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		int disponibilità = -1;
+		int disponibilita = -1;
 
 		String selectSQL = "SELECT * FROM conservato WHERE prodotto = ? AND deposito = ? AND taglia = ?";
 
@@ -33,7 +33,7 @@ public class ConservatoDS {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				disponibilità = rs.getInt("disponibilità");
+				disponibilita = rs.getInt("disponibilita");
 			}
 
 		} finally {
@@ -46,14 +46,14 @@ public class ConservatoDS {
 				}
 			}
 		}
-		return disponibilità;
+		return disponibilita;
 	}
 	
-	public void doSave(Prodotto prodotto, Deposito deposito, int disponibilità) throws SQLException {
+	public void doSave(Prodotto prodotto, Deposito deposito, int disponibilita) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO conservato" + " (prodotto, deposito, disponibilità, taglia) VALUES (?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO conservato" + " (prodotto, deposito, disponibilita, taglia) VALUES (?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -62,7 +62,7 @@ public class ConservatoDS {
 
 			preparedStatement.setInt(1, prodotto.getCodice());
 			preparedStatement.setInt(2, deposito.getID());
-			preparedStatement.setInt(3, disponibilità);
+			preparedStatement.setInt(3, disponibilita);
 			preparedStatement.setString(4, prodotto.getTaglia());
 			
 			preparedStatement.executeUpdate();
@@ -81,18 +81,18 @@ public class ConservatoDS {
 		}
 	}
 	
-	public void doUpdate(Prodotto prodotto, Deposito deposito, int disponibilità) throws SQLException {
+	public void doUpdate(Prodotto prodotto, Deposito deposito, int disponibilita) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE conservato SET disponibilità = ? WHERE prodotto = ? AND deposito = ? AND taglia = ?";
+		String updateSQL = "UPDATE conservato SET disponibilita = ? WHERE prodotto = ? AND deposito = ? AND taglia = ?";
 
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setInt(1, disponibilità);
+			preparedStatement.setInt(1, disponibilita);
 			preparedStatement.setInt(2, prodotto.getCodice());
 			preparedStatement.setInt(3, deposito.getID());
 			preparedStatement.setString(4, prodotto.getTaglia());

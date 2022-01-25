@@ -59,10 +59,10 @@
 													</div>
 												<%} %>
 													<div class="product-quantity" id="quantity<%=prod.getCodice()%>">
-														Quantità: <%=prod.getQuantità()%>
+														Quantità: <%=prod.getQuantita()%>
 													</div>
 													<div class="product-price" id="price<%=prod.getCodice()%>">
-														<%=prod.getQuantità()*prod.getPrezzo() %>€
+														<%=prod.getQuantita()*prod.getPrezzo()%>€
 													</div>
 												</div>
 											</div>

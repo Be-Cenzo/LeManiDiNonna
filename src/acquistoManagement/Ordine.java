@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import catalogoManagement.Prodotto;
 
@@ -172,10 +173,17 @@ public class Ordine implements Serializable{
 	}
 
 	/**
-	 * @param quantità la quantità di prodotti da settare
+	 * @param quantita la quantità di prodotti da settare
 	 */
 	public void setProdotti(ArrayList<Prodotto> prodotti) {
 		this.prodotti = prodotti;
+	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Ordine o = (Ordine) obj;
+        return ID == o.ID && prezzo == o.prezzo && costoSped == o.costoSped && indirizzo == o.indirizzo && Objects.equals(data, o.data) && Objects.equals(email, o.email) && Objects.equals(stato, o.stato) && Objects.equals(corriere, o.corriere) && Objects.equals(note, o.note) && Objects.equals(prodotti, o.prodotti);
 	}
 
 }
