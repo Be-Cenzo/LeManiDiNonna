@@ -1,6 +1,7 @@
 package utenteManagement;
 
 import java.sql.Connection;
+import view.site.Validazione;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,9 @@ public class AccountModelDS {
 	}
 	
 	
-	public Account doRetrieveByKey(String email) throws SQLException {
+	public Account doRetrieveByKey(String email) throws Exception {
+		if(email == null || email == "")
+			throw new Exception("Email not valid");
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -55,7 +58,11 @@ public class AccountModelDS {
 	}
 
 	
-	public ArrayList<Account> doRetrieveAll(String order) throws SQLException {
+	public ArrayList<Account> doRetrieveAll(String order) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -99,7 +106,21 @@ public class AccountModelDS {
 	}
 
 	
-	public void doSave(Account account) throws SQLException {
+	public void doSave(Account account) throws Exception {
+		//pre-condition
+		Validazione.checkEmail(account.getEmail(), ds);
+		for(String n : account.getNumeriTel())
+			Validazione.checkNumero(n);
+		Validazione.checkPassword(account.getPassword(), account.getPassword());
+		Validazione.checkStringaVuota(account.getNome());
+		Validazione.checkData(account.getDataNascita());
+		for(Indirizzo i : account.getIndirizzi()){
+			Validazione.checkStringaVuota(i.getProvincia());
+			Validazione.checkStringaVuota(i.getComune());
+			Validazione.checkStringaVuota(i.getVia());
+			Validazione.checkStringaVuota(i.getCAP());
+		}
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -134,7 +155,21 @@ public class AccountModelDS {
 	}
 
 	
-	public void doUpdate(Account account) throws SQLException {
+	public void doUpdate(Account account) throws Exception {
+		//pre-condition
+		Validazione.checkEmailForUpdate(account.getEmail(), ds);
+		for(String n : account.getNumeriTel())
+			Validazione.checkNumero(n);
+		Validazione.checkPassword(account.getPassword(), account.getPassword());
+		Validazione.checkStringaVuota(account.getNome());
+		Validazione.checkData(account.getDataNascita());
+		for(Indirizzo i : account.getIndirizzi()){
+			Validazione.checkStringaVuota(i.getProvincia());
+			Validazione.checkStringaVuota(i.getComune());
+			Validazione.checkStringaVuota(i.getVia());
+			Validazione.checkStringaVuota(i.getCAP());
+		}
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -170,7 +205,21 @@ public class AccountModelDS {
 		}
 	}
 	
-	public void doUpdateInfo(Account account) throws SQLException {
+	public void doUpdateInfo(Account account) throws Exception {
+		//pre-condition
+		Validazione.checkEmailForUpdate(account.getEmail(), ds);
+		for(String n : account.getNumeriTel())
+			Validazione.checkNumero(n);
+		Validazione.checkPassword(account.getPassword(), account.getPassword());
+		Validazione.checkStringaVuota(account.getNome());
+		Validazione.checkData(account.getDataNascita());
+		for(Indirizzo i : account.getIndirizzi()){
+			Validazione.checkStringaVuota(i.getProvincia());
+			Validazione.checkStringaVuota(i.getComune());
+			Validazione.checkStringaVuota(i.getVia());
+			Validazione.checkStringaVuota(i.getCAP());
+		}
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -206,7 +255,8 @@ public class AccountModelDS {
 	}
 
 	
-	public void doDelete(Account account) throws SQLException {
+	public void doDelete(Account account) throws Exception {
+		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

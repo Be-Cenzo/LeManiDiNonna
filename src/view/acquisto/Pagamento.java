@@ -55,6 +55,9 @@ public class Pagamento extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		request.getSession().setAttribute("user", user);
 		//System.out.println("sto in pagamento.java l'user è : " + user.getEmail());

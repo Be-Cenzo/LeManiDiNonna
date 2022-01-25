@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import view.site.Validazione;
+
 public class IndirizzoModelDS {
 
 	private DataSource ds = null;
@@ -19,7 +21,10 @@ public class IndirizzoModelDS {
 	}
 	
 	
-	public Indirizzo doRetrieveByKey(String id) throws SQLException {
+	public Indirizzo doRetrieveByKey(String id) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(id);
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -61,7 +66,11 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public ArrayList<Indirizzo> doRetrieveAll(String order) throws SQLException {
+	public ArrayList<Indirizzo> doRetrieveAll(String order) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -108,7 +117,15 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public void doSave(Indirizzo indirizzo) throws SQLException {
+	public void doSave(Indirizzo indirizzo) throws Exception {
+		//pre-condition
+		if(this.doRetrieveByKey("" + indirizzo.getID()) != null)
+			throw new Exception("DB already contains this address");
+		Validazione.checkStringaVuota(indirizzo.getProvincia());
+		Validazione.checkStringaVuota(indirizzo.getComune());
+		Validazione.checkStringaVuota(indirizzo.getVia());
+		Validazione.checkStringaVuota(indirizzo.getCAP());
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -144,7 +161,15 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public void doUpdate(Indirizzo indirizzo) throws SQLException {
+	public void doUpdate(Indirizzo indirizzo) throws Exception {
+		//pre-condition
+		if(this.doRetrieveByKey("" + indirizzo.getID()) == null)
+			throw new Exception("DB doesn't contains this address");
+		Validazione.checkStringaVuota(indirizzo.getProvincia());
+		Validazione.checkStringaVuota(indirizzo.getComune());
+		Validazione.checkStringaVuota(indirizzo.getVia());
+		Validazione.checkStringaVuota(indirizzo.getCAP());
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -182,7 +207,11 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public void doDelete(Indirizzo indirizzo) throws SQLException {
+	public void doDelete(Indirizzo indirizzo) throws Exception {
+		//pre-condition
+		if(this.doRetrieveByKey("" + indirizzo.getID()) == null)
+			throw new Exception("DB doesn't contains this address");	
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

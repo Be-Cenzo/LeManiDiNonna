@@ -9,6 +9,8 @@ import java.util.Collection;
 
 import javax.sql.DataSource;
 
+import view.site.Validazione;
+
 public class NumeroModelDS{
 	
 	private String email;
@@ -19,7 +21,8 @@ public class NumeroModelDS{
 		this.email = email;
 	}
 
-	public String doRetrieveByKey(String numero) throws SQLException {
+	public String doRetrieveByKey(String numero) throws Exception {
+		Validazione.checkNumero(numero);
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -53,7 +56,11 @@ public class NumeroModelDS{
 		return tel;
 	}
 
-	public ArrayList<String> doRetrieveAll(String order) throws SQLException {
+	public ArrayList<String> doRetrieveAll(String order) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -91,7 +98,11 @@ public class NumeroModelDS{
 		return numeri;
 	}
 
-	public void doSave(String numero) throws SQLException {
+	public void doSave(String numero) throws Exception {
+		//pre-condition
+		if(this.doRetrieveByKey(numero) != null)
+			throw new Exception("DB already contains num");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -121,7 +132,13 @@ public class NumeroModelDS{
 		}
 	}
 
-	public void doUpdate(String oldNumero, String newNumero) throws SQLException {
+	public void doUpdate(String oldNumero, String newNumero) throws Exception {
+		//pre-condition
+		if(this.doRetrieveByKey(newNumero) != null)
+			throw new Exception("DB already contains num");
+		if(this.doRetrieveByKey(oldNumero) == null)
+			throw new Exception("DB doesn't contain num");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -152,7 +169,11 @@ public class NumeroModelDS{
 		}
 	}
 
-	public void doDelete(String numero) throws SQLException {
+	public void doDelete(String numero) throws Exception {
+		//pre-condition
+		if(this.doRetrieveByKey(numero) == null)
+			throw new Exception("Db doesn't contain num");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

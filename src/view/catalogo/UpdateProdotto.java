@@ -20,7 +20,7 @@ import catalogoManagement.PhotoModelDS;
 import catalogoManagement.Prodotto;
 import catalogoManagement.ProdottoModelDS;
 import catalogoManagement.TaglieModelDS;
-import utility.Validazione;
+import view.site.Validazione;
 
 /**
  * Servlet implementation class UpdateProdotto
