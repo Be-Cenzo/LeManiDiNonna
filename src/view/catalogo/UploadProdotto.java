@@ -201,8 +201,11 @@ public class UploadProdotto extends HttpServlet {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		catch(Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//fine
-		
 		
 		//deposito
 		DepositoModelDS modelD = new DepositoModelDS(ds);
@@ -234,8 +237,11 @@ public class UploadProdotto extends HttpServlet {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//fine
-		
 		
 		//upload immagine
 		String SAVE_DIR = "/uploadTemp";

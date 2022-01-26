@@ -49,7 +49,11 @@ public class ConservatoDS {
 		return disponibilita;
 	}
 	
-	public void doSave(Prodotto prodotto, Deposito deposito, int disponibilita) throws SQLException {
+	public void doSave(Prodotto prodotto, Deposito deposito, int disponibilita) throws Exception {
+		//pre-condition
+		if(disponibilita < 0)
+			throw new Exception("Invalid disponibilità");
+		//
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -81,7 +85,11 @@ public class ConservatoDS {
 		}
 	}
 	
-	public void doUpdate(Prodotto prodotto, Deposito deposito, int disponibilita) throws SQLException {
+	public void doUpdate(Prodotto prodotto, Deposito deposito, int disponibilita) throws Exception {
+		//pre-condition
+		if(disponibilita < 0)
+			throw new Exception("Invalid disponibilità");
+		//
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
