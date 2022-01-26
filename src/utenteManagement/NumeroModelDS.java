@@ -100,8 +100,7 @@ public class NumeroModelDS{
 
 	public void doSave(String numero) throws Exception {
 		//pre-condition
-		if(this.doRetrieveByKey(numero) != null)
-			throw new Exception("DB already contains num");
+		Validazione.checkNumero(numero);
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -134,10 +133,7 @@ public class NumeroModelDS{
 
 	public void doUpdate(String oldNumero, String newNumero) throws Exception {
 		//pre-condition
-		if(this.doRetrieveByKey(newNumero) != null)
-			throw new Exception("DB already contains num");
-		if(this.doRetrieveByKey(oldNumero) == null)
-			throw new Exception("DB doesn't contain num");
+		Validazione.checkNumero(newNumero);
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -170,10 +166,6 @@ public class NumeroModelDS{
 	}
 
 	public void doDelete(String numero) throws Exception {
-		//pre-condition
-		if(this.doRetrieveByKey(numero) == null)
-			throw new Exception("Db doesn't contain num");
-		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
