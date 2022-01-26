@@ -48,6 +48,9 @@ public class ProdottiControl extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		request.setAttribute("prodotti", prodotti);
 		RequestDispatcher dispatcher = null;

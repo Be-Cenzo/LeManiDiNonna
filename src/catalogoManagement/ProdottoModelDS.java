@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import view.site.Validazione;
+
 
 public class ProdottoModelDS {
 	
@@ -63,7 +65,11 @@ public class ProdottoModelDS {
 	}
 
 	
-	public ArrayList<Prodotto> doRetrieveAll(String order) throws SQLException {
+	public ArrayList<Prodotto> doRetrieveAll(String order) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -111,7 +117,11 @@ public class ProdottoModelDS {
 		return prodotti;
 	}
 	
-	public ArrayList<Prodotto> doRetrieveAll(String order, ArrayList<String> filter, String search) throws SQLException {
+	public ArrayList<Prodotto> doRetrieveAll(String order, ArrayList<String> filter, String search) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -185,7 +195,20 @@ public class ProdottoModelDS {
 	}
 
 	
-	public void doSave(Prodotto prodotto) throws SQLException {
+	public void doSave(Prodotto prodotto) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(prodotto.getTipo());
+		Validazione.checkTipo(prodotto.getTipo());
+		if(prodotto.getPrezzo() <= 0)
+			throw new Exception("Invalid price");
+		Validazione.checkStringaVuota(prodotto.getColore());
+		Validazione.checkStringaVuota(prodotto.getDescrizione());
+		if(prodotto.getTipo().equals("felpa") || prodotto.getTipo().equals("t-shirt")) {
+			Validazione.checkStringaVuota(prodotto.getMarca());
+			Validazione.checkStringaVuota(prodotto.getModello());
+		}
+		
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -220,7 +243,19 @@ public class ProdottoModelDS {
 	}
 
 	
-	public void doUpdate(Prodotto prodotto) throws SQLException {
+	public void doUpdate(Prodotto prodotto) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(prodotto.getTipo());
+		Validazione.checkTipo(prodotto.getTipo());
+		if(prodotto.getPrezzo() <= 0)
+			throw new Exception("Invalid price");
+		Validazione.checkStringaVuota(prodotto.getColore());
+		Validazione.checkStringaVuota(prodotto.getDescrizione());
+		if(prodotto.getTipo().equals("felpa") || prodotto.getTipo().equals("t-shirt")) {
+			Validazione.checkStringaVuota(prodotto.getMarca());
+			Validazione.checkStringaVuota(prodotto.getModello());
+		}	
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

@@ -35,7 +35,7 @@ public class Validazione {
 
 	}
 	
-public static Account checkEmailForUpdate(String email, DataSource ds) throws Exception {
+public static void checkEmailForUpdate(String email, DataSource ds) throws Exception {
 		
 		String format = "\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+";
 		Pattern reg = Pattern.compile(format);
@@ -43,20 +43,6 @@ public static Account checkEmailForUpdate(String email, DataSource ds) throws Ex
 		if(!matcher.matches()) {
 			throw new Exception("Invalid Email");
 		}
-		
-		AccountModelDS model = new AccountModelDS(ds);
-		Account acc = null;
-		try {
-		acc = model.doRetrieveByKey(email);
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-		if(acc.getEmail() != null)
-			return acc;
-		else
-			throw new Exception("Invalid Email");
-
 	}
 	
 	public static String checkNumero(String phone) throws Exception {

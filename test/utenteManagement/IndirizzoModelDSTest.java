@@ -1,6 +1,7 @@
 package utenteManagement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,10 +81,10 @@ public class IndirizzoModelDSTest{
     	Indirizzo expected = new Indirizzo(1, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044");
     	Indirizzo actual = null;
     	try {
-			actual = indirizzoModelDS.doRetrieveByKey("1");
-			//System.out.println(expected.getEmail() + " " + expected.getPassword());
-			//System.out.println(actual.getEmail() + " " + actual.getPassword());
+			actual = indirizzoModelDS.doRetrieveByKey(1);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
@@ -94,15 +95,15 @@ public class IndirizzoModelDSTest{
     	Indirizzo expected = null;
     	Indirizzo actual = null;
     	try {
-			actual = indirizzoModelDS.doRetrieveByKey("5");
-			//System.out.println(expected.getEmail() + " " + expected.getPassword());
-			//System.out.println(actual.getEmail() + " " + actual.getPassword());
+			actual = indirizzoModelDS.doRetrieveByKey(5);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
-    
+    /*
     @Test
     public void doRetrieveByKeyTestVuoto(){
     	Indirizzo expected = null;
@@ -130,9 +131,9 @@ public class IndirizzoModelDSTest{
 		}
     	assertEquals(expected, actual);
     }
-    
+    */
     @Test
-    public void doRetrieveAllTestAsc() throws DataSetException {
+    public void doRetrieveAllTestAsc() {
     	ArrayList<Indirizzo> expected = new ArrayList<Indirizzo>();
     	expected.add(new Indirizzo(2, "vincenzo.offertucci@gmail.com", "Milano", "Milano", "Montenapoleone", 27, "20121"));
     	expected.add(new Indirizzo(1, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044"));
@@ -141,14 +142,15 @@ public class IndirizzoModelDSTest{
     	try {
 			actual = indirizzoModelDS.doRetrieveAll("ASC");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestDesc() throws DataSetException {
+    public void doRetrieveAllTestDesc() {
     	ArrayList<Indirizzo> expected = new ArrayList<Indirizzo>();
     	expected.add(new Indirizzo(1, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044"));
     	expected.add(new Indirizzo(2, "vincenzo.offertucci@gmail.com", "Milano", "Milano", "Montenapoleone", 27, "20121"));
@@ -157,14 +159,15 @@ public class IndirizzoModelDSTest{
     	try {
 			actual = indirizzoModelDS.doRetrieveAll("DESC");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestVuota() throws DataSetException {
+    public void doRetrieveAllTestVuota() {
     	ArrayList<Indirizzo> expected = new ArrayList<Indirizzo>();
     	expected.add(new Indirizzo(1, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044"));
     	expected.add(new Indirizzo(2, "vincenzo.offertucci@gmail.com", "Milano", "Milano", "Montenapoleone", 27, "20121"));
@@ -173,14 +176,15 @@ public class IndirizzoModelDSTest{
     	try {
 			actual = indirizzoModelDS.doRetrieveAll("");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestNull() throws DataSetException {
+    public void doRetrieveAllTestNull() {
     	ArrayList<Indirizzo> expected = new ArrayList<Indirizzo>();
     	expected.add(new Indirizzo(1, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044"));
     	expected.add(new Indirizzo(2, "vincenzo.offertucci@gmail.com", "Milano", "Milano", "Montenapoleone", 27, "20121"));
@@ -189,26 +193,18 @@ public class IndirizzoModelDSTest{
     	try {
 			actual = indirizzoModelDS.doRetrieveAll(null);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestAltro() throws DataSetException {
-    	ArrayList<Indirizzo> expected = new ArrayList<Indirizzo>();
-    	expected.add(new Indirizzo(1, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044"));
-    	expected.add(new Indirizzo(2, "vincenzo.offertucci@gmail.com", "Milano", "Milano", "Montenapoleone", 27, "20121"));
-    	
-    	ArrayList<Indirizzo> actual = null;
-    	try {
-			actual = indirizzoModelDS.doRetrieveAll("ascendente");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	assertEquals(expected, actual);
+    public void doRetrieveAllTestAltro() {
+    	assertThrows(Exception.class, () -> {
+    		ArrayList<Indirizzo> actual = indirizzoModelDS.doRetrieveAll("ascendente");
+    	});
     }
     
     @Test
@@ -222,7 +218,8 @@ public class IndirizzoModelDSTest{
     	try {
     		indirizzoModelDS.doSave(ind);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -231,21 +228,14 @@ public class IndirizzoModelDSTest{
     
     @ParameterizedTest
     @MethodSource("doSaveTestProvider")
-    public void doSaveTestNonSalva(int id, String email, String provincia, String comune, String via, int civico, String CAP) throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(IndirizzoModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "IndirizzoInit.xml"))
-                .getTable(table);
-    	
+    public void doSaveTestNonSalva(int id, String email, String provincia, String comune, String via, int civico, String CAP) {
     	Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     	
-    	try {
-			indirizzoModelDS.doSave(ind);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	assertThrows(Exception.class, () -> {
+    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
+    		indirizzoModelDS.doSave(ind);
+    	});
+    	
     }
     
     private static Stream<Arguments> doSaveTestProvider(){
@@ -273,20 +263,13 @@ public class IndirizzoModelDSTest{
     
     @Test
     public void doSaveTestNonSalva() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(IndirizzoModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "IndirizzoInit.xml"))
-                .getTable(table);
-    	
     	Indirizzo ind = null;
     	
-    	try {
+    	assertThrows(Exception.class, () -> {
+    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     		indirizzoModelDS.doSave(ind);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
+  
     }
     
     @Test
@@ -302,6 +285,8 @@ public class IndirizzoModelDSTest{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
         Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
@@ -309,21 +294,13 @@ public class IndirizzoModelDSTest{
     
     @ParameterizedTest
     @MethodSource("doUpdateTestProvider")
-    public void doUpdateTestNonSalva(int id, String email, String provincia, String comune, String via, int civico, String CAP) throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(IndirizzoModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "IndirizzoInit.xml"))
-                .getTable(table);
-    	
+    public void doUpdateTestNonSalva(int id, String email, String provincia, String comune, String via, int civico, String CAP){
     	Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     	
-    	try {
-			indirizzoModelDS.doUpdate(ind);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	assertThrows(Exception.class, () -> {
+    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
+    		indirizzoModelDS.doUpdate(ind);
+    	});
     }
     
     private static Stream<Arguments> doUpdateTestProvider(){
@@ -351,20 +328,12 @@ public class IndirizzoModelDSTest{
     
     @Test
     public void doUpdateTestNonSalva() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(IndirizzoModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "IndirizzoInit.xml"))
-                .getTable(table);
-    	
     	Indirizzo ind = null;
     	
-    	try {
+    	assertThrows(Exception.class, () -> {
+    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     		indirizzoModelDS.doUpdate(ind);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
     
     @Test
@@ -378,6 +347,8 @@ public class IndirizzoModelDSTest{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
         Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
@@ -385,18 +356,12 @@ public class IndirizzoModelDSTest{
     
     @Test
     public void doDeleteTestNonPresente() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(IndirizzoModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "IndirizzoInit.xml"))
-                .getTable(table);
     	Indirizzo del = new Indirizzo(15, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044");
-    	try {
-			indirizzoModelDS.doDelete(del);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	
+    	assertThrows(Exception.class, () -> {
+    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
+    		indirizzoModelDS.doDelete(del);
+    	});
     }
 	
 }
