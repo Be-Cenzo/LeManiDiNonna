@@ -1,6 +1,7 @@
 package utenteManagement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -79,9 +80,9 @@ public class NumeroModelDSTest {
     	String actual = null;
     	try {
 			actual = numeroModelDS.doRetrieveByKey("+393885948313");
-			//System.out.println(expected.getEmail() + " " + expected.getPassword());
-			//System.out.println(actual.getEmail() + " " + actual.getPassword());
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
@@ -93,9 +94,9 @@ public class NumeroModelDSTest {
     	String actual = null;
     	try {
 			actual = numeroModelDS.doRetrieveByKey("+393885948888");
-			//System.out.println(expected.getEmail() + " " + expected.getPassword());
-			//System.out.println(actual.getEmail() + " " + actual.getPassword());
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
@@ -103,34 +104,20 @@ public class NumeroModelDSTest {
     
     @Test
     public void doRetrieveByKeyTestVuoto(){
-    	String expected = null;
-    	String actual = null;
-    	try {
-			actual = numeroModelDS.doRetrieveByKey("");
-			//System.out.println(expected.getEmail() + " " + expected.getPassword());
-			//System.out.println(actual.getEmail() + " " + actual.getPassword());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	assertEquals(expected, actual);
+    	assertThrows(Exception.class, () -> {
+    		numeroModelDS.doRetrieveByKey("");
+    	});
     }
     
     @Test
     public void doRetrieveByKeyTestNull(){
-    	String expected = null;
-    	String actual = null;
-    	try {
-			actual = numeroModelDS.doRetrieveByKey(null);
-			//System.out.println(expected.getEmail() + " " + expected.getPassword());
-			//System.out.println(actual.getEmail() + " " + actual.getPassword());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	assertEquals(expected, actual);
+    	assertThrows(Exception.class, () -> {
+    		numeroModelDS.doRetrieveByKey(null);
+    	});
     }
     
     @Test
-    public void doRetrieveAllTestAsc() throws DataSetException {
+    public void doRetrieveAllTestAsc() {
     	ArrayList<String> expected = new ArrayList<String>();
     	expected.add("+393125641111");
     	expected.add("+393125642855");
@@ -140,14 +127,15 @@ public class NumeroModelDSTest {
     	try {
 			actual = numeroModelDS.doRetrieveAll("ASC");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestDesc() throws DataSetException {
+    public void doRetrieveAllTestDesc() {
     	ArrayList<String> expected = new ArrayList<String>();
     	expected.add("+393885948313");
     	expected.add("+393125642855");
@@ -157,14 +145,15 @@ public class NumeroModelDSTest {
     	try {
 			actual = numeroModelDS.doRetrieveAll("DESC");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestVuota() throws DataSetException {
+    public void doRetrieveAllTestVuota() {
     	ArrayList<String> expected = new ArrayList<String>();
     	expected.add("+393125641111");
     	expected.add("+393125642855");
@@ -174,14 +163,15 @@ public class NumeroModelDSTest {
     	try {
 			actual = numeroModelDS.doRetrieveAll("");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestNull() throws DataSetException {
+    public void doRetrieveAllTestNull() {
     	ArrayList<String> expected = new ArrayList<String>();
     	expected.add("+393125641111");
     	expected.add("+393125642855");
@@ -191,27 +181,18 @@ public class NumeroModelDSTest {
     	try {
 			actual = numeroModelDS.doRetrieveAll(null);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestAltro() throws DataSetException {
-    	ArrayList<String> expected = new ArrayList<String>();
-    	expected.add("+393125641111");
-    	expected.add("+393125642855");
-    	expected.add("+393885948313");
-    	
-    	ArrayList<String> actual = null;
-    	try {
-			actual = numeroModelDS.doRetrieveAll("ascendente");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	assertEquals(expected, actual);
+    public void doRetrieveAllTestAltro() {
+    	assertThrows(Exception.class, () -> {
+    		numeroModelDS.doRetrieveAll("ascendente");
+    	});
     }
     
     @Test
@@ -225,7 +206,8 @@ public class NumeroModelDSTest {
     	try {
     		numeroModelDS.doSave(num);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -233,75 +215,33 @@ public class NumeroModelDSTest {
     }
     
     @Test
-    public void doSaveTestNonSalva() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "NumeroInit.xml"))
-                .getTable(table);
-    	
+    public void doSaveTestNonSalva() {
     	String num = "+393125641111";
     	
-    	try {
+    	assertThrows(Exception.class, () -> {
     		numeroModelDS.doSave(num);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
     
     @Test
-    public void doSaveTestVuoto() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "NumeroInit.xml"))
-                .getTable(table);
-    	
-    	String num = "";
-    	
-    	try {
-    		numeroModelDS.doSave(num);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    public void doSaveTestVuoto() {
+    	assertThrows(Exception.class, () -> {
+    		numeroModelDS.doSave("");
+    	});
     }
     
     @Test
-    public void doSaveTestNull() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "NumeroInit.xml"))
-                .getTable(table);
-    	
-    	String num = null;
-    	
-    	try {
-    		numeroModelDS.doSave(num);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    public void doSaveTestNull() {
+    	assertThrows(Exception.class, () -> {
+    		numeroModelDS.doSave(null);
+    	});
     }
     
     @Test
-    public void doSaveTestFormatoIncorretto() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "NumeroInit.xml"))
-                .getTable(table);
-    	
-    	String num = "32145";
-    	
-    	try {
-    		numeroModelDS.doSave(num);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    public void doSaveTestFormatoIncorretto() {
+    	assertThrows(Exception.class, () -> {
+    		numeroModelDS.doSave("32145");
+    	});
     }
     
     @Test
@@ -316,7 +256,8 @@ public class NumeroModelDSTest {
     	try {
     		numeroModelDS.doUpdate(oldNum, newNum);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -325,74 +266,25 @@ public class NumeroModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doUpdateTestProvider")
-    public void doUpdateTestNonSalva(String oldNum, String newNum) throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "NumeroInit.xml"))
-                .getTable(table);
-    	
-    	try {
+    public void doUpdateTestNonSalva(String oldNum, String newNum) {
+    	assertThrows(Exception.class, () -> {
     		numeroModelDS.doUpdate(oldNum, newNum);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
     
     private static Stream<Arguments> doUpdateTestProvider(){
     	return Stream.of(
-    			//oldNumero vuoto
-    			Arguments.of("", "+393125644545"),
-    			//oldNumero vuota
-    			Arguments.of(null, "+393125644545"),
-    			//oldNumero formato incorretto
-    			Arguments.of("+3931", "+393125644545"),
     			//newNumero vuoto
     			Arguments.of("+393125641111", ""),
     			//newNumero null
     			Arguments.of("+393125641111", null),
     			//newNumero formato incorretto
-    			Arguments.of("+393125641111", "+393125")
+    			Arguments.of("+393125641111", "+393125"),
+    			//newNumero presente nel Database
+    			Arguments.of("+393125641111", "+393125642855"),
+    			//oldNumero non presente nel Database
+    			Arguments.of("+393125641115", "+393125644545")
     			);
-    }
-    
-    @Test
-    public void doUpdateTestNewNumPresente() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "NumeroInit.xml"))
-                .getTable(table);
-    	
-    	String oldNum = "+393125641111";
-    	String newNum = "+393125642855";
-    	
-    	try {
-    		numeroModelDS.doUpdate(oldNum, newNum);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
-    }
-	
-    @Test
-    public void doUpdateTestOldNumNonPresente() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "NumeroInit.xml"))
-                .getTable(table);
-    	
-    	String oldNum = "+393125641115";
-    	String newNum = "+393125644545";
-    	
-    	try {
-    		numeroModelDS.doUpdate(oldNum, newNum);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
     }
     
     @Test
@@ -404,7 +296,8 @@ public class NumeroModelDSTest {
     	try {
     		numeroModelDS.doDelete("+393885948313");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -412,19 +305,24 @@ public class NumeroModelDSTest {
     }
     
     @Test
-    public void doDeleteTestNonPresente() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "NumeroInit.xml"))
-                .getTable(table);
-    	
-    	try {
+    public void doDeleteTestNonPresente() {
+    	assertThrows(Exception.class, () -> {
     		numeroModelDS.doDelete("+393885948");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
+    }
+    
+    @Test
+    public void doDeleteTestVuoto() {
+    	assertThrows(Exception.class, () -> {
+    		numeroModelDS.doDelete("");
+    	});
+    }
+    
+    @Test
+    public void doDeleteTestNull() throws Exception {
+    	assertThrows(Exception.class, () -> {
+    		numeroModelDS.doDelete(null);
+    	});
     }
     
 }

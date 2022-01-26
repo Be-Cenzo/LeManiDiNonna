@@ -232,7 +232,6 @@ public class IndirizzoModelDSTest{
     	Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     	
     	assertThrows(Exception.class, () -> {
-    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     		indirizzoModelDS.doSave(ind);
     	});
     	
@@ -266,7 +265,6 @@ public class IndirizzoModelDSTest{
     	Indirizzo ind = null;
     	
     	assertThrows(Exception.class, () -> {
-    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     		indirizzoModelDS.doSave(ind);
     	});
   
@@ -283,7 +281,6 @@ public class IndirizzoModelDSTest{
     	try {
     		indirizzoModelDS.doUpdate(ind);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -298,7 +295,6 @@ public class IndirizzoModelDSTest{
     	Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     	
     	assertThrows(Exception.class, () -> {
-    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     		indirizzoModelDS.doUpdate(ind);
     	});
     }
@@ -331,7 +327,6 @@ public class IndirizzoModelDSTest{
     	Indirizzo ind = null;
     	
     	assertThrows(Exception.class, () -> {
-    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     		indirizzoModelDS.doUpdate(ind);
     	});
     }
@@ -345,7 +340,6 @@ public class IndirizzoModelDSTest{
     	try {
 			indirizzoModelDS.doDelete(del);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -359,7 +353,6 @@ public class IndirizzoModelDSTest{
     	Indirizzo del = new Indirizzo(15, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044");
     	
     	assertThrows(Exception.class, () -> {
-    		//Indirizzo ind = new Indirizzo(id, email, provincia, comune, via, civico, CAP);
     		indirizzoModelDS.doDelete(del);
     	});
     }
