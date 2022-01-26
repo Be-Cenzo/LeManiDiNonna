@@ -1,6 +1,7 @@
 package utenteManagement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -84,6 +85,8 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveByKey("vincenzo.offertucci@gmail.com");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
@@ -96,32 +99,20 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveByKey("vincenzo@gmail.com");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
     public void doRetrieveByKeyTestVuota() {
-    	Account expected = new Account();
-    	Account actual = null;
-    	try {
-			actual = accountModelDS.doRetrieveByKey("");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	assertEquals(expected, actual);
+    	assertThrows(Exception.class, () -> {Account acc = accountModelDS.doRetrieveByKey("");});
     }
     
     @Test
-    public void doRetrieveByKeyTestFormatoIncorretto() {
-    	Account expected = new Account();
-    	Account actual = null;
-    	try {
-			actual = accountModelDS.doRetrieveByKey("vincenzo.com");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	assertEquals(expected, actual);
+    public void doRetrieveByKeyTestNull() {
+    	assertThrows(Exception.class, () -> {Account acc = accountModelDS.doRetrieveByKey(null);});
     }
 
     @Test
@@ -135,6 +126,8 @@ public class AccountModelDSTest {
         try {
 			actual = accountModelDS.doRetrieveAll("ASC");
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
         assertEquals(expected, actual);
@@ -152,6 +145,8 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveAll("DESC");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
         assertEquals(expected, actual);
     }
@@ -167,6 +162,8 @@ public class AccountModelDSTest {
         try {
 			actual = accountModelDS.doRetrieveAll("");
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
         assertEquals(expected, actual);
@@ -184,24 +181,17 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveAll(null);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
         assertEquals(expected, actual);
     }
     
     @Test
-    public void doRetrieveAllTestAltro() {
-        ArrayList<Account> expected = new ArrayList<Account>();
-        expected.add(new Account("vincenzo.offertucci@gmail.com", "Vincenzo", "Offertucci", "2000-10-31", "d0a845a8304784446b1a261ba3b59e27", "BeCenzo"));
-        expected.add(new Account("christian.gambardella@gmail.com", "Christian", "Gambardella", "2000-12-11", "93f6fc14ab347f6dd1ea7de992877097", "UnruhMaker"));
-        expected.add(new Account("vittorio.armenante@gmail.com", "Vittorio", "Armenante", "2000-09-11", "8e11bf5b2f5ab41eba58fe8b1e6ab436", "Peppe$on"));
-
-        ArrayList<Account> actual = null;
-        try {
-			actual = accountModelDS.doRetrieveAll("discendente");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-        assertEquals(expected, actual);
+    public void doRetrieveAllTestAltro() {       
+        assertThrows(Exception.class, () -> {
+            ArrayList<Account> actual = accountModelDS.doRetrieveAll("discendente");
+        });
     }
     
     @Test
@@ -215,7 +205,8 @@ public class AccountModelDSTest {
     	try {
 			accountModelDS.doSave(acc);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -225,20 +216,10 @@ public class AccountModelDSTest {
     @ParameterizedTest
     @MethodSource("doSaveTestProvider")
     public void doSaveTestNonSalva(String email, String nome, String cognome, String dataNascita, String password, String nomeIG) throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-    	
-    	Account acc = new Account(email, nome, cognome, dataNascita, password, nomeIG);
-    	
-    	try {
+    	assertThrows(Exception.class, () -> {
+    		Account acc = new Account(email, nome, cognome, dataNascita, password, nomeIG);
 			accountModelDS.doSave(acc);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
     
     private static Stream<Arguments> doSaveTestProvider(){
@@ -266,20 +247,9 @@ public class AccountModelDSTest {
     
     @Test
     public void doSaveTestNull() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-    	
-    	Account acc = new Account();
-    	
-    	try {
-			accountModelDS.doSave(acc);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	assertThrows(Exception.class, () -> {
+    		accountModelDS.doSave(new Account());
+    	});
     }
     
     @Test
@@ -292,7 +262,8 @@ public class AccountModelDSTest {
     	try {
 			accountModelDS.doUpdate(acc);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -302,20 +273,10 @@ public class AccountModelDSTest {
     @ParameterizedTest
     @MethodSource("doUpdateTestProvider")
     public void doUpdateTestNonSalva(String email, String nome, String cognome, String dataNascita, String password, String nomeIG) throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-    	
-    	Account acc = new Account(email, nome, cognome, dataNascita, password, nomeIG);
-    	
-    	try {
+    	assertThrows(Exception.class, () -> {
+    		Account acc = new Account(email, nome, cognome, dataNascita, password, nomeIG);
 			accountModelDS.doUpdate(acc);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
     
     private static Stream<Arguments> doUpdateTestProvider(){
@@ -343,19 +304,9 @@ public class AccountModelDSTest {
     
     @Test
     public void doUpdateTestNull() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-    	
-    	Account acc = new Account();
-    	try {
-			accountModelDS.doUpdate(acc);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	assertThrows(Exception.class, () -> {
+			accountModelDS.doUpdate(new Account());
+    	});
     }
     
     @Test
@@ -368,7 +319,8 @@ public class AccountModelDSTest {
     	try {
 			accountModelDS.doUpdateInfo(acc);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -378,20 +330,10 @@ public class AccountModelDSTest {
     @ParameterizedTest
     @MethodSource("doUpdateInfoTestProvider")
     public void doUpdateInfoTestNonSalva(String email, String nome, String cognome, String dataNascita, String nomeIG) throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-    	
-    	Account acc = new Account(email, nome, cognome, dataNascita, "", nomeIG);
-    	
-    	try {
+    	assertThrows(Exception.class, () -> {
+    		Account acc = new Account(email, nome, cognome, dataNascita, "", nomeIG);
 			accountModelDS.doUpdateInfo(acc);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
     
     private static Stream<Arguments> doUpdateInfoTestProvider(){
@@ -417,19 +359,9 @@ public class AccountModelDSTest {
     
     @Test
     public void doUpdateInfoTestNull() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-    	
-    	Account acc = new Account();
-    	try {
-			accountModelDS.doUpdateInfo(acc);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	assertThrows(Exception.class, () -> {
+			accountModelDS.doUpdateInfo(new Account());
+    	});
     }
     
     @Test
@@ -443,7 +375,8 @@ public class AccountModelDSTest {
         try {
 			accountModelDS.doDelete(del);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
         ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -452,55 +385,29 @@ public class AccountModelDSTest {
     
     @Test
     public void doDeleteTestNonPresente() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-        
-        Account del = new Account();
-        del.setEmail("vincenzo@gmail.com");
-        try {
+        assertThrows(Exception.class, () -> {
+    		Account del = new Account();
+            del.setEmail("vincenzo@gmail.com");
 			accountModelDS.doDelete(del);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
 
     @Test
     public void doDeleteTestFormatoIncorretto() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-        
-        Account del = new Account();
-        del.setEmail("vincenzo.com");
-        try {
+    	assertThrows(Exception.class, () -> {
+    		Account del = new Account();
+            del.setEmail("vincenzo.com");
 			accountModelDS.doDelete(del);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
     
     @Test
     public void doDeleteTestVuota() throws Exception {
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(initPath + "AccountInit.xml"))
-                .getTable(table);
-        
-        Account del = new Account();
-        del.setEmail("");
-        try {
+    	assertThrows(Exception.class, () -> {
+    		Account del = new Account();
+            del.setEmail("");
 			accountModelDS.doDelete(del);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	});
     }
+    
 }
