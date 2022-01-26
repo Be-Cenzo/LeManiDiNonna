@@ -166,6 +166,9 @@ public class NumeroModelDS{
 	}
 
 	public void doDelete(String numero) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(numero);
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

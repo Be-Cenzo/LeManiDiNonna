@@ -248,7 +248,6 @@ public class AccountModelDS {
 	public void doUpdateInfo(Account account) throws Exception {
 		//pre-condition
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
-		Validazione.checkPassword(account.getPassword(), account.getPassword());
 		Validazione.checkStringaVuota(account.getNome());
 		Validazione.checkData(account.getDataNascita());
 		//fine

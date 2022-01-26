@@ -112,7 +112,7 @@ public class UpdateProdotto extends HttpServlet {
 		try {
 		int temp = Integer.parseInt(request.getParameter("deposito"));
 		deposito = request.getParameter("deposito");
-		dep = modelD.doRetrieveByKey(deposito);
+		dep = modelD.doRetrieveByKey(Integer.parseInt(deposito));
 		if(dep.getLuogo() == null)
 			throw new Exception("Invalid dep id");
 		}
