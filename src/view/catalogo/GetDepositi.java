@@ -46,6 +46,9 @@ public class GetDepositi extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		String json = new Gson().toJson(dep);
 		response.getWriter().write(json);

@@ -9,6 +9,8 @@ import java.util.Collection;
 
 import javax.sql.DataSource;
 
+import view.site.Validazione;
+
 public class DepositoModelDS{
 	private DataSource ds = null;
 
@@ -17,7 +19,7 @@ public class DepositoModelDS{
 	}
 
 	
-	public Deposito doRetrieveByKey(String ID) throws SQLException {
+	public Deposito doRetrieveByKey(int ID) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -28,7 +30,7 @@ public class DepositoModelDS{
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, Integer.parseInt(ID));
+			preparedStatement.setInt(1, ID);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -51,7 +53,11 @@ public class DepositoModelDS{
 	}
 
 	
-	public ArrayList<Deposito> doRetrieveAll(String order) throws SQLException {
+	public ArrayList<Deposito> doRetrieveAll(String order) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -91,7 +97,10 @@ public class DepositoModelDS{
 	}
 
 	
-	public void doSave(Deposito deposito) throws SQLException {
+	public void doSave(Deposito deposito) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(deposito.getLuogo());
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -120,7 +129,10 @@ public class DepositoModelDS{
 	}
 
 	
-	public void doUpdate(Deposito prodotto) throws SQLException {
+	public void doUpdate(Deposito deposito) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(deposito.getLuogo());
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -131,9 +143,9 @@ public class DepositoModelDS{
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setString(1, prodotto.getLuogo());
+			preparedStatement.setString(1, deposito.getLuogo());
 			
-			preparedStatement.setInt(2, prodotto.getID());
+			preparedStatement.setInt(2, deposito.getID());
 
 			preparedStatement.executeUpdate();
 
