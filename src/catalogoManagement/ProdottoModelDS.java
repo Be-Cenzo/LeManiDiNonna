@@ -18,7 +18,7 @@ public class ProdottoModelDS {
 	}
 
 	
-	public Prodotto doRetrieveByKey(String codice) throws SQLException {
+	public Prodotto doRetrieveByKey(int codice) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -29,7 +29,7 @@ public class ProdottoModelDS {
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, Integer.parseInt(codice));
+			preparedStatement.setInt(1, codice);
 
 			ResultSet rs = preparedStatement.executeQuery();
 

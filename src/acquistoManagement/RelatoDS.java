@@ -85,7 +85,7 @@ public class RelatoDS {
 
 				int idProdotto = rs.getInt("prodotto");
 				int quantita = rs.getInt("quantita");
-				prodotto = mod.doRetrieveByKey("" + idProdotto);
+				prodotto = mod.doRetrieveByKey(idProdotto);
 				prodotto.setTaglia(rs.getString("taglia"));
 				prodotto.setQuantita(quantita);
 				

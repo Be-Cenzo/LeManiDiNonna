@@ -109,17 +109,9 @@ public class AccountModelDS {
 	public void doSave(Account account) throws Exception {
 		//pre-condition
 		Validazione.checkEmail(account.getEmail(), ds);
-		for(String n : account.getNumeriTel())
-			Validazione.checkNumero(n);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
 		Validazione.checkStringaVuota(account.getNome());
 		Validazione.checkData(account.getDataNascita());
-		for(Indirizzo i : account.getIndirizzi()){
-			Validazione.checkStringaVuota(i.getProvincia());
-			Validazione.checkStringaVuota(i.getComune());
-			Validazione.checkStringaVuota(i.getVia());
-			Validazione.checkStringaVuota(i.getCAP());
-		}
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -158,17 +150,9 @@ public class AccountModelDS {
 	public void doUpdate(Account account) throws Exception {
 		//pre-condition
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
-		for(String n : account.getNumeriTel())
-			Validazione.checkNumero(n);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
 		Validazione.checkStringaVuota(account.getNome());
 		Validazione.checkData(account.getDataNascita());
-		for(Indirizzo i : account.getIndirizzi()){
-			Validazione.checkStringaVuota(i.getProvincia());
-			Validazione.checkStringaVuota(i.getComune());
-			Validazione.checkStringaVuota(i.getVia());
-			Validazione.checkStringaVuota(i.getCAP());
-		}
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -208,17 +192,9 @@ public class AccountModelDS {
 	public void doUpdateInfo(Account account) throws Exception {
 		//pre-condition
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
-		for(String n : account.getNumeriTel())
-			Validazione.checkNumero(n);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
 		Validazione.checkStringaVuota(account.getNome());
 		Validazione.checkData(account.getDataNascita());
-		for(Indirizzo i : account.getIndirizzi()){
-			Validazione.checkStringaVuota(i.getProvincia());
-			Validazione.checkStringaVuota(i.getComune());
-			Validazione.checkStringaVuota(i.getVia());
-			Validazione.checkStringaVuota(i.getCAP());
-		}
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

@@ -21,10 +21,7 @@ public class IndirizzoModelDS {
 	}
 	
 	
-	public Indirizzo doRetrieveByKey(String id) throws Exception {
-		//pre-condition
-		Validazione.checkStringaVuota(id);
-		//fine
+	public Indirizzo doRetrieveByKey(int id) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -35,7 +32,7 @@ public class IndirizzoModelDS {
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, Integer.parseInt(id));
+			preparedStatement.setInt(1, id);
 			preparedStatement.setString(2, email);
 
 			ResultSet rs = preparedStatement.executeQuery();
@@ -119,7 +116,7 @@ public class IndirizzoModelDS {
 	
 	public void doSave(Indirizzo indirizzo) throws Exception {
 		//pre-condition
-		if(this.doRetrieveByKey("" + indirizzo.getID()) != null)
+		if(this.doRetrieveByKey(indirizzo.getID()) != null)
 			throw new Exception("DB already contains this address");
 		Validazione.checkStringaVuota(indirizzo.getProvincia());
 		Validazione.checkStringaVuota(indirizzo.getComune());
@@ -163,7 +160,7 @@ public class IndirizzoModelDS {
 	
 	public void doUpdate(Indirizzo indirizzo) throws Exception {
 		//pre-condition
-		if(this.doRetrieveByKey("" + indirizzo.getID()) == null)
+		if(this.doRetrieveByKey(indirizzo.getID()) == null)
 			throw new Exception("DB doesn't contains this address");
 		Validazione.checkStringaVuota(indirizzo.getProvincia());
 		Validazione.checkStringaVuota(indirizzo.getComune());
@@ -209,7 +206,7 @@ public class IndirizzoModelDS {
 	
 	public void doDelete(Indirizzo indirizzo) throws Exception {
 		//pre-condition
-		if(this.doRetrieveByKey("" + indirizzo.getID()) == null)
+		if(this.doRetrieveByKey(indirizzo.getID()) == null)
 			throw new Exception("DB doesn't contains this address");	
 		//fine
 		Connection connection = null;
