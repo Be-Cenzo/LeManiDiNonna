@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,catalogoManagement.*, javax.sql.DataSource"%>
+    pageEncoding="UTF-8"%>
     
     <% 
 		String role1 = (String)session.getAttribute("role");

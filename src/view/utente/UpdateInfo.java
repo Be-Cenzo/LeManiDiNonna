@@ -18,7 +18,7 @@ import utenteManagement.AccountModelDS;
 import utenteManagement.Indirizzo;
 import utenteManagement.IndirizzoModelDS;
 import utenteManagement.NumeroModelDS;
-import utility.Validazione;
+import view.site.Validazione;
 
 /**
  * Servlet implementation class UpdateInfo
@@ -98,6 +98,9 @@ public class UpdateInfo extends HttpServlet {
 				model.doUpdateInfo(user);
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			request.getSession().setAttribute("user", user);
 		}
@@ -165,6 +168,9 @@ public class UpdateInfo extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			user.setIndirizzi(indirizzi);
 			request.getSession().setAttribute("user", user);
@@ -226,6 +232,9 @@ public class UpdateInfo extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			user.addIndirizzo(address);
 			request.getSession().setAttribute("user", user);
@@ -255,6 +264,9 @@ public class UpdateInfo extends HttpServlet {
 			try {
 				modelN.doSave(numero);
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -297,6 +309,9 @@ public class UpdateInfo extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			user.setNumeriTel(numeri);
 			request.getSession().setAttribute("user", user);
@@ -314,6 +329,9 @@ public class UpdateInfo extends HttpServlet {
 		return id;
 		}
 		catch(SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;

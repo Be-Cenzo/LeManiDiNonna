@@ -1,4 +1,4 @@
-package utility;
+package view.site;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -35,6 +35,30 @@ public class Validazione {
 
 	}
 	
+public static Account checkEmailForUpdate(String email, DataSource ds) throws Exception {
+		
+		String format = "\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+";
+		Pattern reg = Pattern.compile(format);
+		Matcher matcher = reg.matcher(email);
+		if(!matcher.matches()) {
+			throw new Exception("Invalid Email");
+		}
+		
+		AccountModelDS model = new AccountModelDS(ds);
+		Account acc = null;
+		try {
+		acc = model.doRetrieveByKey(email);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		if(acc.getEmail() != null)
+			return acc;
+		else
+			throw new Exception("Invalid Email");
+
+	}
+	
 	public static String checkNumero(String phone) throws Exception {
 
 		String format = "((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}";
@@ -53,7 +77,6 @@ public class Validazione {
 		Pattern reg = Pattern.compile(format);
 		Matcher matcher = reg.matcher(psw);
 		if(!matcher.matches()) {
-			System.out.println("mannagg a chella puttan e merd " + psw);
 			throw new Exception("Invalid password");
 		}
 		else if(!psw.equals(pswr))
@@ -84,6 +107,18 @@ public class Validazione {
 			return str;
 		else
 			throw new Exception("Invalid taglia");
+	}
+	
+	public static String checkData(String data) throws Exception {
+
+		String format = "^\\d{4}[\\-\\/\\s]?((((0[13578])|(1[02]))[\\-\\/\\s]?(([0-2][0-9])|(3[01])))|(((0[469])|(11))[\\-\\/\\s]?(([0-2][0-9])|(30)))|(02[\\-\\/\\s]?[0-2][0-9]))$";
+		Pattern reg = Pattern.compile(format);
+		Matcher matcher = reg.matcher(data);
+		if(!matcher.matches()) {
+			throw new Exception("Invalid date format");
+		}
+		return data;
+		
 	}
 	
 }

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utility.Validazione;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +20,7 @@ import utenteManagement.AccountModelDS;
 import utenteManagement.Indirizzo;
 import utenteManagement.IndirizzoModelDS;
 import utenteManagement.NumeroModelDS;
+import view.site.Validazione;
 
 /**
  * Servlet implementation class Signup
@@ -117,7 +116,7 @@ public class Signup extends HttpServlet {
 		}
 		String birth = request.getParameter("birth");
 		try {
-			birth = Validazione.checkStringaVuota(birth);
+			birth = Validazione.checkData(birth);
 			acc.setDataNascita(birth);
 		}catch(Exception e) {
 			error = 6;
@@ -196,6 +195,9 @@ public class Signup extends HttpServlet {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return -1;
 	}
@@ -211,6 +213,8 @@ public class Signup extends HttpServlet {
 		modelN.doSave(numero);
 		}
 		catch(SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

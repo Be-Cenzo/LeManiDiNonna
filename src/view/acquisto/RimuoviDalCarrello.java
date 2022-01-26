@@ -53,7 +53,7 @@ public class RimuoviDalCarrello extends HttpServlet {
 				ProdottoModelDS model = new ProdottoModelDS(ds);
 				Prodotto prod = null;
 				try {
-					prod = model.doRetrieveByKey(id);
+					prod = model.doRetrieveByKey(Integer.parseInt(id));
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

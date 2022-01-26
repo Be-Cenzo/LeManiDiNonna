@@ -20,7 +20,7 @@ import catalogoManagement.PhotoModelDS;
 import catalogoManagement.Prodotto;
 import catalogoManagement.ProdottoModelDS;
 import catalogoManagement.TaglieModelDS;
-import utility.Validazione;
+import view.site.Validazione;
 
 /**
  * Servlet implementation class UpdateProdotto
@@ -66,7 +66,7 @@ public class UpdateProdotto extends HttpServlet {
 		
 		Prodotto prodotto = null;
 		try {
-			prodotto = model.doRetrieveByKey(prod);
+			prodotto = model.doRetrieveByKey(Integer.parseInt(prod));
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

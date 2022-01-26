@@ -1,7 +1,9 @@
 package view.catalogo;
 
 import java.io.File;
-import utility.*;
+import view.site.Validazione;
+import view.site.Validazione;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
