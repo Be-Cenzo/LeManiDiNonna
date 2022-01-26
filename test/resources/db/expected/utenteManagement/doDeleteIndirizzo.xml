@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	
+	<Indirizzo id="2" email="vincenzo.offertucci@gmail.com" Provincia="Milano" Comune="Milano" via="Montenapoleone" civico="27" CAP="20121" />
+	<Indirizzo id="1" email="christian.gambardella@gmail.com" Provincia="Salerno" Comune="Scafati" Via="Cortile Cocco" civico="3" CAP="80044" />
+
+</dataset>

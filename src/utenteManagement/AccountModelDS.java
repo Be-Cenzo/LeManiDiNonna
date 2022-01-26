@@ -1,5 +1,7 @@
 package utenteManagement;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,7 +66,7 @@ public class AccountModelDS {
 		String selectSQL = "SELECT * FROM account";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY email " + order;
 		}
 
 		try {
@@ -102,8 +104,35 @@ public class AccountModelDS {
 	public void doSave(Account account) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		
+		String password = account.getPassword();
+		String psw = new String();
+		/*md5 pass*/
+		try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(password.getBytes());
+            //Get the hash's bytes 
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            psw = sb.toString();
+        } 
+        catch (NoSuchAlgorithmException e) 
+        {
+            e.printStackTrace();
+        }
+		/*end*/
+		account.setPassword(psw);
 
-		String insertSQL = "INSERT INTO account" + " (email, nome, cognome, dataNascita, password, nomeIG) VALUES (?, ?, ?, ?, MD5(?), ?)";
+		String insertSQL = "INSERT INTO account" + " (email, nome, cognome, dataNascita, password, nomeIG) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -137,6 +166,33 @@ public class AccountModelDS {
 	public void doUpdate(Account account) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		
+		String password = account.getPassword();
+		String psw = new String();
+		/*md5 pass*/
+		try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(password.getBytes());
+            //Get the hash's bytes 
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            psw = sb.toString();
+        } 
+        catch (NoSuchAlgorithmException e) 
+        {
+            e.printStackTrace();
+        }
+		/*end*/
+		account.setPassword(psw);
 
 		String updateSQL = "UPDATE account SET " + " nome = ?, cognome = ?, dataNascita = ?, password = ?, NomeIG = ? WHERE email = ?";
 

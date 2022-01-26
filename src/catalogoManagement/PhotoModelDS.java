@@ -9,17 +9,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 public class PhotoModelDS {
-	public synchronized static byte[] load(int codice) {
+	public synchronized static byte[] load(int codice, DataSource datasource) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		DataSource ds = datasource;
 
 		byte[] bt = null;
 
 		try {
-			connection = DBConnectionPool.getConnection();
+			connection = ds.getConnection();
 			String sql = "SELECT imgurl FROM prodotto WHERE codice = ?";
 			stmt = connection.prepareStatement(sql);
 			
@@ -41,18 +44,19 @@ public class PhotoModelDS {
 				System.out.println(sqlException);
 			} finally {
 				if (connection != null) 
-					DBConnectionPool.releaseConnection(connection);
+					connection.close();
 			}
 		}
 		return bt;
 	}
 
-	public synchronized static void updatePhoto(int codice, String photo) throws SQLException {
+	public synchronized static void updatePhoto(int codice, String photo, DataSource datasource) throws SQLException {
 		Connection con = null;
 		PreparedStatement stmt = null;
+		DataSource ds = datasource;
 
 		try {
-			con = DBConnectionPool.getConnection();
+			con = ds.getConnection();
 
 			stmt = con.prepareStatement("UPDATE prodotto SET imgurl = ? WHERE codice = ?");
 			
@@ -77,7 +81,7 @@ public class PhotoModelDS {
 				System.out.println(sqlException);
 			} finally {
 				if (con != null)
-					DBConnectionPool.releaseConnection(con);
+					con.close();
 			}
 		}
 	}	

@@ -247,7 +247,7 @@ public class UploadProdotto extends HttpServlet {
 			if (fileName != null && !fileName.equals("")) {
 				part.write(savePath + File.separator + fileName);
 				try {
-					PhotoModelDS.updatePhoto(prodotto.getCodice(), savePath + File.separator + fileName);
+					PhotoModelDS.updatePhoto(prodotto.getCodice(), savePath + File.separator + fileName, ds);
 				} catch (SQLException sqlException) {
 					System.out.println(sqlException);
 				}
