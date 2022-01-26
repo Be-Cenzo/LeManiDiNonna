@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import view.site.Validazione;
+
 public class TaglieModelDS{
 	
 	private DataSource ds = null;
@@ -17,7 +19,10 @@ public class TaglieModelDS{
 	}
 
 	
-	public void doSave(int codice, String taglia) throws SQLException {
+	public void doSave(int codice, String taglia) throws Exception {
+		//pre-condition
+		Validazione.checkTaglia(taglia);
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

@@ -139,8 +139,11 @@ public class UpdateProdotto extends HttpServlet {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+ catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//fine
-
 		RequestDispatcher next = request.getRequestDispatcher("/chisiamo.jsp");
 		next.forward(request, response);
 	}
