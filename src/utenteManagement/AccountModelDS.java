@@ -110,7 +110,7 @@ public class AccountModelDS {
 	
 	public void doSave(Account account) throws Exception {
 		//pre-condition
-		Validazione.checkEmail(account.getEmail(), ds);
+		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
 		Validazione.checkStringaVuota(account.getNome());
 		Validazione.checkData(account.getDataNascita());
@@ -288,7 +288,7 @@ public class AccountModelDS {
 
 	
 	public void doDelete(Account account) throws Exception {
-		Validazione.checkEmailForUpdate(account.getEmail(), ds);
+		Validazione.checkStringaVuota(account.getEmail());
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

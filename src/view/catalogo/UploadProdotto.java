@@ -175,6 +175,9 @@ public class UploadProdotto extends HttpServlet {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		int codice = this.findCodice(modelP);
@@ -267,6 +270,9 @@ public class UploadProdotto extends HttpServlet {
 		return all.size();
 		}
 		catch(SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;
