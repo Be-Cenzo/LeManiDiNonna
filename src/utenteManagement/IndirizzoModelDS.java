@@ -76,7 +76,7 @@ public class IndirizzoModelDS {
 		String selectSQL = "SELECT * FROM indirizzo WHERE email = ?";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY provincia " + order;
 		}
 
 		try {
