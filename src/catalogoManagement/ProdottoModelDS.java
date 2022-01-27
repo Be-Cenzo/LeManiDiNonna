@@ -78,7 +78,7 @@ public class ProdottoModelDS {
 		String selectSQL = "SELECT * FROM prodotto";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY descrizione " + order;
 		}
 
 		try {
@@ -151,7 +151,7 @@ public class ProdottoModelDS {
 			}
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY descrizione " + order;
 		}
 
 		try {

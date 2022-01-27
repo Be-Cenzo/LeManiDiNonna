@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+	<Taglie prodotto="1" taglia="S" />
+	<Taglie prodotto="1" taglia="M" />
+	<Taglie prodotto="1" taglia="L" />
+	<Taglie prodotto="2" taglia="S" />
+	<Taglie prodotto="2" taglia="M" />
+	<Taglie prodotto="2" taglia="L" />
+	<Taglie prodotto="3" taglia="S" />
+	
+</dataset>

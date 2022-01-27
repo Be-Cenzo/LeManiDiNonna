@@ -66,7 +66,7 @@ public class DepositoModelDS{
 		String selectSQL = "SELECT * FROM deposito";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY luogo " + order;
 		}
 
 		try {
