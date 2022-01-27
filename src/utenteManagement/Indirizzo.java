@@ -14,6 +14,7 @@ public class Indirizzo implements Serializable{
 	private int civico;
 	private String CAP;
 	
+	
 	public Indirizzo(int ID, String email, String provincia, String comune, String via, int civico, String CAP) {
 		this.ID = ID;
 		this.email = email;

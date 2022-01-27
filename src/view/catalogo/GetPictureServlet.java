@@ -1,12 +1,15 @@
 package view.catalogo;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import catalogoManagement.*;
 
@@ -24,7 +27,13 @@ public class GetPictureServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		//if (id != null) 
 		//{
-			byte[] bt = PhotoModelDS.load(id);
+			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+			byte[] bt = null;
+			try {
+				bt = PhotoModelDS.load(id, ds);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 			ServletOutputStream out = response.getOutputStream();
 			if (bt != null) 

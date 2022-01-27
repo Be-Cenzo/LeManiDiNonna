@@ -69,7 +69,7 @@ public class NumeroModelDS{
 		String selectSQL = "SELECT * FROM numtel WHERE email = ?";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY num " + order;
 		}
 
 		try {

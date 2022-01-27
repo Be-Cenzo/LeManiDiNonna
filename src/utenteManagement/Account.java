@@ -13,11 +13,23 @@ public class Account implements Serializable{
 	private String dataNascita;
 	private String password;
 	private String nomeIG;
-	private ArrayList<String> numeriTel = new ArrayList<String>();
-	private ArrayList<Indirizzo> indirizzi = new ArrayList<Indirizzo>();
+	private ArrayList<String> numeriTel;
+	private ArrayList<Indirizzo> indirizzi;
 	
 	public Account() {
-		
+		numeriTel = new ArrayList<String>();
+		indirizzi = new ArrayList<Indirizzo>();
+	}
+	
+	public Account(String email, String nome, String cognome, String dataNascita, String password, String nomeIG) {
+		this.email = email;
+		this.nome = nome;		
+		this.cognome = cognome;
+		this.dataNascita = dataNascita;
+		this.password = password;
+		this.nomeIG = nomeIG;
+		numeriTel = new ArrayList<String>();
+		indirizzi = new ArrayList<Indirizzo>();
 	}
 	
 	public Account(String email, String nome, String cognome, String dataNascita, String password, String nomeIG, String numeroTel, Indirizzo indirizzo) {
