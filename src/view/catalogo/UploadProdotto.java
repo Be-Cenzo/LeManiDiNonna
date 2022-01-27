@@ -230,7 +230,7 @@ public class UploadProdotto extends HttpServlet {
 		//fine
 		
 		//conservato
-		ConservatoDS modelC = new ConservatoDS(ds);
+		ConservatoModelDS modelC = new ConservatoModelDS(ds);
 		try {
 			modelC.doSave(prodotto, dep, quantita);
 		}

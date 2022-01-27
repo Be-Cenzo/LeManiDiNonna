@@ -17,7 +17,7 @@ import acquistoManagement.Carrello;
 import acquistoManagement.Spedizione;
 import acquistoManagement.SpedizioneModelDS;
 import acquistoManagement.OrdineModelDS;
-import catalogoManagement.ConservatoDS;
+import catalogoManagement.ConservatoModelDS;
 import catalogoManagement.Prodotto;
 import utenteManagement.Account;
 import utenteManagement.IndirizzoModelDS;
@@ -77,7 +77,7 @@ public class Pagamento extends HttpServlet {
 		}
 		request.getSession().setAttribute("corrieri", corrieri);
 		
-		ConservatoDS crea = new ConservatoDS(ds);
+		ConservatoModelDS crea = new ConservatoModelDS(ds);
 		Carrello cart = (Carrello) request.getSession().getAttribute("carrello");
 		
 		ArrayList<Prodotto> prodotti = crea.checkDisponibilita(cart.getProdotti());

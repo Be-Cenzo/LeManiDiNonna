@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 
 import acquistoManagement.Ordine;
 import acquistoManagement.OrdineModelDS;
-import acquistoManagement.RelatoDS;
+import acquistoManagement.RelatoModelDS;
 import catalogoManagement.Prodotto;
 import utenteManagement.Account;
 
@@ -47,7 +47,7 @@ public class OrdiniUtente extends HttpServlet {
 		Account user = (Account) request.getSession().getAttribute("user");
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		OrdineModelDS model = new OrdineModelDS(ds);
-		RelatoDS relmodel = new RelatoDS(ds);
+		RelatoModelDS relmodel = new RelatoModelDS(ds);
 		
 		ArrayList<Ordine> ordini = null;
 		
@@ -66,6 +66,9 @@ public class OrdiniUtente extends HttpServlet {
 			try {
 				prodotti = relmodel.doRetrieveAll("", ord);
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

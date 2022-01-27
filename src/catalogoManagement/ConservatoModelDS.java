@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-public class ConservatoDS {
+public class ConservatoModelDS {
 
 	private DataSource ds = null;
 
-	public ConservatoDS(DataSource ds) {
+	public ConservatoModelDS(DataSource ds) {
 		this.ds = ds;
 	}
 	

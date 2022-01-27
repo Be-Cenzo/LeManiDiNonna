@@ -11,12 +11,13 @@ import javax.sql.DataSource;
 
 import catalogoManagement.Prodotto;
 import catalogoManagement.ProdottoModelDS;
+import view.site.Validazione;
 
-public class RelatoDS {
+public class RelatoModelDS {
 	
 	private DataSource ds = null;
 
-	public RelatoDS(DataSource ds) {
+	public RelatoModelDS(DataSource ds) {
 		this.ds = ds;
 	}
 	
@@ -60,7 +61,11 @@ public class RelatoDS {
 	 * @return un'arraylist di prodotti appartenenti all'ordine
 	 * @throws SQLException
 	 */
-	public ArrayList<Prodotto> doRetrieveAll(String order, Ordine ordine) throws SQLException {
+	public ArrayList<Prodotto> doRetrieveAll(String order, Ordine ordine) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -104,7 +109,11 @@ public class RelatoDS {
 		return prodotti;
 	}
 	
-	public void doSave(Prodotto prodotto, Ordine ordine, int quantita) throws SQLException {
+	public void doSave(Prodotto prodotto, Ordine ordine, int quantita) throws Exception {
+		//pre-condition
+		if(quantita <= 0)
+			throw new Exception("invalid quantita");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -136,7 +145,11 @@ public class RelatoDS {
 		}
 	}
 	
-	public void doUpdate(Prodotto prodotto, Ordine ordine, int quantita) throws SQLException {
+	public void doUpdate(Prodotto prodotto, Ordine ordine, int quantita) throws Exception {
+		//pre-condition
+		if(quantita <= 0)
+			throw new Exception("invalid quantita");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

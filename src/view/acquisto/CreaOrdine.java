@@ -52,7 +52,7 @@ public class CreaOrdine extends HttpServlet {
 		
 		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
 		OrdineModelDS crea = new OrdineModelDS(ds);
-		ConservatoDS model = new ConservatoDS(ds);
+		ConservatoModelDS model = new ConservatoModelDS(ds);
 		
 		int idIndirizzo = Integer.parseInt(request.getParameter("idIndirizzo"));
 		String corriere = request.getParameter("corriere");
