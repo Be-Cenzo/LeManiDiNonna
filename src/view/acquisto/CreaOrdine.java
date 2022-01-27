@@ -1,6 +1,7 @@
 package view.acquisto;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import acquistoManagement.Carrello;
-import acquistoManagement.CreaOrdineDS;
-import catalogoManagement.Prodotto;
+import acquistoManagement.OrdineModelDS;
+import catalogoManagement.*;
 import utenteManagement.Account;
 import utenteManagement.IndirizzoModelDS;
 
@@ -50,7 +51,8 @@ public class CreaOrdine extends HttpServlet {
 		Account account = (Account) request.getSession().getAttribute("user");
 		
 		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
-		CreaOrdineDS crea = new CreaOrdineDS(ds);
+		OrdineModelDS crea = new OrdineModelDS(ds);
+		ConservatoDS model = new ConservatoDS(ds);
 		
 		int idIndirizzo = Integer.parseInt(request.getParameter("idIndirizzo"));
 		String corriere = request.getParameter("corriere");
@@ -61,7 +63,7 @@ public class CreaOrdine extends HttpServlet {
 			totale += prod.getQuantita()*prod.getPrezzo();
 		}
 		
-		ArrayList<Prodotto> prodotti = crea.checkDisponibilita(cart.getProdotti());
+		ArrayList<Prodotto> prodotti = model.checkDisponibilita(cart.getProdotti());
 		
 		if(!prodotti.isEmpty()) {
 		request.setAttribute("nonDisponibili", prodotti);
@@ -71,8 +73,11 @@ public class CreaOrdine extends HttpServlet {
 		
 		int ris = 0;
 		try {
-			ris = crea.newOrdine(account.getEmail(), "", idIndirizzo, corriere, cart.getProdotti(), totale);
+			ris = crea.doSave(account.getEmail(), "", idIndirizzo, corriere, cart.getProdotti(), totale);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

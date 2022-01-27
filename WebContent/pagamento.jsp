@@ -91,10 +91,10 @@
 				<div class="corrieri" id="corrieri">
 					<div class="titolo-informazioni">Seleziona un Corriere</div>
 					<%
-						ArrayList<Corriere> corrieri = (ArrayList<Corriere>)session.getAttribute("corrieri");
-						if(corrieri != null && !corrieri.isEmpty()){
-							for(Corriere corr : corrieri){
-								%>
+					ArrayList<Spedizione> corrieri = (ArrayList<Spedizione>)session.getAttribute("corrieri");
+									if(corrieri != null && !corrieri.isEmpty()){
+										for(Spedizione corr : corrieri){
+					%>
 								<div class="row indirizzo-row justify-content-center">
 									<input type="radio" name="corriere" value="<%=corr.getNome() %>" <%if(corrieri.indexOf(corr)==0){ %>checked<%} %>>
 									<div style="display:grid">

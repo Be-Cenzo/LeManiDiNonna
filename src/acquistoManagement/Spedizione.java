@@ -3,18 +3,18 @@ package acquistoManagement;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Corriere implements Serializable{
+public class Spedizione implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String tempo;
 	private float prezzo;
 	
-	public Corriere() {
+	public Spedizione() {
 		
 	}
 	
-	public Corriere(String nome, String tempo, float prezzo) {
+	public Spedizione(String nome, String tempo, float prezzo) {
 		this.nome = nome;
 		this.tempo = tempo;
 		this.prezzo = prezzo;
@@ -65,7 +65,7 @@ public class Corriere implements Serializable{
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Corriere o = (Corriere) obj;
+        Spedizione o = (Spedizione) obj;
         return prezzo == o.prezzo && Objects.equals(nome, o.nome) && Objects.equals(tempo, o.tempo);
 	}
 

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -149,5 +150,49 @@ public class ConservatoDS {
 				}
 			}
 		}
+	}
+	
+	public ArrayList<Prodotto> checkDisponibilita(ArrayList<Prodotto> prodotti) {
+		Connection con = null;
+        PreparedStatement st = null;
+        ResultSet ris = null;
+        int res, id = 0, dispo = 0;
+        ArrayList<Prodotto> prodottiND = new ArrayList<Prodotto>();
+
+        try{
+            con = ds.getConnection();
+
+	            for(Prodotto prodotto : prodotti){
+		        	int quantita = prodotto.getQuantita();
+		            st = con.prepareStatement("SELECT SUM(disponibilita) AS quantita FROM Conservato WHERE prodotto = ? AND taglia = ?;");
+		            st.setInt(1, prodotto.getCodice());
+		            st.setString(2, prodotto.getTaglia());
+		            ris = st.executeQuery();
+		
+		            while(ris.next()){
+		                dispo = ris.getInt("quantita");
+		            }
+		
+		            if(dispo<quantita) {
+		                prodottiND.add(prodotto);
+		            	System.out.println("Non c'è abbastanza disponibilità.");
+		            }
+		 }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if (ris != null)
+                    ris.close();
+                if (st != null)
+                    st.close();
+                if (con != null)
+                	con.close();
+            }catch(SQLException s){
+                s.printStackTrace();
+            }
+        }
+        return prodottiND;
 	}
 }

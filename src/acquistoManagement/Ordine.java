@@ -19,7 +19,7 @@ public class Ordine implements Serializable{
 	private String stato;
 	private String email;
 	private int indirizzo;
-	private String corriere;
+	private String spedizione;
 	private ArrayList<Prodotto> prodotti;
 	
 	public Ordine() {
@@ -35,7 +35,7 @@ public class Ordine implements Serializable{
 		this.stato = stato;
 		this.email = email;
 		this.indirizzo = indirizzo;
-		this.corriere = corriere;
+		this.spedizione = corriere;
 		prodotti = new ArrayList<Prodotto>();
 	}
 	
@@ -154,15 +154,15 @@ public class Ordine implements Serializable{
 	/**
 	 * @return il corriere
 	 */
-	public String getCorriere() {
-		return corriere;
+	public String getSpedizione() {
+		return spedizione;
 	}
 
 	/**
 	 * @param corriere il corriere da settare
 	 */
-	public void setCorriere(String corriere) {
-		this.corriere = corriere;
+	public void setSpedizione(String spedizione) {
+		this.spedizione = spedizione;
 	}
 	
 	/**
@@ -183,7 +183,7 @@ public class Ordine implements Serializable{
 		if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Ordine o = (Ordine) obj;
-        return ID == o.ID && prezzo == o.prezzo && costoSped == o.costoSped && indirizzo == o.indirizzo && Objects.equals(data, o.data) && Objects.equals(email, o.email) && Objects.equals(stato, o.stato) && Objects.equals(corriere, o.corriere) && Objects.equals(note, o.note) && Objects.equals(prodotti, o.prodotti);
+        return ID == o.ID && prezzo == o.prezzo && costoSped == o.costoSped && indirizzo == o.indirizzo && Objects.equals(data, o.data) && Objects.equals(email, o.email) && Objects.equals(stato, o.stato) && Objects.equals(spedizione, o.spedizione) && Objects.equals(note, o.note) && Objects.equals(prodotti, o.prodotti);
 	}
 
 }
