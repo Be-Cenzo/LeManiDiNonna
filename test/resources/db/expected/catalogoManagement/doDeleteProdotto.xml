@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+	<Prodotto codice="0" tipo="t-shirt" prezzo="15" colore="bianco" descrizione="Hakuna Matata T-Shirt" marca="hz" modello="normale"  />
+	<Prodotto codice="2" tipo="t-shirt" prezzo="15" colore="bianco" descrizione="Aereoplano T-Shirt" marca="hz" modello="normale"  />
+	<Prodotto codice="3" tipo="felpa" prezzo="25" colore="grigio" descrizione="Live Ride Felpa" marca="hz" modello="hoodie"  />
+	<Prodotto codice="4" tipo="borsello" prezzo="8" colore="bianco" descrizione="Coffee Lover"  />
+	<Prodotto codice="5" tipo="borsello" prezzo="8" colore="bianco" descrizione="Renna"  />
+	<Prodotto codice="6" tipo="cappello" prezzo="8" colore="nero" descrizione="Cloud"  />
+	<Prodotto codice="7" tipo="shopper" prezzo="5" colore="bianco" descrizione="Disney Shopper"  />
+	<Prodotto codice="8" tipo="grembiule" prezzo="5" colore="bianco" descrizione="Cucina Bene Grembiule" />	
+	
+</dataset>

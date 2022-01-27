@@ -9,6 +9,7 @@
 	<Prodotto codice="5" tipo="borsello" prezzo="8" colore="bianco" descrizione="Renna" imgurl="" />
 	<Prodotto codice="6" tipo="cappello" prezzo="8" colore="nero" descrizione="Cloud" imgurl="" />
 	<Prodotto codice="7" tipo="shopper" prezzo="5" colore="bianco" descrizione="Disney Shopper" imgurl="" />
-	<Prodotto codice="8" tipo="grembiule" prezzo="5" colore="bianco" descrizione="Cucina Bene Grembiule" imgurl=""/>	
+	<Prodotto codice="8" tipo="grembiule" prezzo="5" colore="bianco" descrizione="Cucina Bene Grembiule" imgurl="" />
+	<Prodotto codice="9" tipo="t-shirt" prezzo="15" colore="nero" descrizione="Harry Potter T-Shirt" marca="hz" modello="hoodie" imgurl="" />	
 	
 </dataset>
