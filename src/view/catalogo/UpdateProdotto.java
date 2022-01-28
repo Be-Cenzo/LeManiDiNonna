@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
-import catalogoManagement.ConservatoDS;
+import catalogoManagement.ConservatoModelDS;
 import catalogoManagement.Deposito;
 import catalogoManagement.DepositoModelDS;
 import catalogoManagement.PhotoModelDS;
@@ -128,7 +128,7 @@ public class UpdateProdotto extends HttpServlet {
 		//fine
 		
 		//conservato
-		ConservatoDS modelC = new ConservatoDS(ds);
+		ConservatoModelDS modelC = new ConservatoModelDS(ds);
 		try {
 			int disponibilita = modelC.doRetrieveByKey(prodotto, dep);
 			if(disponibilita == -1)

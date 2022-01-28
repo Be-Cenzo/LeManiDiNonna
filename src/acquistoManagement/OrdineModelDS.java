@@ -9,6 +9,9 @@ import java.util.HashMap;
 
 import javax.sql.DataSource;
 
+import catalogoManagement.Prodotto;
+import view.site.Validazione;
+
 public class OrdineModelDS {
 
 	private DataSource ds = null;
@@ -20,7 +23,7 @@ public class OrdineModelDS {
 	}
 	
 	
-	public Ordine doRetrieveByKey(String ID) throws SQLException {
+	public Ordine doRetrieveByKey(int ID) throws SQLException {
 		connection = null;
 		preparedStatement = null;
 
@@ -31,7 +34,7 @@ public class OrdineModelDS {
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, Integer.parseInt(ID));
+			preparedStatement.setInt(1, ID);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -44,7 +47,7 @@ public class OrdineModelDS {
 				ordine.setStato(rs.getString("stato"));
 				ordine.setEmail(rs.getString("email"));
 				ordine.setIndirizzo(rs.getInt("indirizzo"));
-				ordine.setCorriere(rs.getString("corriere"));
+				ordine.setSpedizione(rs.getString("corriere"));
 			}
 
 		} finally {
@@ -61,7 +64,11 @@ public class OrdineModelDS {
 	}
 
 	
-	public ArrayList<Ordine> doRetrieveAll(String order) throws SQLException {
+	public ArrayList<Ordine> doRetrieveAll(String order) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		connection = null;
 		preparedStatement = null;
 
@@ -90,7 +97,7 @@ public class OrdineModelDS {
 				ordine.setStato(rs.getString("stato"));
 				ordine.setEmail(rs.getString("email"));
 				ordine.setIndirizzo(rs.getInt("indirizzo"));
-				ordine.setCorriere(rs.getString("corriere"));
+				ordine.setSpedizione(rs.getString("corriere"));
 
 				ordini.add(ordine);
 			}
@@ -107,7 +114,12 @@ public class OrdineModelDS {
 		return ordini;
 	}
 	
-	public ArrayList<Ordine> doRetrieveAll(String order, String email) throws SQLException {
+	public ArrayList<Ordine> doRetrieveAll(String order, String email) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		Validazione.checkStringaVuota(email);
+		//fine
 		connection = null;
 		preparedStatement = null;
 
@@ -137,7 +149,7 @@ public class OrdineModelDS {
 				ordine.setStato(rs.getString("stato"));
 				ordine.setEmail(rs.getString("email"));
 				ordine.setIndirizzo(rs.getInt("indirizzo"));
-				ordine.setCorriere(rs.getString("corriere"));
+				ordine.setSpedizione(rs.getString("corriere"));
 
 				ordini.add(ordine);
 			}
@@ -155,45 +167,166 @@ public class OrdineModelDS {
 	}
 
 	
-	public void doSave(Ordine ordine) throws SQLException {
-		connection = null;
-		preparedStatement = null;
+	public int doSave(String email, String note, int indirizzo, String spedizione, ArrayList<Prodotto> prodotti, float totale) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(email);
+		Validazione.checkStringaVuota(note);
+		Validazione.checkStringaVuota(spedizione);
+		float somma = 0;
+		for(Prodotto p : prodotti)
+			somma += p.getPrezzo();
+		if(totale != somma)
+			throw new Exception("Inconsistent price");
+		//fine
+		Connection con = null;
+        PreparedStatement st = null;
+        ResultSet ris = null;
+        int res, id = 0, dispo = 0;
+        float costoSped = 0;
+        System.out.println(email);
 
-		String insertSQL = "INSERT INTO Ordine (ID, data, prezzo, costoSped, note, stato, email, indirizzo, corriere) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try{
+            con = ds.getConnection();
+            con.setAutoCommit(false);
 
-		try {
-			connection = ds.getConnection();
-			connection.setAutoCommit(false);
-			preparedStatement = connection.prepareStatement(insertSQL);
+            st = con.prepareStatement("SELECT costoSped FROM Corriere WHERE nome = ?");
+            st.setString(1, spedizione);
+            ris = st.executeQuery();
 
-			preparedStatement.setInt(1, ordine.getID());
-			preparedStatement.setDate(2, ordine.getData());
-			preparedStatement.setFloat(3, ordine.getPrezzo());
-			preparedStatement.setFloat(4, ordine.getCostoSped());
-			preparedStatement.setString(5, ordine.getNote());
-			preparedStatement.setString(6, ordine.getStato());
-			preparedStatement.setString(7, ordine.getEmail());
-			preparedStatement.setInt(8, ordine.getIndirizzo());
-			preparedStatement.setString(9, ordine.getCorriere());
-			
-			preparedStatement.executeUpdate();
+            while(ris.next()){
+                costoSped = ris.getFloat("costoSped");
+            }
 
-			connection.commit();
+            st = con.prepareStatement("INSERT INTO Ordine(data, prezzo, costoSped, stato, note, email, indirizzo, corriere)" +
+                                        "VALUES (current_timestamp(), ?, ?, 'Confermato', ?, ?, ?, ?);");
+            st.setFloat(1, totale);
+            st.setFloat(2, costoSped);
+            st.setString(3, note);
+            st.setString(4, email);
+            st.setInt(5, indirizzo);
+            st.setString(6, spedizione);
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null) {
-					connection.close();
-				}
-			}
-		}
+            res = st.executeUpdate();
+            if (res > 0) {
+                st = con.prepareStatement("SELECT MAX(ID) AS Max FROM Ordine WHERE email = ?;");
+                st.setString(1, email);
+                ris = st.executeQuery();
+                while(ris.next()){
+                    id = ris.getInt("Max");
+                }
+                
+                for(Prodotto prodotto : prodotti){
+                	int quantita = prodotto.getQuantita();
+	                st = con.prepareStatement("SELECT SUM(disponibilita) AS quantita FROM Conservato WHERE prodotto = ? AND taglia = ?;");
+	                st.setInt(1, prodotto.getCodice());
+	                st.setString(2, prodotto.getTaglia());
+	                ris = st.executeQuery();
+	
+	                while(ris.next()){
+	                    dispo = ris.getInt("quantita");
+	                }
+	
+	                if(dispo>=quantita) {
+	
+	                    st = con.prepareStatement("INSERT INTO Relato VALUES (?, ?, ? ,?);");
+	                    st.setInt(1, prodotto.getCodice());
+	                    st.setString(2, prodotto.getTaglia());
+	                    st.setInt(3, id);
+	                    st.setInt(4, quantita);
+	                    res = st.executeUpdate();
+	
+	                    if (res > 0) {
+	
+	                        while(quantita > 0){
+	                            int deposito = 1;
+	                            int quantitaDep = 0;
+	                            st = con.prepareStatement("SELECT MIN(deposito) as dep, disponibilita FROM Conservato WHERE prodotto = ? AND taglia = ? AND disponibilita > 0;");
+	                            st.setInt(1, prodotto.getCodice());
+                                st.setString(2, prodotto.getTaglia());
+	                            ris = st.executeQuery();
+	                            while(ris.next()) {
+	                                deposito = ris.getInt("dep");
+	                                quantitaDep = ris.getInt("disponibilita");
+	                            }
+	
+	                            if(quantita > quantitaDep){
+	                                st = con.prepareStatement("UPDATE Conservato SET disponibilita = 0 WHERE deposito = ? AND prodotto = ? AND taglia = ?;");
+	                                st.setInt(1, deposito);
+	                                st.setInt(2, prodotto.getCodice());
+	                                st.setString(3, prodotto.getTaglia());
+	                                res = st.executeUpdate();
+	                                if(res <= 0) {
+	                                    con.rollback();
+	                                    System.out.println("Errore nell'update del deposito. 1");
+	                                    break;
+	                                }
+	                                quantita-=quantitaDep;
+	                            }
+	                            else{
+	                                st = con.prepareStatement("UPDATE Conservato SET disponibilita = ? WHERE deposito = ? AND prodotto = ? AND taglia = ?;");
+	                                int rest = quantitaDep - prodotto.getQuantita();
+	                                st.setInt(1, rest);
+	                                st.setInt(2, deposito);
+	                                st.setInt(3, prodotto.getCodice());
+	                                st.setString(4, prodotto.getTaglia());
+	                                res = st.executeUpdate();
+	                                if(res <= 0) {
+	                                    con.rollback();
+	                                    System.out.println("Errore nell'update del deposito. 2");
+	                                    break;
+	                                }
+	                                quantita = 0;
+	                            }
+	                            System.out.println("Update effettuato");
+	                            con.commit();
+	                        }
+	                    } else {
+	                        con.rollback();
+	                        System.out.println("Impossibile effettuare l'update");
+	                    }
+	                }
+	                else{
+	                    con.rollback();
+	                    System.out.println("Non c'è abbastanza disponibilità.");
+	                }
+                }
+
+            } else {
+                System.out.println("Impossibile effettuare l'update");
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if (ris != null)
+                    ris.close();
+                if (st != null)
+                    st.close();
+                if (con != null)
+                	con.close();
+            }catch(SQLException s){
+                s.printStackTrace();
+            }
+        }
+        return 1;
 	}
+	
+	
+	
 
 	
-	public void doUpdate(Ordine ordine) throws SQLException {
+	public void doUpdate(Ordine ordine) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(ordine.getEmail());
+		Validazione.checkStringaVuota(ordine.getNote());
+		Validazione.checkStringaVuota(ordine.getSpedizione());
+		float somma = 0;
+		for(Prodotto p : ordine.getProdotti())
+			somma += p.getPrezzo();
+		if(ordine.getPrezzo() != somma)
+			throw new Exception("Inconsistent price");
+		//fine
 		connection = null;
 		preparedStatement = null;
 
@@ -211,7 +344,7 @@ public class OrdineModelDS {
 			preparedStatement.setString(5, ordine.getStato());
 			preparedStatement.setString(6, ordine.getEmail());
 			preparedStatement.setInt(7, ordine.getIndirizzo());
-			preparedStatement.setString(8, ordine.getCorriere());
+			preparedStatement.setString(8, ordine.getSpedizione());
 			preparedStatement.setInt(9, ordine.getID());
 
 			preparedStatement.executeUpdate();
@@ -258,44 +391,6 @@ public class OrdineModelDS {
 			}
 		}
 	}
-	
-	//crea ordine si trova in una classe apposita
-	/*public void creaOrdine(Ordine ordine) throws SQLException {
-		doSave(ordine);
-		connection = null;
-		preparedStatement = null;
-
-		try {
-			connection = ds.getConnection();
-			connection.setAutoCommit(false);
-			HashMap<Prodotto, Integer> quantità = ordine.getQuantità();
-			quantità.forEach((prod, quant) -> {
-				String insertSQL = "INSERT INTO relato (ordine, prodotto, quantità) VALUES (?, ?, ?)";
-				try {
-					preparedStatement = connection.prepareStatement(insertSQL);
-
-					preparedStatement.setInt(1, ordine.getID());
-					preparedStatement.setInt(2, prod.getCodice());
-					preparedStatement.setFloat(3, quant);
-					preparedStatement.executeUpdate();
-
-					connection.commit();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null) {
-					connection.close();
-				}
-			}
-		}
-	}*/
+		
 
 }

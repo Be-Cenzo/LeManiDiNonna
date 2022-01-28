@@ -14,9 +14,10 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import acquistoManagement.Carrello;
-import acquistoManagement.Corriere;
-import acquistoManagement.CorriereModelDS;
-import acquistoManagement.CreaOrdineDS;
+import acquistoManagement.Spedizione;
+import acquistoManagement.SpedizioneModelDS;
+import acquistoManagement.OrdineModelDS;
+import catalogoManagement.ConservatoModelDS;
 import catalogoManagement.Prodotto;
 import utenteManagement.Account;
 import utenteManagement.IndirizzoModelDS;
@@ -62,18 +63,21 @@ public class Pagamento extends HttpServlet {
 		request.getSession().setAttribute("user", user);
 		//System.out.println("sto in pagamento.java l'user è : " + user.getEmail());
 		
-		ArrayList<Corriere> corrieri = null;
-		CorriereModelDS corrmod = new CorriereModelDS(ds);
+		ArrayList<Spedizione> corrieri = null;
+		SpedizioneModelDS corrmod = new SpedizioneModelDS(ds);
 		
 		try {
 			corrieri = corrmod.doRetrieveAll("");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		request.getSession().setAttribute("corrieri", corrieri);
 		
-		CreaOrdineDS crea = new CreaOrdineDS(ds);
+		ConservatoModelDS crea = new ConservatoModelDS(ds);
 		Carrello cart = (Carrello) request.getSession().getAttribute("carrello");
 		
 		ArrayList<Prodotto> prodotti = crea.checkDisponibilita(cart.getProdotti());

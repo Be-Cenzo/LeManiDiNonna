@@ -8,20 +8,25 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-public class CorriereModelDS {
+import view.site.Validazione;
+
+public class SpedizioneModelDS {
 
 	private DataSource ds = null;
 
-	public CorriereModelDS(DataSource ds) {
+	public SpedizioneModelDS(DataSource ds) {
 		this.ds = ds;
 	}
 	
 	
-	public Corriere doRetrieveByKey(String nome) throws SQLException {
+	public Spedizione doRetrieveByKey(String nome) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(nome);
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Corriere corriere = new Corriere();
+		Spedizione spedizione = new Spedizione();
 
 		String selectSQL = "SELECT * FROM corriere WHERE nome = ?";
 
@@ -33,9 +38,9 @@ public class CorriereModelDS {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				corriere.setNome(rs.getString("nome"));
-				corriere.setTempo(rs.getString("tempo"));
-				corriere.setPrezzo(rs.getFloat("costoSped"));
+				spedizione.setNome(rs.getString("nome"));
+				spedizione.setTempo(rs.getString("tempo"));
+				spedizione.setPrezzo(rs.getFloat("costoSped"));
 			}
 		} finally {
 			try {
@@ -47,15 +52,19 @@ public class CorriereModelDS {
 				}
 			}
 		}
-		return corriere;
+		return spedizione;
 	}
 
 	
-	public ArrayList<Corriere> doRetrieveAll(String order) throws SQLException {
+	public ArrayList<Spedizione> doRetrieveAll(String order) throws Exception {
+		//pre-condition
+		if(order != null && order != "" && order != "ASC" && order != "DESC")
+			throw new Exception("Invalid order");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		ArrayList<Corriere> corrieri = new ArrayList<Corriere>();
+		ArrayList<Spedizione> corrieri = new ArrayList<Spedizione>();
 
 		String selectSQL = "SELECT * FROM corriere";
 
@@ -70,7 +79,7 @@ public class CorriereModelDS {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				Corriere corriere = new Corriere();
+				Spedizione corriere = new Spedizione();
 
 				corriere.setNome(rs.getString("nome"));
 				corriere.setTempo(rs.getString("tempo"));
@@ -92,7 +101,13 @@ public class CorriereModelDS {
 	}
 
 	
-	public void doSave(Corriere corriere) throws SQLException {
+	public void doSave(Spedizione spedizione) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(spedizione.getNome());
+		Validazione.checkStringaVuota(spedizione.getTempo());
+		if(spedizione.getPrezzo() <= 0)
+			throw new Exception("Invalid price");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -103,9 +118,9 @@ public class CorriereModelDS {
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 
-			preparedStatement.setString(1, corriere.getNome());
-			preparedStatement.setString(2, corriere.getTempo());
-			preparedStatement.setFloat(3, corriere.getPrezzo());
+			preparedStatement.setString(1, spedizione.getNome());
+			preparedStatement.setString(2, spedizione.getTempo());
+			preparedStatement.setFloat(3, spedizione.getPrezzo());
 			
 			preparedStatement.executeUpdate();
 
@@ -124,7 +139,13 @@ public class CorriereModelDS {
 	}
 
 	
-	public void doUpdate(Corriere corriere) throws SQLException {
+	public void doUpdate(Spedizione spedizione) throws Exception {
+		//pre-condition
+		Validazione.checkStringaVuota(spedizione.getNome());
+		Validazione.checkStringaVuota(spedizione.getTempo());
+		if(spedizione.getPrezzo() <= 0)
+			throw new Exception("Invalid price");
+		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -135,9 +156,9 @@ public class CorriereModelDS {
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setString(1, corriere.getTempo());
-			preparedStatement.setFloat(2, corriere.getPrezzo());
-			preparedStatement.setString(3, corriere.getNome());
+			preparedStatement.setString(1, spedizione.getTempo());
+			preparedStatement.setFloat(2, spedizione.getPrezzo());
+			preparedStatement.setString(3, spedizione.getNome());
 
 			preparedStatement.executeUpdate();
 
@@ -156,7 +177,7 @@ public class CorriereModelDS {
 	}
 
 	
-	public void doDelete(Corriere corriere) throws SQLException {
+	public void doDelete(Spedizione spedizione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -166,7 +187,7 @@ public class CorriereModelDS {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, corriere.getNome());
+			preparedStatement.setString(1, spedizione.getNome());
 
 			preparedStatement.executeUpdate();
 
