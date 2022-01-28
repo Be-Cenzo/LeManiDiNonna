@@ -1,0 +1,408 @@
+package acquistoManagement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.sql.DataSource;
+
+import org.dbunit.Assertion;
+import org.dbunit.IDatabaseTester;
+import org.dbunit.JdbcDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.SortedTable;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import catalogoManagement.Prodotto;
+
+public class RelatoModelDSTest {
+
+	private static String expectedPath = "resources/db/expected/acquistoManagement/";
+	private static String initPath = "resources/db/init/acquistoManagement/";
+	private static String table = "Relato";
+    private static IDatabaseTester tester;
+	private DataSource ds;
+    private RelatoModelDS relatoModelDS;
+    
+    @BeforeAll
+    static void setUpAll() throws ClassNotFoundException {
+        // mem indica che il DB deve andare in memoria
+        // test indica il nome del DB
+        // DB_CLOSE_DELAY=-1 impone ad H2 di eliminare il DB solo quando il processo della JVM termina
+        tester = new JdbcDatabaseTester(org.h2.Driver.class.getName(),
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:resources/db/init/init_schema.sql'",
+                "prova",
+                ""
+        );
+        // Refresh permette di svuotare la cache dopo un modifica con setDataSet
+        // DeleteAll ci svuota il DB manteneno lo schema
+        tester.setSetUpOperation(DatabaseOperation.REFRESH);
+        tester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+    }
+
+    private static void refreshDataSet(String filename) throws Exception {
+        IDataSet initialState = new FlatXmlDataSetBuilder()
+                .build(RelatoModelDSTest.class.getClassLoader().getResourceAsStream(filename));
+        tester.setDataSet(initialState);
+        tester.onSetup();
+    }
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        // Prepara lo stato iniziale di default
+        refreshDataSet(initPath + "RelatoInit.xml");
+        ds = Mockito.mock(DataSource.class);
+        Mockito.when(ds.getConnection())
+        .thenReturn(tester.getConnection().getConnection());
+        relatoModelDS = new RelatoModelDS(ds);
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
+        tester.onTearDown();
+    }
+    
+    @Test
+    public void doRetrieveByKeyTestPresente() {
+    	int expected = 1;
+    	
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	int actual = -1;
+    	try {
+			actual = relatoModelDS.doRetrieveByKey(prod, ord);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void doRetrieveByKeyTestNonPresente() {
+    	int expected = -1;
+    	
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(10);
+    	prod.setTaglia("S");
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	int actual = 0;
+    	try {
+			actual = relatoModelDS.doRetrieveByKey(prod, ord);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void doRetrieveAllTestAsc() {
+    	Prodotto prod;
+    	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
+    	prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	prod.setQuantita(1);
+    	expected.add(prod);
+
+    	prod = new Prodotto();
+    	prod.setCodice(3);
+    	prod.setTaglia("S");
+    	prod.setQuantita(5);
+    	expected.add(prod);
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	ArrayList<Prodotto> actual = null;
+    	try {
+			actual = relatoModelDS.doRetrieveAll("ASC", ord);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void doRetrieveAllTestDesc() {
+    	Prodotto prod;
+    	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
+    	prod = new Prodotto();
+    	prod.setCodice(3);
+    	prod.setTaglia("S");
+    	prod.setQuantita(5);
+    	expected.add(prod);
+    	
+    	prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	prod.setQuantita(1);
+    	expected.add(prod);
+
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	ArrayList<Prodotto> actual = null;
+    	try {
+			actual = relatoModelDS.doRetrieveAll("DESC", ord);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void doRetrieveAllTestVuota() {
+    	Prodotto prod;
+    	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
+    	prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	prod.setQuantita(1);
+    	expected.add(prod);
+
+    	prod = new Prodotto();
+    	prod.setCodice(3);
+    	prod.setTaglia("S");
+    	prod.setQuantita(5);
+    	expected.add(prod);
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	ArrayList<Prodotto> actual = null;
+    	try {
+			actual = relatoModelDS.doRetrieveAll("", ord);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void doRetrieveAllTestNull() {
+    	Prodotto prod;
+    	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
+    	prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	prod.setQuantita(1);
+    	expected.add(prod);
+
+    	prod = new Prodotto();
+    	prod.setCodice(3);
+    	prod.setTaglia("S");
+    	prod.setQuantita(5);
+    	expected.add(prod);
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	ArrayList<Prodotto> actual = null;
+    	try {
+			actual = relatoModelDS.doRetrieveAll(null, ord);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void doRetrieveAllTestAltro() {
+    	assertThrows(Exception.class, () -> {
+    		Ordine ord = new Ordine();
+        	ord.setID(1);
+			relatoModelDS.doRetrieveAll("ascendente", ord);
+    	});
+    }
+    
+    @Test
+    public void doRetrieveAllTestNonPresente() {
+    	Prodotto prod;
+    	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(10);
+    	
+    	ArrayList<Prodotto> actual = null;
+    	try {
+			actual = relatoModelDS.doRetrieveAll("ASC", ord);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void doSaveTestSalva() throws Exception{
+    	ITable expectedTable = new FlatXmlDataSetBuilder()
+                .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveRelatoCorretto.xml"))
+                .getTable(table);
+    	
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(3);
+    	prod.setTaglia("M");
+    	
+    	int quant = 2;
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(4);
+    	
+    	try {
+			relatoModelDS.doSave(prod, ord, quant);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+        ITable actualTable = tester.getConnection().createDataSet().getTable(table);
+        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    }
+    
+    @Test
+    public void doSaveTestNonSalva() throws Exception{
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	
+    	int quant = 2;
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	assertThrows(Exception.class, () -> {
+    		relatoModelDS.doSave(prod, ord, quant);
+    	});
+    }
+    
+    @Test
+    public void doSaveTestQuantitaNegativa() throws Exception{
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(3);
+    	prod.setTaglia("M");
+    	
+    	int quant = -2;
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(4);
+    	
+    	assertThrows(Exception.class, () -> {
+    		relatoModelDS.doSave(prod, ord, quant);
+    	});
+    }
+    
+    @Test
+    public void doUpdateTestSalva() throws Exception{
+    	ITable expectedTable = new FlatXmlDataSetBuilder()
+                .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateRelatoCorretto.xml"))
+                .getTable(table);
+    	
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(2);
+    	prod.setTaglia("M");
+    	
+    	int quant = 5;
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(3);
+    	
+    	try {
+			relatoModelDS.doUpdate(prod, ord, quant);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+        ITable actualTable = tester.getConnection().createDataSet().getTable(table);
+        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    }
+    
+    @Test
+    public void doUpdateTestNonSalva() throws Exception{
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	
+    	int quant = 2;
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	assertThrows(Exception.class, () -> {
+    		relatoModelDS.doUpdate(prod, ord, quant);
+    	});
+    }
+    
+    @Test
+    public void doUpdateTestQuantitaNegativa() throws Exception{
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	
+    	int quant = -2;
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	assertThrows(Exception.class, () -> {
+    		relatoModelDS.doUpdate(prod, ord, quant);
+    	});
+    }
+    
+    @Test
+    public void doDeleteTestPresente() throws Exception {
+    	ITable expectedTable = new FlatXmlDataSetBuilder()
+                .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doDeleteRelato.xml"))
+                .getTable(table);
+    	
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(2);
+    	prod.setTaglia("M");
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(3);
+    	
+    	try {
+			relatoModelDS.doDelete(prod, ord);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+        ITable actualTable = tester.getConnection().createDataSet().getTable(table);
+        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    }
+	
+    @Test
+    public void doDeleteTestNonPresente() throws Exception{
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(10);
+    	prod.setTaglia("S");
+    	
+    	Ordine ord = new Ordine();
+    	ord.setID(1);
+    	
+    	assertThrows(Exception.class, () -> {
+    		relatoModelDS.doDelete(prod, ord);
+    	});
+    }
+    
+}

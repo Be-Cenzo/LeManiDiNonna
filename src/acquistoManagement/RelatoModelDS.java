@@ -74,7 +74,7 @@ public class RelatoModelDS {
 		String selectSQL = "SELECT * FROM relato WHERE ordine = ?";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY prodotto " + order;
 		}
 
 		try {
