@@ -1416,7 +1416,7 @@
         ["xpath=//form[@id='signup-form']/div/input", "xpath:idRelative"],
         ["xpath=//div[4]/div/form/div/input", "xpath:position"]
       ],
-      "value": "vincenzooffertucci@gmail.com"
+      "value": "vincenzo.offertucci@gmail.com"
     }, {
       "id": "34f1c6db-48e6-42b5-8ecf-fdb8ce015505",
       "comment": "",
@@ -7364,7 +7364,7 @@
       "id": "9ea57497-d6a1-48ef-9455-72f22ed68dad",
       "comment": "",
       "command": "assertTitle",
-      "target": "Il tuo Ordine",
+      "target": "Il tuo Carrello",
       "targets": [],
       "value": ""
     }, {
@@ -8970,7 +8970,7 @@
       "id": "328b1aad-c89d-45cd-b3ac-04e4e7e8aa01",
       "comment": "",
       "command": "assertTitle",
-      "target": "Carrello",
+      "target": "Il tuo Carrello",
       "targets": [],
       "value": ""
     }, {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+	<Ordine id="1" data="2020-11-30 09:15:54" prezzo="63" costoSped="7" note="" stato="Contabilizzato" email="vincenzo.offertucci@gmail.com" indirizzo="1" corriere="lento" />
+	<Ordine id="2" data="2021-01-11 15:37:14" prezzo="30" costoSped="10" note="" stato="Contabilizzato" email="christian.gambardella@gmail.com" indirizzo="1" corriere="veloce" />
+	<Ordine id="3" data="2020-07-27 12:22:05" prezzo="36" costoSped="7" note="" stato="Contabilizzato" email="vincenzo.offertucci@gmail.com" indirizzo="2" corriere="lento" />
+	<Ordine id="4" data="2020-10-15 16:57:26" prezzo="24" costoSped="10" note="" stato="Contabilizzato" email="vittorio.armenante@gmail.com" indirizzo="1" corriere="veloce" />
+	
+	<Corriere nome="lenta" tempo="7 giorni" costoSped="7.00" />
+	<Corriere nome="veloce" tempo="4 giorni" costoSped="10.00" />
+	
+	<Conservato deposito="1" prodotto="1" taglia="S" disponibilita="15" />
+	<Conservato deposito="2" prodotto="1" taglia="M" disponibilita="30" />
+	<Conservato deposito="1" prodotto="2" taglia="L" disponibilita="15" />
+	<Conservato deposito="2" prodotto="3" taglia="M" disponibilita="40" />
+	
+	<Relato prodotto="1" taglia="S" ordine="1" quantita="1" />
+	<Relato prodotto="2" taglia="M" ordine="3" quantita="2" />
+	<Relato prodotto="3" taglia="S" ordine="1" quantita="5" />
+	<Relato prodotto="1" taglia="L" ordine="2" quantita="1" />
+	
+</dataset>

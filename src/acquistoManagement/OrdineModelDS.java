@@ -77,7 +77,7 @@ public class OrdineModelDS {
 		String selectSQL = "SELECT * FROM ordine";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY data " + order;
 		}
 
 		try {
@@ -184,7 +184,7 @@ public class OrdineModelDS {
         int res, id = 0, dispo = 0;
         float costoSped = 0;
         System.out.println(email);
-
+        
         try{
             con = ds.getConnection();
             con.setAutoCommit(false);
