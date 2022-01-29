@@ -24,11 +24,14 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
+
+import checking.CheckException;
 
 public class AccountModelDSTest {
 
@@ -78,6 +81,7 @@ public class AccountModelDSTest {
     }
 
     @Test
+    @DisplayName("TCU1_1_1_1 doRetrieveByKeyTestPresente")
     public void doRetrieveByKeyTestPresente() {
     	Account expected = new Account("vincenzo.offertucci@gmail.com", "Vincenzo", "Offertucci", "2000-10-31", "d0a845a8304784446b1a261ba3b59e27", "BeCenzo");
     	Account actual = null;
@@ -85,13 +89,14 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveByKey("vincenzo.offertucci@gmail.com");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_1_1_2 doRetrieveByKeyTestNonPresente")
     public void doRetrieveByKeyTestNonPresente() {
     	Account expected = new Account();
     	Account actual = null;
@@ -99,23 +104,26 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveByKey("vincenzo@gmail.com");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_1_1_3 doRetrieveByKeyTestVuota")
     public void doRetrieveByKeyTestVuota() {
-    	assertThrows(Exception.class, () -> {Account acc = accountModelDS.doRetrieveByKey("");});
+    	assertThrows(CheckException.class, () -> {Account acc = accountModelDS.doRetrieveByKey("");});
     }
     
     @Test
+    @DisplayName("TCU1_1_1_4 doRetrieveByKeyTestNull")
     public void doRetrieveByKeyTestNull() {
-    	assertThrows(Exception.class, () -> {Account acc = accountModelDS.doRetrieveByKey(null);});
+    	assertThrows(CheckException.class, () -> {Account acc = accountModelDS.doRetrieveByKey(null);});
     }
 
     @Test
+    @DisplayName("TCU1_1_2_1 doRetrieveAllTestAsc")
     public void doRetrieveAllTestAsc() {
         ArrayList<Account> expected = new ArrayList<Account>();
         expected.add(new Account("christian.gambardella@gmail.com", "Christian", "Gambardella", "2000-12-11", "93f6fc14ab347f6dd1ea7de992877097", "UnruhMaker"));
@@ -127,13 +135,14 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveAll("ASC");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
         assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_1_2_2 doRetrieveAllTestDesc")
     public void doRetrieveAllTestDesc() {
         ArrayList<Account> expected = new ArrayList<Account>();
         expected.add(new Account("vittorio.armenante@gmail.com", "Vittorio", "Armenante", "2000-09-11", "8e11bf5b2f5ab41eba58fe8b1e6ab436", "Peppe$on"));
@@ -145,13 +154,14 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveAll("DESC");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
         assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_1_2_3 doRetrieveAllTestVuoto")
     public void doRetrieveAllTestVuoto() {
         ArrayList<Account> expected = new ArrayList<Account>();
         expected.add(new Account("vincenzo.offertucci@gmail.com", "Vincenzo", "Offertucci", "2000-10-31", "d0a845a8304784446b1a261ba3b59e27", "BeCenzo"));
@@ -163,13 +173,14 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveAll("");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
         assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_1_2_4 doRetrieveAllTestNull")
     public void doRetrieveAllTestNull() {
         ArrayList<Account> expected = new ArrayList<Account>();
         expected.add(new Account("vincenzo.offertucci@gmail.com", "Vincenzo", "Offertucci", "2000-10-31", "d0a845a8304784446b1a261ba3b59e27", "BeCenzo"));
@@ -181,20 +192,22 @@ public class AccountModelDSTest {
 			actual = accountModelDS.doRetrieveAll(null);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
         assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_1_2_5 doRetrieveAllTestAltro")
     public void doRetrieveAllTestAltro() {       
-        assertThrows(Exception.class, () -> {
+        assertThrows(CheckException.class, () -> {
             ArrayList<Account> actual = accountModelDS.doRetrieveAll("discendente");
         });
     }
     
     @Test
+    @DisplayName("TCU1_1_3_1 doSaveTestSalva")
     public void doSaveTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveAccountCorretto.xml"))
@@ -206,7 +219,7 @@ public class AccountModelDSTest {
 			accountModelDS.doSave(acc);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -215,8 +228,9 @@ public class AccountModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doSaveTestProvider")
-    public void doSaveTestNonSalva(String email, String nome, String cognome, String dataNascita, String password, String nomeIG) throws Exception {
-    	assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_3_2 doSaveTestNonSalva")
+    public void doSaveTestNonSalva(String email, String nome, String cognome, String dataNascita, String password, String nomeIG) {
+    	assertThrows(CheckException.class, () -> {
     		Account acc = new Account(email, nome, cognome, dataNascita, password, nomeIG);
 			accountModelDS.doSave(acc);
     	});
@@ -246,13 +260,15 @@ public class AccountModelDSTest {
     }
     
     @Test
-    public void doSaveTestNull() throws Exception {
-    	assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_3_3 doSaveTestNull")
+    public void doSaveTestNull() {
+    	assertThrows(CheckException.class, () -> {
     		accountModelDS.doSave(new Account());
     	});
     }
     
     @Test
+    @DisplayName("TCU1_1_4_1 doUpdateTestSalva")
     public void doUpdateTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateAccountCorretto.xml"))
@@ -263,7 +279,7 @@ public class AccountModelDSTest {
 			accountModelDS.doUpdate(acc);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -272,8 +288,9 @@ public class AccountModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doUpdateTestProvider")
-    public void doUpdateTestNonSalva(String email, String nome, String cognome, String dataNascita, String password, String nomeIG) throws Exception {
-    	assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_4_2 doUpdateTestNonSalva")
+    public void doUpdateTestNonSalva(String email, String nome, String cognome, String dataNascita, String password, String nomeIG) {
+    	assertThrows(CheckException.class, () -> {
     		Account acc = new Account(email, nome, cognome, dataNascita, password, nomeIG);
 			accountModelDS.doUpdate(acc);
     	});
@@ -303,13 +320,15 @@ public class AccountModelDSTest {
     }
     
     @Test
-    public void doUpdateTestNull() throws Exception {
-    	assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_4_3 doUpdateTestNull")
+    public void doUpdateTestNull() {
+    	assertThrows(CheckException.class, () -> {
 			accountModelDS.doUpdate(new Account());
     	});
     }
     
     @Test
+    @DisplayName("TCU1_1_5_1 doUpdateInfoTestSalva")
     public void doUpdateInfoTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateInfoAccountCorretto.xml"))
@@ -320,7 +339,7 @@ public class AccountModelDSTest {
 			accountModelDS.doUpdateInfo(acc);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -329,8 +348,9 @@ public class AccountModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doUpdateInfoTestProvider")
-    public void doUpdateInfoTestNonSalva(String email, String nome, String cognome, String dataNascita, String nomeIG) throws Exception {
-    	assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_5_2 doUpdateInfoTestNonSalva")
+    public void doUpdateInfoTestNonSalva(String email, String nome, String cognome, String dataNascita, String nomeIG) {
+    	assertThrows(CheckException.class, () -> {
     		Account acc = new Account(email, nome, cognome, dataNascita, "", nomeIG);
 			accountModelDS.doUpdateInfo(acc);
     	});
@@ -358,13 +378,15 @@ public class AccountModelDSTest {
     }
     
     @Test
-    public void doUpdateInfoTestNull() throws Exception {
-    	assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_5_3 doUpdateInfoTestNull")
+    public void doUpdateInfoTestNull() {
+    	assertThrows(CheckException.class, () -> {
 			accountModelDS.doUpdateInfo(new Account());
     	});
     }
     
     @Test
+    @DisplayName("TCU1_1_6_1 doDeleteTestPresente")
     public void doDeleteTestPresente() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doDeleteAccount.xml"))
@@ -376,7 +398,7 @@ public class AccountModelDSTest {
 			accountModelDS.doDelete(del);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
         ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -384,8 +406,9 @@ public class AccountModelDSTest {
     }
     
     @Test
-    public void doDeleteTestNonPresente() throws Exception {
-        assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_6_2 doDeleteTestNonPresente")
+    public void doDeleteTestNonPresente() {
+        assertThrows(CheckException.class, () -> {
     		Account del = new Account();
             del.setEmail("vincenzo@gmail.com");
 			accountModelDS.doDelete(del);
@@ -393,8 +416,9 @@ public class AccountModelDSTest {
     }
 
     @Test
-    public void doDeleteTestFormatoIncorretto() throws Exception {
-    	assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_6_3 doDeleteTestFormatoIncorretto")
+    public void doDeleteTestFormatoIncorretto() {
+    	assertThrows(CheckException.class, () -> {
     		Account del = new Account();
             del.setEmail("vincenzo.com");
 			accountModelDS.doDelete(del);
@@ -402,8 +426,9 @@ public class AccountModelDSTest {
     }
     
     @Test
-    public void doDeleteTestVuota() throws Exception {
-    	assertThrows(Exception.class, () -> {
+    @DisplayName("TCU1_1_6_4 doDeleteTestVuota")
+    public void doDeleteTestVuota() {
+    	assertThrows(CheckException.class, () -> {
     		Account del = new Account();
             del.setEmail("");
 			accountModelDS.doDelete(del);

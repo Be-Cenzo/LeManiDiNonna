@@ -22,6 +22,7 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -29,6 +30,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 import catalogoManagement.Prodotto;
+import checking.CheckException;
 
 public class OrdineModelDSTest {
 
@@ -78,6 +80,7 @@ public class OrdineModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_1_1_1 doRetrieveByKeyPresente")
     public void doRetrieveByKeyPresente() {
     	Ordine expected = new Ordine(3, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
     	
@@ -91,6 +94,7 @@ public class OrdineModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_1_1_2 doRetrieveByKeyNonPresente")
     public void doRetrieveByKeyNonPresente() {
     	Ordine expected = new Ordine();
     	
@@ -104,6 +108,7 @@ public class OrdineModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_1_2_1 doRetrieveAllTestAsc")
     public void doRetrieveAllTestAsc() {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
@@ -123,13 +128,16 @@ public class OrdineModelDSTest {
     	ArrayList<Ordine> actual = null;
     	try {
 			actual = ordineModelDS.doRetrieveAll("ASC");
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_1_2_2 doRetrieveAllTestDesc")
     public void doRetrieveAllTestDesc() {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
@@ -149,13 +157,16 @@ public class OrdineModelDSTest {
     	ArrayList<Ordine> actual = null;
     	try {
 			actual = ordineModelDS.doRetrieveAll("DESC");
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_1_2_3 doRetrieveAllTestVuoto")
     public void doRetrieveAllTestVuoto() {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
@@ -175,13 +186,16 @@ public class OrdineModelDSTest {
     	ArrayList<Ordine> actual = null;
     	try {
 			actual = ordineModelDS.doRetrieveAll("");
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_1_2_4 doRetrieveAllTestNull")
     public void doRetrieveAllTestNull() {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
@@ -201,20 +215,24 @@ public class OrdineModelDSTest {
     	ArrayList<Ordine> actual = null;
     	try {
 			actual = ordineModelDS.doRetrieveAll(null);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_1_2_5 doRetrieveAllAltro")
     public void doRetrieveAllAltro() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		ordineModelDS.doRetrieveAll("discendente");
     	});
     }
     
     @Test
+    @DisplayName("TCU3_1_3_1 doRetrieveAllTestAscEmailCorretta")
     public void doRetrieveAllTestAscEmailCorretta() {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
@@ -230,13 +248,16 @@ public class OrdineModelDSTest {
     	ArrayList<Ordine> actual = null;
     	try {
 			actual = ordineModelDS.doRetrieveAll("ASC", email);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_1_3_2 doRetrieveAllTestDescEmailCorretta")
     public void doRetrieveAllTestDescEmailCorretta() {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
@@ -252,13 +273,16 @@ public class OrdineModelDSTest {
     	ArrayList<Ordine> actual = null;
     	try {
 			actual = ordineModelDS.doRetrieveAll("DESC", email);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_1_3_3 doRetrieveAllTestVuotoEmailCorretta")
     public void doRetrieveAllTestVuotoEmailCorretta() {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
@@ -274,13 +298,16 @@ public class OrdineModelDSTest {
     	ArrayList<Ordine> actual = null;
     	try {
 			actual = ordineModelDS.doRetrieveAll("", email);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_1_3_4 doRetrieveAllTestNullEmailCorretta")
     public void doRetrieveAllTestNullEmailCorretta() {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
@@ -296,37 +323,43 @@ public class OrdineModelDSTest {
     	ArrayList<Ordine> actual = null;
     	try {
 			actual = ordineModelDS.doRetrieveAll(null, email);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_1_3_5 doRetrieveAllAltroEmailCorretta")
     public void doRetrieveAllAltroEmailCorretta() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
         	String email = "vincenzo.offertucci@gmail.com";
     		ordineModelDS.doRetrieveAll("discendente", email);
     	});
     }
     
     @Test
+    @DisplayName("TCU3_1_3_6 doRetrieveAllAltroEmailVuota")
     public void doRetrieveAllAltroEmailVuota() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
         	String email = "";
     		ordineModelDS.doRetrieveAll("discendente", email);
     	});
     }
     
     @Test
+    @DisplayName("TCU3_1_3_7 doRetrieveAllAltroEmailNull")
     public void doRetrieveAllAltroEmailNull() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
         	String email = null;
     		ordineModelDS.doRetrieveAll("discendente", email);
     	});
     }
     
     @Test
+    @DisplayName("TCU3_1_4_1 doSaveTestSalva")
     public void doSaveTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(OrdineModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveOrdineCorretto.xml"))
@@ -356,7 +389,9 @@ public class OrdineModelDSTest {
     	
     	try {
 			ordineModelDS.doSave(email, note, indirizzo, spedizione, prodotti, totale);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	
@@ -366,8 +401,9 @@ public class OrdineModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doSaveTestProvider")
+    @DisplayName("TCU3_1_4_2 doSaveTestNonSalva")
     public void doSaveTestNonSalva(Date data, float prezzo, String note, String email, int indirizzo, String spedizione, ArrayList<Prodotto> prodotti) {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		ordineModelDS.doSave(email, note, indirizzo, spedizione, prodotti, prezzo);
     	});
     }
@@ -401,6 +437,7 @@ public class OrdineModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_1_5_1 doUpdateTestSalva")
     public void doUpdateTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(OrdineModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateOrdineCorretto.xml"))
@@ -419,7 +456,9 @@ public class OrdineModelDSTest {
     	
     	try {
 			ordineModelDS.doUpdate(ord);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	
@@ -429,8 +468,9 @@ public class OrdineModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doUpdateTestProvider")
+    @DisplayName("TCU3_1_5_2 doUpdateTestNonSalva")
     public void doUpdateTestNonSalva(int codice, Date data, float prezzo, float costoSped, String note, String stato, String email, int indirizzo, String spedizione, ArrayList<Prodotto> prodotti) {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Ordine upd = new Ordine(codice, data, prezzo, costoSped, note, stato, email, indirizzo, spedizione);
     		upd.setProdotti(prodotti);
     		ordineModelDS.doUpdate(upd);
@@ -468,6 +508,7 @@ public class OrdineModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_1_6_1 doDeleteTestPresente")
     public void doDeleteTestPresente() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(OrdineModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doDeleteOrdine.xml"))
@@ -487,6 +528,7 @@ public class OrdineModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_1_6_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {
     	assertThrows(Exception.class, () -> {
     		Ordine del = new Ordine();

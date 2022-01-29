@@ -19,8 +19,11 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import checking.CheckException;
 
 public class ConservatoModelDSTest {
 
@@ -70,6 +73,7 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_1_1 doRetrieveByKeyTestPresente")
     public void doRetrieveByKeyTestPresente() {
     	int expected = 30;
     	
@@ -83,11 +87,14 @@ public class ConservatoModelDSTest {
 			actual = conservatoModelDS.doRetrieveByKey(prod, dep);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CheckException e) {
+			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU2_4_1_2 doRetrieveByKeyTestNonPresente")
     public void doRetrieveByKeyTestNonPresente() {
     	int expected = 30;
     	
@@ -101,11 +108,14 @@ public class ConservatoModelDSTest {
 			actual = conservatoModelDS.doRetrieveByKey(prod, dep);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CheckException e) {
+			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU2_4_2_1 doSaveTestSalva")
     public void doSaveTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(ConservatoModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveConservatoCorretto.xml"))
@@ -121,7 +131,7 @@ public class ConservatoModelDSTest {
 			conservatoModelDS.doSave(prod, dep, disponibilita);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -130,8 +140,9 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_2_2 doSaveTestNonSalva")
     public void doSaveTestNonSalva() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Prodotto prod = new Prodotto();
         	prod.setCodice(1);
         	prod.setTaglia("S");
@@ -143,8 +154,9 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_2_3 doSaveTestNegativa")
     public void doSaveTestNegativa() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Prodotto prod = new Prodotto();
         	prod.setCodice(1);
         	prod.setTaglia("M");
@@ -156,6 +168,7 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_3_1 doUpdateTestSalva")
     public void doUpdateTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(ConservatoModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateConservatoCorretto.xml"))
@@ -171,7 +184,7 @@ public class ConservatoModelDSTest {
 			conservatoModelDS.doUpdate(prod, dep, disponibilita);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -180,8 +193,9 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_3_2 doUpdateTestNonSalva")
     public void doUpdateTestNonSalva() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Prodotto prod = new Prodotto();
         	prod.setCodice(1);
         	prod.setTaglia("S");
@@ -193,8 +207,9 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_3_3 doUpdateTestNegativa")
     public void doUpdateTestNegativa() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Prodotto prod = new Prodotto();
         	prod.setCodice(1);
         	prod.setTaglia("S");
@@ -206,6 +221,7 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_4_1 doDeleteTestSalva")
     public void doDeleteTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(ConservatoModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doDeleteConservato.xml"))
@@ -220,7 +236,7 @@ public class ConservatoModelDSTest {
 			conservatoModelDS.doDelete(prod, dep);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -229,8 +245,9 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_4_2 doDeleteTestNonSalva")
     public void doDeleteTestNonSalva() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Prodotto prod = new Prodotto();
         	prod.setCodice(1);
         	prod.setTaglia("S");
@@ -241,6 +258,7 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_5_1 checkDisponibilitaTestPresenti")
     public void checkDisponibilitaTestPresenti() {
     	ArrayList<Prodotto> prodotti = new ArrayList<Prodotto>();
     	Prodotto prod = new Prodotto();
@@ -271,6 +289,7 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_5_2 checkDisponibilitaTestVuota")
     public void checkDisponibilitaTestVuota() {
     	ArrayList<Prodotto> prodotti = new ArrayList<Prodotto>();
     	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
@@ -280,6 +299,7 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_5_3 checkDisponibilitaTestNull")
     public void checkDisponibilitaTestNull() {
     	ArrayList<Prodotto> prodotti = null;
     	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
@@ -289,6 +309,7 @@ public class ConservatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_4_5_4 checkDisponibilitaTestNonEsiste")
     public void checkDisponibilitaTestNonEsiste() {
     	ArrayList<Prodotto> prodotti = new ArrayList<Prodotto>();
     	Prodotto prod = new Prodotto();

@@ -271,7 +271,7 @@ public class ProdottoModelDS {
 			preparedStatement.setString(5, prodotto.getMarca());
 			preparedStatement.setString(6, prodotto.getModello());
 			
-			preparedStatement.setInt(8, prodotto.getCodice());
+			preparedStatement.setInt(7, prodotto.getCodice());
 
 			preparedStatement.executeUpdate();
 

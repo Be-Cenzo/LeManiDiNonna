@@ -19,8 +19,11 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import checking.CheckException;
 
 
 public class DepositoModelDSTest {
@@ -72,13 +75,14 @@ public class DepositoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_2_1_1 doRetrieveByKeyTestPresente")
     public void doRetrieveByKeyTestPresente() {
     	Deposito expected = new Deposito();
-    	expected.setID(1);
+    	expected.setID(2);
     	expected.setLuogo("San Gennarello");
     	Deposito actual = null;
     	try {
-			actual = depositoModelDS.doRetrieveByKey(1);
+			actual = depositoModelDS.doRetrieveByKey(2);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,6 +90,7 @@ public class DepositoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_2_1_2 doRetrieveByKeyTestNonPresente")
     public void doRetrieveByKeyTestNonPresente() {
     	Deposito expected = new Deposito();
     	Deposito actual = null;
@@ -98,20 +103,21 @@ public class DepositoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_2_2_1 doRetrieveAllTestAsc")
     public void doRetrieveAllTestAsc() {
     	ArrayList<Deposito> expected = new ArrayList<Deposito>();
     	Deposito dep = new Deposito();
-    	dep.setID(3);
+    	dep.setID(4);
     	dep.setLuogo("Bari");
     	expected.add(dep);
     	
     	dep = new Deposito();
-    	dep.setID(2);
+    	dep.setID(3);
     	dep.setLuogo("Mercato San Severino");
     	expected.add(dep);
     	
     	dep = new Deposito();
-    	dep.setID(1);
+    	dep.setID(2);
     	dep.setLuogo("San Gennarello");
     	expected.add(dep);
     	
@@ -120,27 +126,28 @@ public class DepositoModelDSTest {
 			actual = depositoModelDS.doRetrieveAll("ASC");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU2_2_2_2 doRetrieveAllTestDesc")
     public void doRetrieveAllTestDesc() {
     	ArrayList<Deposito> expected = new ArrayList<Deposito>();
     	Deposito dep = new Deposito();
-    	dep.setID(1);
+    	dep.setID(2);
     	dep.setLuogo("San Gennarello");
     	expected.add(dep);
     	
     	dep = new Deposito();
-    	dep.setID(2);
+    	dep.setID(3);
     	dep.setLuogo("Mercato San Severino");
     	expected.add(dep);
     	
     	dep = new Deposito();
-    	dep.setID(3);
+    	dep.setID(4);
     	dep.setLuogo("Bari");
     	expected.add(dep);
     	
@@ -150,27 +157,28 @@ public class DepositoModelDSTest {
 			actual = depositoModelDS.doRetrieveAll("DESC");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU2_2_2_3 doRetrieveAllTestVuoto")
     public void doRetrieveAllTestVuoto() {
     	ArrayList<Deposito> expected = new ArrayList<Deposito>();
     	Deposito dep = new Deposito();
-    	dep.setID(1);
+    	dep.setID(2);
     	dep.setLuogo("San Gennarello");
     	expected.add(dep);
     	
     	dep = new Deposito();
-    	dep.setID(2);
+    	dep.setID(3);
     	dep.setLuogo("Mercato San Severino");
     	expected.add(dep);
     	
     	dep = new Deposito();
-    	dep.setID(3);
+    	dep.setID(4);
     	dep.setLuogo("Bari");
     	expected.add(dep);
     	
@@ -180,27 +188,28 @@ public class DepositoModelDSTest {
 			actual = depositoModelDS.doRetrieveAll("");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU2_2_2_4 doRetrieveAllTestNull")
     public void doRetrieveAllTestNull() {
     	ArrayList<Deposito> expected = new ArrayList<Deposito>();
     	Deposito dep = new Deposito();
-    	dep.setID(1);
+    	dep.setID(2);
     	dep.setLuogo("San Gennarello");
     	expected.add(dep);
     	
     	dep = new Deposito();
-    	dep.setID(2);
+    	dep.setID(3);
     	dep.setLuogo("Mercato San Severino");
     	expected.add(dep);
     	
     	dep = new Deposito();
-    	dep.setID(3);
+    	dep.setID(4);
     	dep.setLuogo("Bari");
     	expected.add(dep);
     	
@@ -210,13 +219,14 @@ public class DepositoModelDSTest {
 			actual = depositoModelDS.doRetrieveAll(null);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU2_2_2_5 doRetrieveAllTestAltro")
     public void doRetrieveAllTestAltro() {
     	assertThrows(Exception.class, () -> {
     		depositoModelDS.doRetrieveAll("discendente");
@@ -224,19 +234,20 @@ public class DepositoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_2_3_1 doSaveTestSalva")
     public void doSaveTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(DepositoModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveDepositoCorretto.xml"))
                 .getTable(table);
     	
     	Deposito save = new Deposito();
-    	save.setID(4);
+    	save.setID(1);
     	save.setLuogo("Roccarainola");
     	try {
 			depositoModelDS.doSave(save);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -245,33 +256,36 @@ public class DepositoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_2_3_2 doSaveTestVuoto")
     public void doSaveTestVuoto() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
 			depositoModelDS.doSave(new Deposito());
     	});
     }
     
     @Test
+    @DisplayName("TCU2_2_3_3 doSaveTestNull")
     public void doSaveTestNull(){
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
 			depositoModelDS.doSave(null);
     	});
     }
     
     @Test
+    @DisplayName("TCU2_2_4_1 doUpdateTestSalva")
     public void doUpdateTestSalva() throws Exception{
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(DepositoModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateDepositoCorretto.xml"))
                 .getTable(table);
     	
     	Deposito save = new Deposito();
-    	save.setID(3);
+    	save.setID(4);
     	save.setLuogo("Roccarainola");
     	try {
 			depositoModelDS.doUpdate(save);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -280,8 +294,9 @@ public class DepositoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_2_4_2 doUpdateTestNonPresente")
     public void doUpdateTestNonPresente() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Deposito dep = new Deposito();
     		dep.setID(15);
     		dep.setLuogo("Roccarainola");
@@ -290,33 +305,36 @@ public class DepositoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_2_4_3 doUpdateTestVuoto")
     public void doUpdateTestVuoto() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Deposito dep = new Deposito();
-    		dep.setID(3);
+    		dep.setID(4);
     		dep.setLuogo("");
 			depositoModelDS.doUpdate(dep);
     	});
     }
     
     @Test
+    @DisplayName("TCU2_2_4_4 doUpdateTestNull")
     public void doUpdateTestNull(){
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Deposito dep = new Deposito();
-    		dep.setID(3);
+    		dep.setID(4);
     		dep.setLuogo(null);
 			depositoModelDS.doUpdate(dep);
     	});
     }
     
     @Test
+    @DisplayName("TCU2_2_5_1 doDeleteTestPresente")
     public void doDeleteTestPresente() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(DepositoModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doDeleteDeposito.xml"))
                 .getTable(table);
     	
     	Deposito del = new Deposito();
-    	del.setID(3);
+    	del.setID(4);
     	try {
     		depositoModelDS.doDelete(del);
 		} catch (SQLException e) {
@@ -329,8 +347,9 @@ public class DepositoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU2_2_5_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Deposito del = new Deposito();
         	del.setID(15);
     		depositoModelDS.doDelete(del);

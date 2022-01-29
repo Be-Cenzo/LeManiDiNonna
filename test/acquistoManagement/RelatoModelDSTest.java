@@ -19,10 +19,12 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import catalogoManagement.Prodotto;
+import checking.CheckException;
 
 public class RelatoModelDSTest {
 
@@ -72,6 +74,7 @@ public class RelatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_3_1_1 doRetrieveByKeyTestPresente")
     public void doRetrieveByKeyTestPresente() {
     	int expected = 1;
     	
@@ -87,13 +90,14 @@ public class RelatoModelDSTest {
 			actual = relatoModelDS.doRetrieveByKey(prod, ord);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_3_1_2 doRetrieveByKeyTestNonPresente")
     public void doRetrieveByKeyTestNonPresente() {
     	int expected = -1;
     	
@@ -109,13 +113,14 @@ public class RelatoModelDSTest {
 			actual = relatoModelDS.doRetrieveByKey(prod, ord);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_3_2_1 doRetrieveAllTestAsc")
     public void doRetrieveAllTestAsc() {
     	Prodotto prod;
     	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
@@ -137,13 +142,16 @@ public class RelatoModelDSTest {
     	ArrayList<Prodotto> actual = null;
     	try {
 			actual = relatoModelDS.doRetrieveAll("ASC", ord);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_3_2_2 doRetrieveAllTestDesc")
     public void doRetrieveAllTestDesc() {
     	Prodotto prod;
     	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
@@ -166,13 +174,16 @@ public class RelatoModelDSTest {
     	ArrayList<Prodotto> actual = null;
     	try {
 			actual = relatoModelDS.doRetrieveAll("DESC", ord);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_3_2_3 doRetrieveAllTestVuota")
     public void doRetrieveAllTestVuota() {
     	Prodotto prod;
     	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
@@ -194,13 +205,16 @@ public class RelatoModelDSTest {
     	ArrayList<Prodotto> actual = null;
     	try {
 			actual = relatoModelDS.doRetrieveAll("", ord);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_3_2_4 doRetrieveAllTestNull")
     public void doRetrieveAllTestNull() {
     	Prodotto prod;
     	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
@@ -222,15 +236,18 @@ public class RelatoModelDSTest {
     	ArrayList<Prodotto> actual = null;
     	try {
 			actual = relatoModelDS.doRetrieveAll(null, ord);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_3_2_5 doRetrieveAllTestAltro")
     public void doRetrieveAllTestAltro() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Ordine ord = new Ordine();
         	ord.setID(1);
 			relatoModelDS.doRetrieveAll("ascendente", ord);
@@ -238,8 +255,8 @@ public class RelatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_3_2_6 doRetrieveAllTestNonPresente")
     public void doRetrieveAllTestNonPresente() {
-    	Prodotto prod;
     	ArrayList<Prodotto> expected = new ArrayList<Prodotto>();
     	
     	Ordine ord = new Ordine();
@@ -248,13 +265,16 @@ public class RelatoModelDSTest {
     	ArrayList<Prodotto> actual = null;
     	try {
 			actual = relatoModelDS.doRetrieveAll("ASC", ord);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_3_3_1 doSaveTestSalva")
     public void doSaveTestSalva() throws Exception{
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveRelatoCorretto.xml"))
@@ -271,7 +291,9 @@ public class RelatoModelDSTest {
     	
     	try {
 			relatoModelDS.doSave(prod, ord, quant);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -280,6 +302,7 @@ public class RelatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_3_3_2 doSaveTestNonSalva")
     public void doSaveTestNonSalva() throws Exception{
     	Prodotto prod = new Prodotto();
     	prod.setCodice(1);
@@ -290,12 +313,13 @@ public class RelatoModelDSTest {
     	Ordine ord = new Ordine();
     	ord.setID(1);
     	
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		relatoModelDS.doSave(prod, ord, quant);
     	});
     }
     
     @Test
+    @DisplayName("TCU3_3_3_3 doSaveTestQuantitaNegativa")
     public void doSaveTestQuantitaNegativa() throws Exception{
     	Prodotto prod = new Prodotto();
     	prod.setCodice(3);
@@ -306,12 +330,13 @@ public class RelatoModelDSTest {
     	Ordine ord = new Ordine();
     	ord.setID(4);
     	
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		relatoModelDS.doSave(prod, ord, quant);
     	});
     }
     
     @Test
+    @DisplayName("TCU3_3_4_1 doUpdateTestSalva")
     public void doUpdateTestSalva() throws Exception{
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateRelatoCorretto.xml"))
@@ -328,7 +353,9 @@ public class RelatoModelDSTest {
     	
     	try {
 			relatoModelDS.doUpdate(prod, ord, quant);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -337,6 +364,7 @@ public class RelatoModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_3_4_2 doUpdateTestNonSalva")
     public void doUpdateTestNonSalva() throws Exception{
     	Prodotto prod = new Prodotto();
     	prod.setCodice(1);
@@ -347,12 +375,13 @@ public class RelatoModelDSTest {
     	Ordine ord = new Ordine();
     	ord.setID(1);
     	
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		relatoModelDS.doUpdate(prod, ord, quant);
     	});
     }
     
     @Test
+    @DisplayName("TCU3_3_4_3 doUpdateTestQuantitaNegativa")
     public void doUpdateTestQuantitaNegativa() throws Exception{
     	Prodotto prod = new Prodotto();
     	prod.setCodice(1);
@@ -363,12 +392,13 @@ public class RelatoModelDSTest {
     	Ordine ord = new Ordine();
     	ord.setID(1);
     	
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		relatoModelDS.doUpdate(prod, ord, quant);
     	});
     }
     
     @Test
+    @DisplayName("TCU3_3_5_1 doDeleteTestPresente")
     public void doDeleteTestPresente() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doDeleteRelato.xml"))
@@ -383,7 +413,7 @@ public class RelatoModelDSTest {
     	
     	try {
 			relatoModelDS.doDelete(prod, ord);
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -392,6 +422,7 @@ public class RelatoModelDSTest {
     }
 	
     @Test
+    @DisplayName("TCU3_3_5_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() throws Exception{
     	Prodotto prod = new Prodotto();
     	prod.setCodice(10);
@@ -400,7 +431,7 @@ public class RelatoModelDSTest {
     	Ordine ord = new Ordine();
     	ord.setID(1);
     	
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		relatoModelDS.doDelete(prod, ord);
     	});
     }

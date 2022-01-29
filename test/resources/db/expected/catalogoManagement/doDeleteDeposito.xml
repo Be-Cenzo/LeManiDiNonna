@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 	
-	<Deposito id="1" luogo="San Gennarello" />
-	<Deposito id="2" luogo="Mercato San Severino" />
+	<Deposito id="2" luogo="San Gennarello" />
+	<Deposito id="3" luogo="Mercato San Severino" />
 	
 </dataset>

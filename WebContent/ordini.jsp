@@ -71,7 +71,7 @@
 								}
 							%>
 							<div class="corriere-row">
-								Spedito da: <%=ordine.getCorriere() %> <span class="price-span"><%=ordine.getCostoSped() %>€</span>
+								Spedito da: <%=ordine.getSpedizione() %> <span class="price-span"><%=ordine.getCostoSped() %>€</span>
 							</div>
 							<div class="totale-row">
 								Costo totale: <span class="price-span"><%=ordine.getPrezzo()+ordine.getCostoSped() %>€</span>

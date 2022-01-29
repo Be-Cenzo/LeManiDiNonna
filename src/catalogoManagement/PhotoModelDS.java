@@ -64,6 +64,7 @@ public class PhotoModelDS {
 			try {
 				FileInputStream fis = new FileInputStream(file);
 				stmt.setBinaryStream(1, fis, fis.available());
+				
 				stmt.setInt(2, codice);
 				
 				stmt.executeUpdate();
@@ -73,7 +74,7 @@ public class PhotoModelDS {
 			} catch (IOException e) {
 				System.out.println(e);
 			}
-		} finally {
+		} finally { 
 			try {
 				if (stmt != null)
 					stmt.close();

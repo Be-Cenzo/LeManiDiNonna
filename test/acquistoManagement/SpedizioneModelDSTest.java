@@ -20,11 +20,14 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
+
+import checking.CheckException;
 
 public class SpedizioneModelDSTest {
 
@@ -74,6 +77,7 @@ public class SpedizioneModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_2_1_1 doRetrieveByKeyTestPresente")
     public void doRetrieveByKeyTestPresente() {
     	Spedizione expected = new Spedizione("veloce", "4 giorni", 10);
     	
@@ -82,13 +86,14 @@ public class SpedizioneModelDSTest {
 			actual = spedizioneModelDS.doRetrieveByKey("veloce");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_2_1_2 doRetrieveByKeyTestNonPresente")
     public void doRetrieveByKeyTestNonPresente() {
     	Spedizione expected = new Spedizione();
     	
@@ -97,27 +102,30 @@ public class SpedizioneModelDSTest {
 			actual = spedizioneModelDS.doRetrieveByKey("molto veloce");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_2_1_3 doRetrieveByKeyTestVuoto")
     public void doRetrieveByKeyTestVuoto() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
 			spedizioneModelDS.doRetrieveByKey("");
     	});
     }
     
     @Test
+    @DisplayName("TCU3_2_1_4 doRetrieveByKeyTestNull")
     public void doRetrieveByKeyTestNull() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
 			spedizioneModelDS.doRetrieveByKey(null);
     	});
     }
     
     @Test
+    @DisplayName("TCU3_2_2_1 doRetrieveAllTestAsc")
     public void doRetrieveAllTestAsc() {
     	ArrayList<Spedizione> expected = new ArrayList<Spedizione>();
     	expected.add(new Spedizione("lenta", "7 giorni", 7));
@@ -127,13 +135,16 @@ public class SpedizioneModelDSTest {
     	
     	try {
 			actual = spedizioneModelDS.doRetrieveAll("ASC");
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_2_2_2 doRetrieveAllTestDesc")
     public void doRetrieveAllTestDesc() {
     	ArrayList<Spedizione> expected = new ArrayList<Spedizione>();
     	expected.add(new Spedizione("veloce", "4 giorni", 10));
@@ -143,13 +154,16 @@ public class SpedizioneModelDSTest {
     	
     	try {
 			actual = spedizioneModelDS.doRetrieveAll("DESC");
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_2_2_3 doRetrieveAllTestVuota")
     public void doRetrieveAllTestVuota() {
     	ArrayList<Spedizione> expected = new ArrayList<Spedizione>();
     	expected.add(new Spedizione("lenta", "7 giorni", 7));
@@ -159,13 +173,16 @@ public class SpedizioneModelDSTest {
     	
     	try {
 			actual = spedizioneModelDS.doRetrieveAll("");
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_2_2_4 doRetrieveAllTestNull")
     public void doRetrieveAllTestNull() {
     	ArrayList<Spedizione> expected = new ArrayList<Spedizione>();
     	expected.add(new Spedizione("lenta", "7 giorni", 7));
@@ -175,20 +192,24 @@ public class SpedizioneModelDSTest {
     	
     	try {
 			actual = spedizioneModelDS.doRetrieveAll(null);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU3_2_2_5 doRetrieveAllTestAltro")
     public void doRetrieveAllTestAltro() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
 			spedizioneModelDS.doRetrieveAll("ascendente");
     	});
     }
     
     @Test
+    @DisplayName("TCU3_2_3_1 doSaveTestSalva")
     public void doSaveTestSalva() throws Exception{
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveSpedizioneCorretto.xml"))
@@ -198,7 +219,9 @@ public class SpedizioneModelDSTest {
     	
     	try {
     		spedizioneModelDS.doSave(sav);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -208,8 +231,9 @@ public class SpedizioneModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doSaveTestProvider")
+    @DisplayName("TCU3_2_3_2 doSaveTestNonSalva")
     public void doSaveTestNonSalva(String nome, String tempo, float prezzo) {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Spedizione sav = new Spedizione(nome, tempo, prezzo);
     		spedizioneModelDS.doSave(sav);
     	});
@@ -233,6 +257,7 @@ public class SpedizioneModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_2_4_1 doUpdateTestSalva")
     public void doUpdateTestSalva() throws Exception{
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateSpedizioneCorretto.xml"))
@@ -242,7 +267,9 @@ public class SpedizioneModelDSTest {
     	
     	try {
     		spedizioneModelDS.doUpdate(upd);
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 
@@ -252,8 +279,9 @@ public class SpedizioneModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doUpdateTestProvider")
+    @DisplayName("TCU3_2_4_2 doUpdateTestNonSalva")
     public void doUpdateTestNonSalva(String nome, String tempo, float prezzo) {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Spedizione sav = new Spedizione(nome, tempo, prezzo);
     		spedizioneModelDS.doUpdate(sav);
     	});
@@ -277,6 +305,7 @@ public class SpedizioneModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU3_2_5_1 doDeleteTestPresente")
     public void doDeleteTestPresente() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(SpedizioneModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doDeleteSpedizione.xml"))
@@ -286,17 +315,18 @@ public class SpedizioneModelDSTest {
     	
     	try {
     		spedizioneModelDS.doDelete(del);
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+    	
         ITable actualTable = tester.getConnection().createDataSet().getTable(table);
         Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
     }
     
     @Test
+    @DisplayName("TCU3_2_5_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {	
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		Spedizione del = new Spedizione("lenta", "", 0);
     		spedizioneModelDS.doDelete(del);
     	});

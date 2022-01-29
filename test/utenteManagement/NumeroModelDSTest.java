@@ -21,11 +21,14 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
+
+import checking.CheckException;
 
 public class NumeroModelDSTest {
 
@@ -75,6 +78,7 @@ public class NumeroModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU1_3_1_1 doRetrieveByKeyTestPresente")
     public void doRetrieveByKeyTestPresente(){
     	String expected = "+393885948313";
     	String actual = null;
@@ -82,13 +86,14 @@ public class NumeroModelDSTest {
 			actual = numeroModelDS.doRetrieveByKey("+393885948313");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_3_1_2 doRetrieveByKeyTestNonPresente")
     public void doRetrieveByKeyTestNonPresente(){
     	String expected = null;
     	String actual = null;
@@ -96,27 +101,30 @@ public class NumeroModelDSTest {
 			actual = numeroModelDS.doRetrieveByKey("+393885948888");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_3_1_3 doRetrieveByKeyTestVuoto")
     public void doRetrieveByKeyTestVuoto(){
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doRetrieveByKey("");
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_1_4 doRetrieveByKeyTestNull")
     public void doRetrieveByKeyTestNull(){
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doRetrieveByKey(null);
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_2_1 doRetrieveAllTestAsc")
     public void doRetrieveAllTestAsc() {
     	ArrayList<String> expected = new ArrayList<String>();
     	expected.add("+393125641111");
@@ -128,13 +136,14 @@ public class NumeroModelDSTest {
 			actual = numeroModelDS.doRetrieveAll("ASC");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_3_2_2 doRetrieveAllTestDesc")
     public void doRetrieveAllTestDesc() {
     	ArrayList<String> expected = new ArrayList<String>();
     	expected.add("+393885948313");
@@ -146,13 +155,14 @@ public class NumeroModelDSTest {
 			actual = numeroModelDS.doRetrieveAll("DESC");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_3_2_3 doRetrieveAllTestVuota")
     public void doRetrieveAllTestVuota() {
     	ArrayList<String> expected = new ArrayList<String>();
     	expected.add("+393125641111");
@@ -164,13 +174,14 @@ public class NumeroModelDSTest {
 			actual = numeroModelDS.doRetrieveAll("");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_3_2_4 doRetrieveAllTestNull")
     public void doRetrieveAllTestNull() {
     	ArrayList<String> expected = new ArrayList<String>();
     	expected.add("+393125641111");
@@ -182,20 +193,22 @@ public class NumeroModelDSTest {
 			actual = numeroModelDS.doRetrieveAll(null);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	assertEquals(expected, actual);
     }
     
     @Test
+    @DisplayName("TCU1_3_2_5 doRetrieveAllTestAltro")
     public void doRetrieveAllTestAltro() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doRetrieveAll("ascendente");
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_3_1 doSaveTestSalva")
     public void doSaveTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveNumeroCorretto.xml"))
@@ -207,7 +220,7 @@ public class NumeroModelDSTest {
     		numeroModelDS.doSave(num);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -215,36 +228,41 @@ public class NumeroModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU1_3_3_2 doSaveTestNonSalva")
     public void doSaveTestNonSalva() {
     	String num = "+393125641111";
     	
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doSave(num);
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_3_3 doSaveTestVuoto")
     public void doSaveTestVuoto() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doSave("");
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_3_4 doSaveTestNull")
     public void doSaveTestNull() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doSave(null);
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_3_5 doSaveTestFormatoIncorretto")
     public void doSaveTestFormatoIncorretto() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doSave("32145");
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_4_1 doUpdateTestSalva")
     public void doUpdateTestSalva() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateNumeroCorretto.xml"))
@@ -257,7 +275,7 @@ public class NumeroModelDSTest {
     		numeroModelDS.doUpdate(oldNum, newNum);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -266,8 +284,9 @@ public class NumeroModelDSTest {
     
     @ParameterizedTest
     @MethodSource("doUpdateTestProvider")
+    @DisplayName("TCU1_3_4_2 doUpdateTestNonSalva")
     public void doUpdateTestNonSalva(String oldNum, String newNum) {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doUpdate(oldNum, newNum);
     	});
     }
@@ -288,6 +307,7 @@ public class NumeroModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU1_3_5_1 doDeleteTestPresente")
     public void doDeleteTestPresente() throws Exception {
     	ITable expectedTable = new FlatXmlDataSetBuilder()
                 .build(NumeroModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doDeleteNumero.xml"))
@@ -297,7 +317,7 @@ public class NumeroModelDSTest {
     		numeroModelDS.doDelete("+393885948313");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
     	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
@@ -305,22 +325,25 @@ public class NumeroModelDSTest {
     }
     
     @Test
+    @DisplayName("TCU1_3_5_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doDelete("+393885948");
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_5_4 doDeleteTestVuoto")
     public void doDeleteTestVuoto() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doDelete("");
     	});
     }
     
     @Test
+    @DisplayName("TCU1_3_5_5 doDeleteTestNull")
     public void doDeleteTestNull() throws Exception {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(CheckException.class, () -> {
     		numeroModelDS.doDelete(null);
     	});
     }

@@ -1,37 +1,33 @@
 package catalogoManagement;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
-import org.dbunit.dataset.SortedTable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import checking.CheckException;
-
-
-public class TaglieModelDSTest {
-
+public class PhotoModelDSTest {
+	
 	private static String expectedPath = "resources/db/expected/catalogoManagement/";
 	private static String initPath = "resources/db/init/catalogoManagement/";
-	private static String table = "Taglie";
+	private static String table = "Prodotto";
     private static IDatabaseTester tester;
 	private DataSource ds;
-    private TaglieModelDS taglieModelDS;
     
     @BeforeAll
     static void setUpAll() throws ClassNotFoundException {
@@ -51,7 +47,7 @@ public class TaglieModelDSTest {
 
     private static void refreshDataSet(String filename) throws Exception {
         IDataSet initialState = new FlatXmlDataSetBuilder()
-                .build(TaglieModelDSTest.class.getClassLoader().getResourceAsStream(filename));
+                .build(PhotoModelDSTest.class.getClassLoader().getResourceAsStream(filename));
         tester.setDataSet(initialState);
         tester.onSetup();
     }
@@ -59,11 +55,10 @@ public class TaglieModelDSTest {
     @BeforeEach
     public void setUp() throws Exception {
         // Prepara lo stato iniziale di default
-        refreshDataSet(initPath + "TaglieInit.xml");
+        refreshDataSet(initPath + "PhotoInit.xml");
         ds = Mockito.mock(DataSource.class);
         Mockito.when(ds.getConnection())
         .thenReturn(tester.getConnection().getConnection());
-        taglieModelDS = new TaglieModelDS(ds);
     }
 
     @AfterEach
@@ -72,37 +67,20 @@ public class TaglieModelDSTest {
     }
     
     @Test
-    @DisplayName("TCU2_3_1_1 doSaveTestSalva")
-    public void doSaveTestSalva() throws Exception{
-    	ITable expectedTable = new FlatXmlDataSetBuilder()
-                .build(TaglieModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doSaveTaglieCorretto.xml"))
-                .getTable(table);
-    	
+    public void loadTest() throws SQLException, FileNotFoundException {
+    	byte[] expected = null;
+    	File photo = new File("C:/Users/Vincenzo/Documents/GitHub/LeManiDiNonna/test/resources/db/expected/catalogoManagement/hakunamatata.jpg");
+    	FileInputStream fis = new FileInputStream(photo);
     	try {
-    		taglieModelDS.doSave(3, "S");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (CheckException e) {
+			expected = fis.readAllBytes();
+	    	fis.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	ITable actualTable = tester.getConnection().createDataSet().getTable(table);
-        Assertion.assertEquals(new SortedTable(expectedTable), new SortedTable(actualTable));
+    	
+    	byte[] actual = PhotoModelDS.load(0, ds);
+    	assertEquals(expected, actual);
+    	
     }
-    
-    @Test
-    @DisplayName("TCU2_3_1_2 doSaveTestNonSalva")
-    public void doSaveTestNonSalva() {
-    	assertThrows(CheckException.class, () ->{
-    		taglieModelDS.doSave(1, "M");
-    	});
-    }
-    
-    @Test
-    @DisplayName("TCU2_3_1_2 doSaveTestAltro")
-    public void doSaveTestAltro() {
-    	assertThrows(CheckException.class, () ->{
-    		taglieModelDS.doSave(1, "Y");
-    	});
-    }
-	
+
 }
