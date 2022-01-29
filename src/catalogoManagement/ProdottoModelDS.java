@@ -5,10 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.sql.DataSource;
-
-import view.site.Validazione;
+import checking.*;
 
 
 public class ProdottoModelDS {
@@ -65,10 +63,10 @@ public class ProdottoModelDS {
 	}
 
 	
-	public ArrayList<Prodotto> doRetrieveAll(String order) throws Exception {
+	public ArrayList<Prodotto> doRetrieveAll(String order) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -117,10 +115,10 @@ public class ProdottoModelDS {
 		return prodotti;
 	}
 	
-	public ArrayList<Prodotto> doRetrieveAll(String order, ArrayList<String> filter, String search) throws Exception {
+	public ArrayList<Prodotto> doRetrieveAll(String order, ArrayList<String> filter, String search) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -195,12 +193,12 @@ public class ProdottoModelDS {
 	}
 
 	
-	public void doSave(Prodotto prodotto) throws Exception {
+	public void doSave(Prodotto prodotto) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(prodotto.getTipo());
 		Validazione.checkTipo(prodotto.getTipo());
 		if(prodotto.getPrezzo() <= 0)
-			throw new Exception("Invalid price");
+			throw new CheckException("Invalid price");
 		Validazione.checkStringaVuota(prodotto.getColore());
 		Validazione.checkStringaVuota(prodotto.getDescrizione());
 		if(prodotto.getTipo().equals("felpa") || prodotto.getTipo().equals("t-shirt")) {
@@ -243,12 +241,12 @@ public class ProdottoModelDS {
 	}
 
 	
-	public void doUpdate(Prodotto prodotto) throws Exception {
+	public void doUpdate(Prodotto prodotto) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(prodotto.getTipo());
 		Validazione.checkTipo(prodotto.getTipo());
 		if(prodotto.getPrezzo() <= 0)
-			throw new Exception("Invalid price");
+			throw new CheckException("Invalid price");
 		Validazione.checkStringaVuota(prodotto.getColore());
 		Validazione.checkStringaVuota(prodotto.getDescrizione());
 		if(prodotto.getTipo().equals("felpa") || prodotto.getTipo().equals("t-shirt")) {

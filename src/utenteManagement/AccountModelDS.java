@@ -3,13 +3,12 @@ package utenteManagement;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import view.site.Validazione;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.sql.DataSource;
+import checking.*;
 
 public class AccountModelDS {
 
@@ -20,9 +19,9 @@ public class AccountModelDS {
 	}
 	
 	
-	public Account doRetrieveByKey(String email) throws Exception {
+	public Account doRetrieveByKey(String email) throws CheckException, SQLException {
 		if(email == null || email == "")
-			throw new Exception("Email not valid");
+			throw new CheckException("Email not valid");
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -60,10 +59,10 @@ public class AccountModelDS {
 	}
 
 	
-	public ArrayList<Account> doRetrieveAll(String order) throws Exception {
+	public ArrayList<Account> doRetrieveAll(String order) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -108,7 +107,7 @@ public class AccountModelDS {
 	}
 
 	
-	public void doSave(Account account) throws Exception {
+	public void doSave(Account account) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
@@ -176,7 +175,7 @@ public class AccountModelDS {
 	}
 
 	
-	public void doUpdate(Account account) throws Exception {
+	public void doUpdate(Account account) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
@@ -245,7 +244,7 @@ public class AccountModelDS {
 		}
 	}
 	
-	public void doUpdateInfo(Account account) throws Exception {
+	public void doUpdateInfo(Account account) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Validazione.checkStringaVuota(account.getNome());
@@ -286,7 +285,7 @@ public class AccountModelDS {
 	}
 
 	
-	public void doDelete(Account account) throws Exception {
+	public void doDelete(Account account) throws CheckException, SQLException {
 		Validazione.checkStringaVuota(account.getEmail());
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

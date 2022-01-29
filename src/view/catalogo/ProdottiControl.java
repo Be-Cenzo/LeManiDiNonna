@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import catalogoManagement.Prodotto;
 import catalogoManagement.ProdottoModelDS;
+import checking.CheckException;
 
 /**
  * Servlet implementation class ProdottiControl
@@ -48,7 +49,7 @@ public class ProdottiControl extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

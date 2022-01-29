@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.*;
 
 import catalogoManagement.*;
+import checking.CheckException;
 import utenteManagement.Account;
 import utenteManagement.AccountModelDS;
 import utenteManagement.IndirizzoModelDS;

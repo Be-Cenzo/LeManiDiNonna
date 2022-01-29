@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import catalogoManagement.Deposito;
 import catalogoManagement.DepositoModelDS;
+import checking.CheckException;
 
 /**
  * Servlet implementation class GetDepositi
@@ -46,7 +47,7 @@ public class GetDepositi extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

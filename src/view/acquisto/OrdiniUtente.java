@@ -16,6 +16,7 @@ import acquistoManagement.Ordine;
 import acquistoManagement.OrdineModelDS;
 import acquistoManagement.RelatoModelDS;
 import catalogoManagement.Prodotto;
+import checking.CheckException;
 import utenteManagement.Account;
 
 /**
@@ -56,7 +57,7 @@ public class OrdiniUtente extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -68,7 +69,7 @@ public class OrdiniUtente extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (Exception e) {
+			} catch (CheckException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

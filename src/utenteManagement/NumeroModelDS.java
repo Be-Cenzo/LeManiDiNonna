@@ -6,10 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.sql.DataSource;
-
-import view.site.Validazione;
+import checking.*;
 
 public class NumeroModelDS{
 	
@@ -21,7 +19,7 @@ public class NumeroModelDS{
 		this.email = email;
 	}
 
-	public String doRetrieveByKey(String numero) throws Exception {
+	public String doRetrieveByKey(String numero) throws CheckException, SQLException {
 		Validazione.checkNumero(numero);
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -56,10 +54,10 @@ public class NumeroModelDS{
 		return tel;
 	}
 
-	public ArrayList<String> doRetrieveAll(String order) throws Exception {
+	public ArrayList<String> doRetrieveAll(String order) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -98,7 +96,7 @@ public class NumeroModelDS{
 		return numeri;
 	}
 
-	public void doSave(String numero) throws Exception {
+	public void doSave(String numero) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkNumero(numero);
 		//fine
@@ -131,7 +129,7 @@ public class NumeroModelDS{
 		}
 	}
 
-	public void doUpdate(String oldNumero, String newNumero) throws Exception {
+	public void doUpdate(String oldNumero, String newNumero) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkNumero(newNumero);
 		//fine
@@ -165,7 +163,7 @@ public class NumeroModelDS{
 		}
 	}
 
-	public void doDelete(String numero) throws Exception {
+	public void doDelete(String numero) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(numero);
 		//fine

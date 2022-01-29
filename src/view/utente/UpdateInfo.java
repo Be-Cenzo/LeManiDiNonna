@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import checking.CheckException;
+import checking.Validazione;
 import utenteManagement.Account;
 import utenteManagement.AccountModelDS;
 import utenteManagement.Indirizzo;
 import utenteManagement.IndirizzoModelDS;
 import utenteManagement.NumeroModelDS;
-import view.site.Validazione;
 
 /**
  * Servlet implementation class UpdateInfo
@@ -64,7 +65,7 @@ public class UpdateInfo extends HttpServlet {
 			try {
 				name = Validazione.checkStringaVuota(name);
 				user.setNome(name);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 1;
 				System.out.println("errore");
 				request.setAttribute("errore-modifica", error);
@@ -75,7 +76,7 @@ public class UpdateInfo extends HttpServlet {
 			try {
 				surname = Validazione.checkStringaVuota(surname);
 				user.setCognome(surname);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 2;
 				request.setAttribute("errore-modifica", error);
 				dispatcher.forward(request, response);
@@ -85,7 +86,7 @@ public class UpdateInfo extends HttpServlet {
 			try {
 				birth = Validazione.checkStringaVuota(birth);
 				user.setDataNascita(birth);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 3;
 				request.setAttribute("errore-modifica", error);
 				dispatcher.forward(request, response);
@@ -98,7 +99,7 @@ public class UpdateInfo extends HttpServlet {
 				model.doUpdateInfo(user);
 			} catch (SQLException e) {
 				e.printStackTrace();
-			} catch (Exception e) {
+			} catch (CheckException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -112,7 +113,7 @@ public class UpdateInfo extends HttpServlet {
 			String provincia = request.getParameter("provincia");
 			try {
 				provincia = Validazione.checkStringaVuota(provincia);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 1;
 				request.setAttribute("errore-update-address", error);
 				dispatcher.forward(request, response);
@@ -121,7 +122,7 @@ public class UpdateInfo extends HttpServlet {
 			String comune = request.getParameter("comune");
 			try {
 				comune = Validazione.checkStringaVuota(comune);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 2;
 				request.setAttribute("errore-update-address", error);
 				dispatcher.forward(request, response);
@@ -130,7 +131,7 @@ public class UpdateInfo extends HttpServlet {
 			String via = request.getParameter("via");
 			try {
 				via = Validazione.checkStringaVuota(via);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 3;
 				request.setAttribute("errore-update-address", error);
 				dispatcher.forward(request, response);
@@ -148,7 +149,7 @@ public class UpdateInfo extends HttpServlet {
 			String cap = request.getParameter("cap");
 			try {
 				cap = Validazione.checkStringaVuota(cap);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 5;
 				request.setAttribute("errore-update-address", error);
 				dispatcher.forward(request, response);
@@ -168,7 +169,7 @@ public class UpdateInfo extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (Exception e) {
+			} catch (CheckException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -181,7 +182,7 @@ public class UpdateInfo extends HttpServlet {
 			String provincia = request.getParameter("provincia");
 			try {
 				provincia = Validazione.checkStringaVuota(provincia);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 1;
 				request.setAttribute("errore-add-address", error);
 				dispatcher.forward(request, response);
@@ -190,7 +191,7 @@ public class UpdateInfo extends HttpServlet {
 			String comune = request.getParameter("comune");
 			try {
 				comune = Validazione.checkStringaVuota(comune);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 2;
 				request.setAttribute("errore-add-address", error);
 				dispatcher.forward(request, response);
@@ -199,7 +200,7 @@ public class UpdateInfo extends HttpServlet {
 			String via = request.getParameter("via");
 			try {
 				via = Validazione.checkStringaVuota(via);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 3;
 				request.setAttribute("errore-add-address", error);
 				dispatcher.forward(request, response);
@@ -217,7 +218,7 @@ public class UpdateInfo extends HttpServlet {
 			String cap = request.getParameter("cap");
 			try {
 				cap = Validazione.checkStringaVuota(cap);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 5;
 				request.setAttribute("errore-add-address", error);
 				dispatcher.forward(request, response);
@@ -232,7 +233,7 @@ public class UpdateInfo extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (Exception e) {
+			} catch (CheckException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -255,7 +256,7 @@ public class UpdateInfo extends HttpServlet {
 			}
 			try {
 				Validazione.checkNumero(numero);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 1;
 				request.setAttribute("errore-add-number", error);
 				dispatcher.forward(request, response);
@@ -266,7 +267,7 @@ public class UpdateInfo extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (Exception e) {
+			} catch (CheckException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -291,7 +292,7 @@ public class UpdateInfo extends HttpServlet {
 			request.setAttribute("errore-update-number", error);
 			try {
 				Validazione.checkNumero(numero);
-			}catch(Exception e) {
+			}catch(CheckException e) {
 				error = 1;
 				request.setAttribute("errore-update-number", error);
 				dispatcher.forward(request, response);
@@ -309,7 +310,7 @@ public class UpdateInfo extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (Exception e) {
+			} catch (CheckException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -330,7 +331,7 @@ public class UpdateInfo extends HttpServlet {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

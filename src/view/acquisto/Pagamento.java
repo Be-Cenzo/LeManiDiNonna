@@ -19,6 +19,7 @@ import acquistoManagement.SpedizioneModelDS;
 import acquistoManagement.OrdineModelDS;
 import catalogoManagement.ConservatoModelDS;
 import catalogoManagement.Prodotto;
+import checking.CheckException;
 import utenteManagement.Account;
 import utenteManagement.IndirizzoModelDS;
 
@@ -56,7 +57,7 @@ public class Pagamento extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -71,7 +72,7 @@ public class Pagamento extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

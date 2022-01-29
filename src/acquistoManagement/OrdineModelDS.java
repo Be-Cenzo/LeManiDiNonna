@@ -10,7 +10,8 @@ import java.util.HashMap;
 import javax.sql.DataSource;
 
 import catalogoManagement.Prodotto;
-import view.site.Validazione;
+import checking.CheckException;
+import checking.Validazione;
 
 public class OrdineModelDS {
 
@@ -64,10 +65,10 @@ public class OrdineModelDS {
 	}
 
 	
-	public ArrayList<Ordine> doRetrieveAll(String order) throws Exception {
+	public ArrayList<Ordine> doRetrieveAll(String order) throws CheckException, SQLException{
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		connection = null;
 		preparedStatement = null;
@@ -114,10 +115,10 @@ public class OrdineModelDS {
 		return ordini;
 	}
 	
-	public ArrayList<Ordine> doRetrieveAll(String order, String email) throws Exception {
+	public ArrayList<Ordine> doRetrieveAll(String order, String email) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		Validazione.checkStringaVuota(email);
 		//fine
 		connection = null;
@@ -167,17 +168,17 @@ public class OrdineModelDS {
 	}
 
 	
-	public int doSave(String email, String note, int indirizzo, String spedizione, ArrayList<Prodotto> prodotti, float totale) throws Exception {
+	public int doSave(String email, String note, int indirizzo, String spedizione, ArrayList<Prodotto> prodotti, float totale) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(email);
 		Validazione.checkStringaVuota(spedizione);
 		float somma = 0;
 		if(prodotti == null || prodotti.isEmpty())
-			throw new Exception("Invalid list");
+			throw new CheckException("Invalid list");
 		for(Prodotto p : prodotti)
 			somma += p.getPrezzo();
 		if(totale != somma)
-			throw new Exception("Inconsistent price");
+			throw new CheckException("Inconsistent price");
 		//fine
 		Connection con = null;
         PreparedStatement st = null;
@@ -258,8 +259,7 @@ public class OrdineModelDS {
 	                                res = st.executeUpdate();
 	                                if(res <= 0) {
 	                                    con.rollback();
-	                                    System.out.println("Errore nell'update del deposito. 1");
-	                                    break;
+	                                    throw new CheckException("Errore nell'update del deposito. 1");
 	                                }
 	                                quantita-=quantitaDep;
 	                            }
@@ -273,8 +273,7 @@ public class OrdineModelDS {
 	                                res = st.executeUpdate();
 	                                if(res <= 0) {
 	                                    con.rollback();
-	                                    System.out.println("Errore nell'update del deposito. 2");
-	                                    break;
+	                                    throw new CheckException("Errore nell'update del deposito. 2");
 	                                }
 	                                quantita = 0;
 	                            }
@@ -283,17 +282,17 @@ public class OrdineModelDS {
 	                        }
 	                    } else {
 	                        con.rollback();
-	                        System.out.println("Impossibile effettuare l'update");
+	                        throw new CheckException("Impossibile effettuare l'update");
 	                    }
 	                }
 	                else{
 	                    con.rollback();
-	                    System.out.println("Non c'è abbastanza disponibilità.");
+	                    throw new CheckException("Non c'è abbastanza disponibilità.");
 	                }
                 }
 
             } else {
-                System.out.println("Impossibile effettuare l'update");
+            	throw new CheckException("Impossibile effettuare l'update");
             }
 
         }catch(SQLException e){
@@ -317,17 +316,17 @@ public class OrdineModelDS {
 	
 
 	
-	public void doUpdate(Ordine ordine) throws Exception {
+	public void doUpdate(Ordine ordine) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(ordine.getEmail());
 		Validazione.checkStringaVuota(ordine.getSpedizione());
 		float somma = 0;
 		if(ordine.getProdotti() == null || ordine.getProdotti().isEmpty())
-			throw new Exception("Invalid list");
+			throw new CheckException("Invalid list");
 		for(Prodotto p : ordine.getProdotti())
 			somma += p.getPrezzo();
 		if(ordine.getPrezzo() != somma)
-			throw new Exception("Inconsistent price");
+			throw new CheckException("Inconsistent price");
 		//fine
 		connection = null;
 		preparedStatement = null;
