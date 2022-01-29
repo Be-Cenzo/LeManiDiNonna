@@ -175,7 +175,7 @@ public class OrdineModelDS {
 		if(prodotti == null || prodotti.isEmpty())
 			throw new Exception("Invalid list");
 		for(Prodotto p : prodotti)
-			somma += p.getPrezzo();
+			somma += p.getPrezzo()*p.getQuantita();
 		if(totale != somma)
 			throw new Exception("Inconsistent price");
 		//fine
@@ -325,7 +325,7 @@ public class OrdineModelDS {
 		if(ordine.getProdotti() == null || ordine.getProdotti().isEmpty())
 			throw new Exception("Invalid list");
 		for(Prodotto p : ordine.getProdotti())
-			somma += p.getPrezzo();
+			somma += p.getPrezzo()*p.getQuantita();
 		if(ordine.getPrezzo() != somma)
 			throw new Exception("Inconsistent price");
 		//fine

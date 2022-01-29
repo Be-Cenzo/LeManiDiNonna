@@ -79,11 +79,11 @@ public class OrdineModelDSTest {
     
     @Test
     public void doRetrieveByKeyPresente() {
-    	Ordine expected = new Ordine(2, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
+    	Ordine expected = new Ordine(3, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
     	
     	Ordine actual = null;
     	try {
-			actual = ordineModelDS.doRetrieveByKey(2);
+			actual = ordineModelDS.doRetrieveByKey(3);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -96,7 +96,7 @@ public class OrdineModelDSTest {
     	
     	Ordine actual = null;
     	try {
-			actual = ordineModelDS.doRetrieveByKey(5);
+			actual = ordineModelDS.doRetrieveByKey(6);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -108,16 +108,16 @@ public class OrdineModelDSTest {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
   
-    	ord = new Ordine(3, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
+    	ord = new Ordine(4, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
     	expected.add(ord);
 
-    	ord = new Ordine(4, new Date(1602712800000L), 24, 10, "", "Contabilizzato", "vittorio.armenante@gmail.com", 1, "veloce");
+    	ord = new Ordine(5, new Date(1602712800000L), 24, 10, "", "Contabilizzato", "vittorio.armenante@gmail.com", 1, "veloce");
     	expected.add(ord);
     	
-    	ord = new Ordine(1, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
+    	ord = new Ordine(2, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(2, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
+    	ord = new Ordine(3, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
     	expected.add(ord);
     	
     	ArrayList<Ordine> actual = null;
@@ -134,16 +134,16 @@ public class OrdineModelDSTest {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
   
-    	ord = new Ordine(2, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
+    	ord = new Ordine(3, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
     	expected.add(ord);
     	
-    	ord = new Ordine(1, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
+    	ord = new Ordine(2, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(4, new Date(1602712800000L), 24, 10, "", "Contabilizzato", "vittorio.armenante@gmail.com", 1, "veloce");
+    	ord = new Ordine(5, new Date(1602712800000L), 24, 10, "", "Contabilizzato", "vittorio.armenante@gmail.com", 1, "veloce");
     	expected.add(ord);
     	
-    	ord = new Ordine(3, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
+    	ord = new Ordine(4, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
     	expected.add(ord);
     	
     	ArrayList<Ordine> actual = null;
@@ -160,16 +160,16 @@ public class OrdineModelDSTest {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
 
-    	ord = new Ordine(1, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
+    	ord = new Ordine(2, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(2, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
+    	ord = new Ordine(3, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
     	expected.add(ord);
     	
-    	ord = new Ordine(3, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
+    	ord = new Ordine(4, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(4, new Date(1602712800000L), 24, 10, "", "Contabilizzato", "vittorio.armenante@gmail.com", 1, "veloce");
+    	ord = new Ordine(5, new Date(1602712800000L), 24, 10, "", "Contabilizzato", "vittorio.armenante@gmail.com", 1, "veloce");
     	expected.add(ord);
     	
     	ArrayList<Ordine> actual = null;
@@ -186,16 +186,16 @@ public class OrdineModelDSTest {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
 
-    	ord = new Ordine(1, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
+    	ord = new Ordine(2, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(2, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
+    	ord = new Ordine(3, new Date(1610319600000L), 30, 10, "", "Contabilizzato", "christian.gambardella@gmail.com", 1, "veloce");
     	expected.add(ord);
     	
-    	ord = new Ordine(3, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
+    	ord = new Ordine(4, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(4, new Date(1602712800000L), 24, 10, "", "Contabilizzato", "vittorio.armenante@gmail.com", 1, "veloce");
+    	ord = new Ordine(5, new Date(1602712800000L), 24, 10, "", "Contabilizzato", "vittorio.armenante@gmail.com", 1, "veloce");
     	expected.add(ord);
     	
     	ArrayList<Ordine> actual = null;
@@ -219,10 +219,10 @@ public class OrdineModelDSTest {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
   
-    	ord = new Ordine(3, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
+    	ord = new Ordine(4, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(1, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
+    	ord = new Ordine(2, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
     	expected.add(ord);
     	
     	String email = "vincenzo.offertucci@gmail.com";
@@ -241,10 +241,10 @@ public class OrdineModelDSTest {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
   
-    	ord = new Ordine(1, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
+    	ord = new Ordine(2, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(3, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
+    	ord = new Ordine(4, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
     	expected.add(ord);
 
     	String email = "vincenzo.offertucci@gmail.com";
@@ -263,10 +263,10 @@ public class OrdineModelDSTest {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
 
-    	ord = new Ordine(1, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
+    	ord = new Ordine(2, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(3, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
+    	ord = new Ordine(4, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
     	expected.add(ord);
     	
     	String email = "vincenzo.offertucci@gmail.com";
@@ -285,10 +285,10 @@ public class OrdineModelDSTest {
     	Ordine ord;
     	ArrayList<Ordine> expected = new ArrayList<Ordine>();
 
-    	ord = new Ordine(1, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
+    	ord = new Ordine(2, new Date(1606690800000L), 63, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "lento");
     	expected.add(ord);
     	
-    	ord = new Ordine(3, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
+    	ord = new Ordine(4, new Date(1595800800000L), 36, 7, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "lento");
     	expected.add(ord);
     	
     	String email = "vincenzo.offertucci@gmail.com";
@@ -406,8 +406,16 @@ public class OrdineModelDSTest {
                 .build(OrdineModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateOrdineCorretto.xml"))
                 .getTable(table);
 
-    	Prodotto prod;
-    	Ordine ord = new Ordine(3, new Date(1610319600000L), 36, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com",  1, "veloce");
+    	ArrayList<Prodotto> prodotti = new ArrayList<Prodotto>();
+    	Prodotto prod = new Prodotto();
+    	prod.setCodice(1);
+    	prod.setTaglia("S");
+    	prod.setQuantita(1);
+    	prod.setPrezzo(15);
+    	prodotti.add(prod);
+    	Ordine ord = new Ordine(4, new Date(1643299200000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com",  1, "veloce");
+    	ord.setProdotti(prodotti);
+    	
     	
     	try {
 			ordineModelDS.doUpdate(ord);
@@ -443,19 +451,19 @@ public class OrdineModelDSTest {
     			//codice ordine non presente nel Datbase
     			Arguments.of(10, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "veloce", prodotti),
     			//email vuota
-    			Arguments.of(1, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "", 2, "veloce", prodotti),
+    			Arguments.of(2, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "", 2, "veloce", prodotti),
     			//email null
-    			Arguments.of(1, new Date(1643390580000L), 15, 10, "", "Contabilizzato", null, 2, "veloce", prodotti),
+    			Arguments.of(2, new Date(1643390580000L), 15, 10, "", "Contabilizzato", null, 2, "veloce", prodotti),
     			//spedizione vuota
-    			Arguments.of(1, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "", prodotti),
+    			Arguments.of(2, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "", prodotti),
     			//spedizione null
-    			Arguments.of(1, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, null, prodotti),
+    			Arguments.of(2, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, null, prodotti),
     			//totale inconsistente
-    			Arguments.of(1, new Date(1643390580000L), 150, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "veloce", prodotti),
+    			Arguments.of(2, new Date(1643390580000L), 150, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "veloce", prodotti),
     			//lista di prodotti vuota
-    			Arguments.of(1, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "veloce", listaVuota),
+    			Arguments.of(2, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "veloce", listaVuota),
     			//lista di prodotti null
-    			Arguments.of(1, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "veloce", null)
+    			Arguments.of(2, new Date(1643390580000L), 15, 10, "", "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "veloce", null)
     			);
     }
     
@@ -466,7 +474,7 @@ public class OrdineModelDSTest {
                 .getTable(table);
     	
     	Ordine del = new Ordine();
-    	del.setID(4);
+    	del.setID(5);
     	
     	try {
 			ordineModelDS.doDelete(del);
