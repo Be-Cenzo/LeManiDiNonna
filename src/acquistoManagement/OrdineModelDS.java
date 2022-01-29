@@ -170,9 +170,10 @@ public class OrdineModelDS {
 	public int doSave(String email, String note, int indirizzo, String spedizione, ArrayList<Prodotto> prodotti, float totale) throws Exception {
 		//pre-condition
 		Validazione.checkStringaVuota(email);
-		Validazione.checkStringaVuota(note);
 		Validazione.checkStringaVuota(spedizione);
 		float somma = 0;
+		if(prodotti == null || prodotti.isEmpty())
+			throw new Exception("Invalid list");
 		for(Prodotto p : prodotti)
 			somma += p.getPrezzo();
 		if(totale != somma)
@@ -319,9 +320,10 @@ public class OrdineModelDS {
 	public void doUpdate(Ordine ordine) throws Exception {
 		//pre-condition
 		Validazione.checkStringaVuota(ordine.getEmail());
-		Validazione.checkStringaVuota(ordine.getNote());
 		Validazione.checkStringaVuota(ordine.getSpedizione());
 		float somma = 0;
+		if(ordine.getProdotti() == null || ordine.getProdotti().isEmpty())
+			throw new Exception("Invalid list");
 		for(Prodotto p : ordine.getProdotti())
 			somma += p.getPrezzo();
 		if(ordine.getPrezzo() != somma)
