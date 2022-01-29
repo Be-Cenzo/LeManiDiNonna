@@ -6,10 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.sql.DataSource;
-
-import view.site.Validazione;
+import checking.*;
 
 public class DepositoModelDS{
 	private DataSource ds = null;
@@ -53,10 +51,10 @@ public class DepositoModelDS{
 	}
 
 	
-	public ArrayList<Deposito> doRetrieveAll(String order) throws Exception {
+	public ArrayList<Deposito> doRetrieveAll(String order) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -97,7 +95,7 @@ public class DepositoModelDS{
 	}
 
 	
-	public void doSave(Deposito deposito) throws Exception {
+	public void doSave(Deposito deposito) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(deposito.getLuogo());
 		//fine
@@ -129,7 +127,7 @@ public class DepositoModelDS{
 	}
 
 	
-	public void doUpdate(Deposito deposito) throws Exception {
+	public void doUpdate(Deposito deposito) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(deposito.getLuogo());
 		//fine

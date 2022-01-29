@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import acquistoManagement.Carrello;
 import acquistoManagement.OrdineModelDS;
 import catalogoManagement.*;
+import checking.CheckException;
 import utenteManagement.Account;
 import utenteManagement.IndirizzoModelDS;
 
@@ -77,7 +78,7 @@ public class CreaOrdine extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

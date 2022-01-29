@@ -1,9 +1,6 @@
 package view.catalogo;
 
 import java.io.File;
-import view.site.Validazione;
-import view.site.Validazione;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
@@ -22,6 +19,8 @@ import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 import catalogoManagement.*;
+import checking.CheckException;
+import checking.Validazione;
 
 
 
@@ -64,7 +63,7 @@ public class UploadProdotto extends HttpServlet {
 			tipo = Validazione.checkTipo(request.getParameter("tipo"));
 			
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			error = 1;
 			request.setAttribute("errore-operazione", error);
 			dispatcher.forward(request, response);
@@ -76,7 +75,7 @@ public class UploadProdotto extends HttpServlet {
 			prezzo = Float.parseFloat(request.getParameter("prezzo"));
 			
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			error = 2;
 			request.setAttribute("errore-operazione", error);
 			dispatcher.forward(request, response);
@@ -86,7 +85,7 @@ public class UploadProdotto extends HttpServlet {
 		try {
 			colore = Validazione.checkStringaVuota(request.getParameter("colore"));
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			error = 3;
 			request.setAttribute("errore-operazione", error);
 			dispatcher.forward(request, response);
@@ -96,7 +95,7 @@ public class UploadProdotto extends HttpServlet {
 		try {
 			descrizione = Validazione.checkStringaVuota(request.getParameter("desc"));
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			error = 4;
 			request.setAttribute("errore-operazione", error);
 			dispatcher.forward(request, response);
@@ -107,7 +106,7 @@ public class UploadProdotto extends HttpServlet {
 			try {
 				marca = Validazione.checkStringaVuota(request.getParameter("marca"));
 			}
-			catch(Exception e) {
+			catch(CheckException e) {
 				error = 5;
 				request.setAttribute("errore-operazione", error);
 				dispatcher.forward(request, response);
@@ -120,7 +119,7 @@ public class UploadProdotto extends HttpServlet {
 			try {
 				modello = Validazione.checkStringaVuota(request.getParameter("modello"));
 			}
-			catch(Exception e) {
+			catch(CheckException e) {
 				error = 6;
 				request.setAttribute("errore-operazione", error);
 				dispatcher.forward(request, response);
@@ -134,7 +133,7 @@ public class UploadProdotto extends HttpServlet {
 				taglia = Validazione.checkStringaVuota(request.getParameter("taglia"));
 				taglia = Validazione.checkTaglia(request.getParameter("taglia"));
 			}
-			catch(Exception e) {
+			catch(CheckException e) {
 				error = 7;
 				request.setAttribute("errore-operazione", error);
 				dispatcher.forward(request, response);
@@ -147,9 +146,9 @@ public class UploadProdotto extends HttpServlet {
 		try {
 			quantita = Integer.parseInt(request.getParameter("quant"));
 			if(quantita < 0)
-				throw new Exception("Error negative quantity");
+				throw new CheckException("Error negative quantity");
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			e.printStackTrace();
 			error = 8;
 			request.setAttribute("errore-operazione", error);
@@ -175,7 +174,7 @@ public class UploadProdotto extends HttpServlet {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -201,7 +200,7 @@ public class UploadProdotto extends HttpServlet {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -216,12 +215,12 @@ public class UploadProdotto extends HttpServlet {
 		deposito = request.getParameter("deposito");
 		dep = modelD.doRetrieveByKey(Integer.parseInt(deposito));
 		if(dep.getLuogo() == null)
-			throw new Exception("Invalid dep id");
+			throw new CheckException("Invalid dep id");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			error = 9;
 			request.setAttribute("errore-operazione", error);
 			dispatcher.forward(request, response);
@@ -237,7 +236,7 @@ public class UploadProdotto extends HttpServlet {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		catch (Exception e) {
+		catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -277,7 +276,7 @@ public class UploadProdotto extends HttpServlet {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

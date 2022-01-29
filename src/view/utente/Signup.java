@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import catalogoManagement.*;
+import checking.CheckException;
+import checking.Validazione;
 import utenteManagement.Account;
 import utenteManagement.AccountModelDS;
 import utenteManagement.Indirizzo;
 import utenteManagement.IndirizzoModelDS;
 import utenteManagement.NumeroModelDS;
-import view.site.Validazione;
 
 /**
  * Servlet implementation class Signup
@@ -65,7 +66,7 @@ public class Signup extends HttpServlet {
 			acc = Validazione.checkEmail(email, ds);
 			acc.setEmail(email);
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			error = 1;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -76,7 +77,7 @@ public class Signup extends HttpServlet {
 			numero = Validazione.checkNumero(request.getParameter("phone"));
 			acc.addNumeroTel(numero);
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			error = 2;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -87,7 +88,7 @@ public class Signup extends HttpServlet {
 		try {
 			psw = Validazione.checkPassword(psw, pswr);
 			acc.setPassword(psw);
-		}catch(Exception e) {
+		}catch(CheckException e) {
 			error = 3;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -98,7 +99,7 @@ public class Signup extends HttpServlet {
 		try {
 			name = Validazione.checkStringaVuota(name);
 			acc.setNome(name);
-		}catch(Exception e) {
+		}catch(CheckException e) {
 			error = 4;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -108,7 +109,7 @@ public class Signup extends HttpServlet {
 		try {
 			surname = Validazione.checkStringaVuota(surname);
 			acc.setCognome(surname);
-		}catch(Exception e) {
+		}catch(CheckException e) {
 			error = 5;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -118,7 +119,7 @@ public class Signup extends HttpServlet {
 		try {
 			birth = Validazione.checkData(birth);
 			acc.setDataNascita(birth);
-		}catch(Exception e) {
+		}catch(CheckException e) {
 			error = 6;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -129,7 +130,7 @@ public class Signup extends HttpServlet {
 		String provincia = request.getParameter("provincia");
 		try {
 			provincia = Validazione.checkStringaVuota(provincia);
-		}catch(Exception e) {
+		}catch(CheckException e) {
 			error = 7;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -138,7 +139,7 @@ public class Signup extends HttpServlet {
 		String comune = request.getParameter("comune");
 		try {
 			comune = Validazione.checkStringaVuota(comune);
-		}catch(Exception e) {
+		}catch(CheckException e) {
 			error = 8;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -147,7 +148,7 @@ public class Signup extends HttpServlet {
 		String via = request.getParameter("via");
 		try {
 			via = Validazione.checkStringaVuota(via);
-		}catch(Exception e) {
+		}catch(CheckException e) {
 			error = 9;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -165,7 +166,7 @@ public class Signup extends HttpServlet {
 		String cap = request.getParameter("cap");
 		try {
 			cap = Validazione.checkStringaVuota(cap);
-		}catch(Exception e) {
+		}catch(CheckException e) {
 			error = 11;
 			request.setAttribute("errore-registrazione", error);
 			dispatcher.forward(request, response);
@@ -195,7 +196,7 @@ public class Signup extends HttpServlet {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -214,7 +215,7 @@ public class Signup extends HttpServlet {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (CheckException e) {
 			e.printStackTrace();
 		}
 	}

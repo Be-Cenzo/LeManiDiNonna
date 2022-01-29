@@ -5,10 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.sql.DataSource;
-
-import view.site.Validazione;
+import checking.*;
 
 public class IndirizzoModelDS {
 
@@ -21,7 +19,7 @@ public class IndirizzoModelDS {
 	}
 	
 	
-	public Indirizzo doRetrieveByKey(int id) throws Exception {
+	public Indirizzo doRetrieveByKey(int id) throws CheckException, SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -63,10 +61,10 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public ArrayList<Indirizzo> doRetrieveAll(String order) throws Exception {
+	public ArrayList<Indirizzo> doRetrieveAll(String order) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -114,7 +112,7 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public void doSave(Indirizzo indirizzo) throws Exception {
+	public void doSave(Indirizzo indirizzo) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(indirizzo.getProvincia());
 		Validazione.checkStringaVuota(indirizzo.getComune());
@@ -156,7 +154,7 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public void doUpdate(Indirizzo indirizzo) throws Exception {
+	public void doUpdate(Indirizzo indirizzo) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(indirizzo.getProvincia());
 		Validazione.checkStringaVuota(indirizzo.getComune());
@@ -200,7 +198,7 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public void doDelete(Indirizzo indirizzo) throws Exception {
+	public void doDelete(Indirizzo indirizzo) throws CheckException, SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

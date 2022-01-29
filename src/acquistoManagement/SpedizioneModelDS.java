@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import view.site.Validazione;
+import checking.CheckException;
+import checking.Validazione;
 
 public class SpedizioneModelDS {
 
@@ -19,7 +20,7 @@ public class SpedizioneModelDS {
 	}
 	
 	
-	public Spedizione doRetrieveByKey(String nome) throws Exception {
+	public Spedizione doRetrieveByKey(String nome) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(nome);
 		//fine
@@ -56,10 +57,10 @@ public class SpedizioneModelDS {
 	}
 
 	
-	public ArrayList<Spedizione> doRetrieveAll(String order) throws Exception {
+	public ArrayList<Spedizione> doRetrieveAll(String order) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -101,12 +102,12 @@ public class SpedizioneModelDS {
 	}
 
 	
-	public void doSave(Spedizione spedizione) throws Exception {
+	public void doSave(Spedizione spedizione) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(spedizione.getNome());
 		Validazione.checkStringaVuota(spedizione.getTempo());
 		if(spedizione.getPrezzo() <= 0)
-			throw new Exception("Invalid price");
+			throw new CheckException("Invalid price");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -139,12 +140,12 @@ public class SpedizioneModelDS {
 	}
 
 	
-	public void doUpdate(Spedizione spedizione) throws Exception {
+	public void doUpdate(Spedizione spedizione) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkStringaVuota(spedizione.getNome());
 		Validazione.checkStringaVuota(spedizione.getTempo());
 		if(spedizione.getPrezzo() <= 0)
-			throw new Exception("Invalid price");
+			throw new CheckException("Invalid price");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

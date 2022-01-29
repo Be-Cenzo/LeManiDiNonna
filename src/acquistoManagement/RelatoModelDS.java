@@ -11,7 +11,8 @@ import javax.sql.DataSource;
 
 import catalogoManagement.Prodotto;
 import catalogoManagement.ProdottoModelDS;
-import view.site.Validazione;
+import checking.CheckException;
+import checking.Validazione;
 
 public class RelatoModelDS {
 	
@@ -21,7 +22,7 @@ public class RelatoModelDS {
 		this.ds = ds;
 	}
 	
-	public int doRetrieveByKey(Prodotto prodotto, Ordine ordine) throws SQLException {
+	public int doRetrieveByKey(Prodotto prodotto, Ordine ordine) throws CheckException, SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -61,10 +62,10 @@ public class RelatoModelDS {
 	 * @return un'arraylist di prodotti appartenenti all'ordine
 	 * @throws SQLException
 	 */
-	public ArrayList<Prodotto> doRetrieveAll(String order, Ordine ordine) throws Exception {
+	public ArrayList<Prodotto> doRetrieveAll(String order, Ordine ordine) throws CheckException, SQLException {
 		//pre-condition
 		if(order != null && order != "" && order != "ASC" && order != "DESC")
-			throw new Exception("Invalid order");
+			throw new CheckException("Invalid order");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -109,10 +110,10 @@ public class RelatoModelDS {
 		return prodotti;
 	}
 	
-	public void doSave(Prodotto prodotto, Ordine ordine, int quantita) throws Exception {
+	public void doSave(Prodotto prodotto, Ordine ordine, int quantita) throws CheckException, SQLException {
 		//pre-condition
 		if(quantita <= 0)
-			throw new Exception("invalid quantita");
+			throw new CheckException("invalid quantita");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -145,10 +146,10 @@ public class RelatoModelDS {
 		}
 	}
 	
-	public void doUpdate(Prodotto prodotto, Ordine ordine, int quantita) throws Exception {
+	public void doUpdate(Prodotto prodotto, Ordine ordine, int quantita) throws CheckException, SQLException {
 		//pre-condition
 		if(quantita <= 0)
-			throw new Exception("invalid quantita");
+			throw new CheckException("invalid quantita");
 		//fine
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

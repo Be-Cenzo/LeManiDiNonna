@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import checking.CheckException;
+
+
 public class ConservatoModelDS {
 
 	private DataSource ds = null;
@@ -16,7 +19,7 @@ public class ConservatoModelDS {
 		this.ds = ds;
 	}
 	
-	public int doRetrieveByKey(Prodotto prodotto, Deposito deposito) throws SQLException {
+	public int doRetrieveByKey(Prodotto prodotto, Deposito deposito) throws CheckException, SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -50,10 +53,10 @@ public class ConservatoModelDS {
 		return disponibilita;
 	}
 	
-	public void doSave(Prodotto prodotto, Deposito deposito, int disponibilita) throws Exception {
+	public void doSave(Prodotto prodotto, Deposito deposito, int disponibilita) throws CheckException, SQLException {
 		//pre-condition
 		if(disponibilita < 0)
-			throw new Exception("Invalid disponibilità");
+			throw new CheckException("Invalid disponibilità");
 		//
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -86,10 +89,10 @@ public class ConservatoModelDS {
 		}
 	}
 	
-	public void doUpdate(Prodotto prodotto, Deposito deposito, int disponibilita) throws Exception {
+	public void doUpdate(Prodotto prodotto, Deposito deposito, int disponibilita) throws CheckException, SQLException {
 		//pre-condition
 		if(disponibilita < 0)
-			throw new Exception("Invalid disponibilità");
+			throw new CheckException("Invalid disponibilità");
 		//
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -122,7 +125,7 @@ public class ConservatoModelDS {
 		}
 	}
 	
-	public void doDelete(Prodotto prodotto, Deposito deposito) throws SQLException {
+	public void doDelete(Prodotto prodotto, Deposito deposito) throws CheckException, SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

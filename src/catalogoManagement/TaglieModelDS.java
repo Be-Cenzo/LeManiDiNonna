@@ -5,10 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.sql.DataSource;
-
-import view.site.Validazione;
+import checking.*;
 
 public class TaglieModelDS{
 	
@@ -19,7 +17,7 @@ public class TaglieModelDS{
 	}
 
 	
-	public void doSave(int codice, String taglia) throws Exception {
+	public void doSave(int codice, String taglia) throws CheckException, SQLException {
 		//pre-condition
 		Validazione.checkTaglia(taglia);
 		//fine

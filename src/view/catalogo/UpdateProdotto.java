@@ -20,7 +20,8 @@ import catalogoManagement.PhotoModelDS;
 import catalogoManagement.Prodotto;
 import catalogoManagement.ProdottoModelDS;
 import catalogoManagement.TaglieModelDS;
-import view.site.Validazione;
+import checking.CheckException;
+import checking.Validazione;
 
 /**
  * Servlet implementation class UpdateProdotto
@@ -81,7 +82,7 @@ public class UpdateProdotto extends HttpServlet {
 				taglia = Validazione.checkStringaVuota(request.getParameter("taglia"));
 				taglia = Validazione.checkTaglia(request.getParameter("taglia"));
 			}
-			catch(Exception e) {
+			catch(CheckException e) {
 				error = 1;
 				request.setAttribute("errore-operazione", error);
 				dispatcher.forward(request, response);
@@ -95,9 +96,9 @@ public class UpdateProdotto extends HttpServlet {
 		try {
 			quantita = Integer.parseInt(request.getParameter("quant"));
 			if(quantita < 0)
-				throw new Exception("Error negative quantity");
+				throw new CheckException("Error negative quantity");
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			e.printStackTrace();
 			error = 2;
 			request.setAttribute("errore-operazione", error);
@@ -114,12 +115,12 @@ public class UpdateProdotto extends HttpServlet {
 		deposito = request.getParameter("deposito");
 		dep = modelD.doRetrieveByKey(Integer.parseInt(deposito));
 		if(dep.getLuogo() == null)
-			throw new Exception("Invalid dep id");
+			throw new CheckException("Invalid dep id");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		catch(Exception e) {
+		catch(CheckException e) {
 			error = 3;
 			request.setAttribute("errore-operazione", error);
 			dispatcher.forward(request, response);
@@ -139,7 +140,7 @@ public class UpdateProdotto extends HttpServlet {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
- catch (Exception e) {
+		catch(CheckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
