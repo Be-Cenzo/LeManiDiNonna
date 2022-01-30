@@ -23,7 +23,7 @@ public class Ordine implements Serializable{
 	private ArrayList<Prodotto> prodotti;
 	
 	public Ordine() {
-		
+		prodotti = new ArrayList<Prodotto>();
 	}
 	
 	public Ordine(int ID, Date data, float prezzo, float costoSped, String note, String stato, String email, int indirizzo, String corriere) {

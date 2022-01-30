@@ -79,7 +79,7 @@ public class OrdineModelDS {
 		String selectSQL = "SELECT * FROM ordine";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY data " + order;
 		}
 
 		try {
@@ -130,7 +130,7 @@ public class OrdineModelDS {
 		String selectSQL = "SELECT * FROM ordine WHERE email = ?";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY data " + order;
 		}
 
 		try {
@@ -177,7 +177,7 @@ public class OrdineModelDS {
 		if(prodotti == null || prodotti.isEmpty())
 			throw new CheckException("Invalid list");
 		for(Prodotto p : prodotti)
-			somma += p.getPrezzo();
+			somma += p.getPrezzo()*p.getQuantita();
 		if(totale != somma)
 			throw new CheckException("Inconsistent price");
 		//fine
@@ -187,7 +187,7 @@ public class OrdineModelDS {
         int res, id = 0, dispo = 0;
         float costoSped = 0;
         System.out.println(email);
-
+        
         try{
             con = ds.getConnection();
             con.setAutoCommit(false);
@@ -325,7 +325,7 @@ public class OrdineModelDS {
 		if(ordine.getProdotti() == null || ordine.getProdotti().isEmpty())
 			throw new CheckException("Invalid list");
 		for(Prodotto p : ordine.getProdotti())
-			somma += p.getPrezzo();
+			somma += p.getPrezzo()*p.getQuantita();
 		if(ordine.getPrezzo() != somma)
 			throw new CheckException("Inconsistent price");
 		//fine

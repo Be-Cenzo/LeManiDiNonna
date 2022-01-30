@@ -1416,7 +1416,7 @@
         ["xpath=//form[@id='signup-form']/div/input", "xpath:idRelative"],
         ["xpath=//div[4]/div/form/div/input", "xpath:position"]
       ],
-      "value": "vincenzooffertucci@gmail.com"
+      "value": "vincenzo.offertucci@gmail.com"
     }, {
       "id": "34f1c6db-48e6-42b5-8ecf-fdb8ce015505",
       "comment": "",
@@ -7178,7 +7178,7 @@
     }]
   }, {
     "id": "eddaaf26-bc92-43df-9a11-6b22e3eee914",
-    "name": "Effettua Ordine TC1_7_3",
+    "name": "Effettua Ordine TC1_7_4",
     "commands": [{
       "id": "2137cc9b-a966-4f29-9b20-15a80b8a9eff",
       "comment": "",
@@ -7324,7 +7324,7 @@
         ["xpath=//div[@id='collapse0']/div[2]/form/input[4]", "xpath:idRelative"],
         ["xpath=//input[4]", "xpath:position"]
       ],
-      "value": "16"
+      "value": "160"
     }, {
       "id": "8fa55dc6-47f8-4605-bb98-0bab70663d70",
       "comment": "",
@@ -7364,7 +7364,7 @@
       "id": "9ea57497-d6a1-48ef-9455-72f22ed68dad",
       "comment": "",
       "command": "assertTitle",
-      "target": "Il tuo Ordine",
+      "target": "Il tuo Carrello",
       "targets": [],
       "value": ""
     }, {
@@ -7406,7 +7406,7 @@
     }]
   }, {
     "id": "1846b95d-956a-4771-b7ee-61f1a52e4644",
-    "name": "Effettua Ordine TC1_7_4",
+    "name": "Effettua Ordine TC1_7_5",
     "commands": [{
       "id": "62fc7767-3dea-48f0-aa00-c4e7b52513b6",
       "comment": "",
@@ -8970,7 +8970,7 @@
       "id": "328b1aad-c89d-45cd-b3ac-04e4e7e8aa01",
       "comment": "",
       "command": "assertTitle",
-      "target": "Carrello",
+      "target": "Il tuo Carrello",
       "targets": [],
       "value": ""
     }, {

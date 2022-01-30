@@ -161,6 +161,10 @@ public class ConservatoModelDS {
 	}
 	
 	public ArrayList<Prodotto> checkDisponibilita(ArrayList<Prodotto> prodotti) {
+		//pre-condition
+		if (prodotti == null || prodotti.isEmpty())
+			return new ArrayList<Prodotto>();
+		
 		Connection con = null;
         PreparedStatement st = null;
         ResultSet ris = null;

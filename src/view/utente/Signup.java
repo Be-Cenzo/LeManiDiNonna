@@ -179,10 +179,8 @@ public class Signup extends HttpServlet {
 			numero = "+39" + numero;
 		numero = numero.replace(" ", "");
 		this.save(acc, address, numero);
-		/*request.getSession().setAttribute("role", "user");
-		request.getSession().setAttribute("user", acc);*/
 		request.getSession().setMaxInactiveInterval(-1);
-		response.sendRedirect(response.encodeURL("./index.jsp"));
+		response.sendRedirect(response.encodeURL("./login.jsp"));
 		
 	}
 	
@@ -197,7 +195,6 @@ public class Signup extends HttpServlet {
 		catch(SQLException e) {
 			e.printStackTrace();
 		} catch (CheckException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;

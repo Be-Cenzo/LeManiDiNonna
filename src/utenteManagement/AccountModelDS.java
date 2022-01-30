@@ -109,9 +109,12 @@ public class AccountModelDS {
 	
 	public void doSave(Account account) throws CheckException, SQLException {
 		//pre-condition
+		if(account == null || account.getEmail() == null)
+			throw new CheckException();
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
 		Validazione.checkStringaVuota(account.getNome());
+		Validazione.checkStringaVuota(account.getCognome());
 		Validazione.checkData(account.getDataNascita());
 		//fine
 		Connection connection = null;
@@ -177,9 +180,12 @@ public class AccountModelDS {
 	
 	public void doUpdate(Account account) throws CheckException, SQLException, DBException {
 		//pre-condition
+		if(account == null || account.getEmail() == null)
+			throw new CheckException();
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
 		Validazione.checkStringaVuota(account.getNome());
+		Validazione.checkStringaVuota(account.getCognome());
 		Validazione.checkData(account.getDataNascita());
 		//fine
 		Connection connection = null;
@@ -248,8 +254,12 @@ public class AccountModelDS {
 	
 	public void doUpdateInfo(Account account) throws CheckException, SQLException, DBException {
 		//pre-condition
+		if(account == null || account.getEmail() == null)
+			throw new CheckException();
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
+		Validazione.checkPassword(account.getPassword(), account.getPassword());
 		Validazione.checkStringaVuota(account.getNome());
+		Validazione.checkStringaVuota(account.getCognome());
 		Validazione.checkData(account.getDataNascita());
 		//fine
 		Connection connection = null;

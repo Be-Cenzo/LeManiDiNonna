@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	
+	<Corriere nome="lenta" tempo="12 giorni" costoSped="5.00" />
+	<Corriere nome="veloce" tempo="4 giorni" costoSped="10.00" />
+	
+</dataset>

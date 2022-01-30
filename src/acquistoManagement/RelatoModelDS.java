@@ -35,7 +35,7 @@ public class RelatoModelDS {
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, prodotto.getCodice());
 			preparedStatement.setInt(2, ordine.getID());
-			preparedStatement.setString(1, prodotto.getTaglia());
+			preparedStatement.setString(3, prodotto.getTaglia());
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -76,7 +76,7 @@ public class RelatoModelDS {
 		String selectSQL = "SELECT * FROM relato WHERE ordine = ?";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY prodotto " + order;
 		}
 
 		try {

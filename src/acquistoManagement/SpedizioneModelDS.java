@@ -71,7 +71,7 @@ public class SpedizioneModelDS {
 		String selectSQL = "SELECT * FROM corriere";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY nome " + order;
 		}
 
 		try {

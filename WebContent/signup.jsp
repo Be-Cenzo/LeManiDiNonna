@@ -35,7 +35,7 @@
 					<%
 						if(errore != null && errore == 1){ 
 					%>
-							<label class="errore">L'email inserita non è valida</label>
+							<label class="errore">Email inserita esistente</label>
 					<%
 						}
 					%>
@@ -97,7 +97,7 @@
 					<%
 						}
 					%><%
-						if(errore != null && errore == 4){ 
+						if(errore != null && errore == 11){ 
 					%>
 							<label class="errore">Il CAP non può essere vuoto</label>
 					<%

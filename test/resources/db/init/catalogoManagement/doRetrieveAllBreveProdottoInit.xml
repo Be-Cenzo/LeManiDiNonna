@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+	<Prodotto codice="0" tipo="t-shirt" prezzo="15" colore="bianco" descrizione="Hakuna Matata T-Shirt" marca="hz" modello="normale" imgurl="" />
+	<Prodotto codice="1" tipo="felpa" prezzo="25" colore="beige" descrizione="Rosa Felpa" marca="hz" modello="hoodie" imgurl="" />
+	<Prodotto codice="2" tipo="t-shirt" prezzo="15" colore="bianco" descrizione="Aereoplano T-Shirt" marca="hz" modello="normale" imgurl="" />
+	
+</dataset>

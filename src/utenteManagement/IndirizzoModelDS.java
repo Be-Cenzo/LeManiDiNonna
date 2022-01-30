@@ -114,6 +114,8 @@ public class IndirizzoModelDS {
 	
 	public void doSave(Indirizzo indirizzo) throws CheckException, SQLException {
 		//pre-condition
+		if(indirizzo == null)
+			throw new CheckException();
 		Validazione.checkStringaVuota(indirizzo.getProvincia());
 		Validazione.checkStringaVuota(indirizzo.getComune());
 		Validazione.checkStringaVuota(indirizzo.getVia());
@@ -156,6 +158,8 @@ public class IndirizzoModelDS {
 	
 	public void doUpdate(Indirizzo indirizzo) throws CheckException, SQLException, DBException {
 		//pre-condition
+		if(indirizzo == null)
+			throw new CheckException();
 		Validazione.checkStringaVuota(indirizzo.getProvincia());
 		Validazione.checkStringaVuota(indirizzo.getComune());
 		Validazione.checkStringaVuota(indirizzo.getVia());
@@ -203,6 +207,9 @@ public class IndirizzoModelDS {
 	public void doDelete(Indirizzo indirizzo) throws CheckException, SQLException, DBException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
+		if(indirizzo == null)
+			throw new CheckException();
 
 		String deleteSQL = "DELETE FROM indirizzo WHERE ID = ? AND email = ?";
 		int err;
