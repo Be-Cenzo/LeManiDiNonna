@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import catalogoManagement.Prodotto;
 import catalogoManagement.ProdottoModelDS;
 import checking.CheckException;
+import checking.DBException;
 import checking.Validazione;
 
 public class RelatoModelDS {
@@ -146,7 +147,7 @@ public class RelatoModelDS {
 		}
 	}
 	
-	public void doUpdate(Prodotto prodotto, Ordine ordine, int quantita) throws CheckException, SQLException {
+	public void doUpdate(Prodotto prodotto, Ordine ordine, int quantita) throws CheckException, SQLException, DBException {
 		//pre-condition
 		if(quantita <= 0)
 			throw new CheckException("invalid quantita");
@@ -155,7 +156,7 @@ public class RelatoModelDS {
 		PreparedStatement preparedStatement = null;
 
 		String updateSQL = "UPDATE relato SET quantita = ? WHERE prodotto = ? AND ordine = ? AND taglia = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -166,7 +167,7 @@ public class RelatoModelDS {
 			preparedStatement.setInt(3, ordine.getID());
 			preparedStatement.setString(4, prodotto.getTaglia());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -180,14 +181,16 @@ public class RelatoModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
-	public void doDelete(Prodotto prodotto, Ordine ordine) throws SQLException {
+	public void doDelete(Prodotto prodotto, Ordine ordine) throws SQLException, DBException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM relato WHERE prodotto = ? AND ordine = ? AND taglia = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -196,7 +199,7 @@ public class RelatoModelDS {
 			preparedStatement.setInt(2, ordine.getID());
 			preparedStatement.setString(3, prodotto.getTaglia());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -210,6 +213,8 @@ public class RelatoModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 	
 }

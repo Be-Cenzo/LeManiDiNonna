@@ -21,6 +21,7 @@ import catalogoManagement.Prodotto;
 import catalogoManagement.ProdottoModelDS;
 import catalogoManagement.TaglieModelDS;
 import checking.CheckException;
+import checking.DBException;
 import checking.Validazione;
 
 /**
@@ -141,6 +142,9 @@ public class UpdateProdotto extends HttpServlet {
 			e.printStackTrace();
 		}
 		catch(CheckException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

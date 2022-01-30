@@ -175,7 +175,7 @@ public class AccountModelDS {
 	}
 
 	
-	public void doUpdate(Account account) throws CheckException, SQLException {
+	public void doUpdate(Account account) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Validazione.checkPassword(account.getPassword(), account.getPassword());
@@ -213,7 +213,7 @@ public class AccountModelDS {
 		account.setPassword(psw);
 
 		String updateSQL = "UPDATE account SET " + " nome = ?, cognome = ?, dataNascita = ?, password = ?, NomeIG = ? WHERE email = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -228,7 +228,7 @@ public class AccountModelDS {
 			preparedStatement.setString(6, account.getEmail());
 			
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -242,9 +242,11 @@ public class AccountModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 	
-	public void doUpdateInfo(Account account) throws CheckException, SQLException {
+	public void doUpdateInfo(Account account) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkEmailForUpdate(account.getEmail(), ds);
 		Validazione.checkStringaVuota(account.getNome());
@@ -254,7 +256,7 @@ public class AccountModelDS {
 		PreparedStatement preparedStatement = null;
 
 		String updateSQL = "UPDATE account SET " + " nome = ?, cognome = ?, dataNascita = ?, NomeIG = ? WHERE email = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -268,7 +270,7 @@ public class AccountModelDS {
 			preparedStatement.setString(5, account.getEmail());
 			
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -282,23 +284,25 @@ public class AccountModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
 	
-	public void doDelete(Account account) throws CheckException, SQLException {
+	public void doDelete(Account account) throws CheckException, SQLException, DBException {
 		Validazione.checkStringaVuota(account.getEmail());
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM account WHERE email = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, account.getEmail());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -312,6 +316,8 @@ public class AccountModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
 }

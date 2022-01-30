@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import checking.CheckException;
+import checking.DBException;
 import checking.Validazione;
 
 public class SpedizioneModelDS {
@@ -140,7 +141,7 @@ public class SpedizioneModelDS {
 	}
 
 	
-	public void doUpdate(Spedizione spedizione) throws CheckException, SQLException {
+	public void doUpdate(Spedizione spedizione) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkStringaVuota(spedizione.getNome());
 		Validazione.checkStringaVuota(spedizione.getTempo());
@@ -151,7 +152,7 @@ public class SpedizioneModelDS {
 		PreparedStatement preparedStatement = null;
 
 		String updateSQL = "UPDATE corriere SET " + " tempo = ?, costoSped = ? WHERE nome = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -161,7 +162,7 @@ public class SpedizioneModelDS {
 			preparedStatement.setFloat(2, spedizione.getPrezzo());
 			preparedStatement.setString(3, spedizione.getNome());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -175,22 +176,24 @@ public class SpedizioneModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
 	
-	public void doDelete(Spedizione spedizione) throws SQLException {
+	public void doDelete(Spedizione spedizione) throws SQLException, DBException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM corriere WHERE nome = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, spedizione.getNome());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -204,6 +207,8 @@ public class SpedizioneModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
 }

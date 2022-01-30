@@ -241,7 +241,7 @@ public class ProdottoModelDS {
 	}
 
 	
-	public void doUpdate(Prodotto prodotto) throws CheckException, SQLException {
+	public void doUpdate(Prodotto prodotto) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkStringaVuota(prodotto.getTipo());
 		Validazione.checkTipo(prodotto.getTipo());
@@ -257,8 +257,8 @@ public class ProdottoModelDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ? WHERE codice = ?";
-
+		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ?, WHERE codice = ?";
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -273,7 +273,7 @@ public class ProdottoModelDS {
 			
 			preparedStatement.setInt(7, prodotto.getCodice());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -287,22 +287,24 @@ public class ProdottoModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");;
 	}
 
 	
-	public void doDelete(Prodotto prodotto) throws SQLException {
+	public void doDelete(Prodotto prodotto) throws SQLException, DBException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM prodotto WHERE codice = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, prodotto.getCodice());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -316,6 +318,8 @@ public class ProdottoModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
 	

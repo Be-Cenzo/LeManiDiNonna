@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import catalogoManagement.Prodotto;
 import checking.CheckException;
+import checking.DBException;
 import checking.Validazione;
 
 public class OrdineModelDS {
@@ -316,7 +317,7 @@ public class OrdineModelDS {
 	
 
 	
-	public void doUpdate(Ordine ordine) throws CheckException, SQLException {
+	public void doUpdate(Ordine ordine) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkStringaVuota(ordine.getEmail());
 		Validazione.checkStringaVuota(ordine.getSpedizione());
@@ -332,7 +333,7 @@ public class OrdineModelDS {
 		preparedStatement = null;
 
 		String updateSQL = "UPDATE ordine SET data = ?, prezzo = ?, costoSped = ?, note = ?, stato = ?, email = ?, indirizzo = ?, corriere = ? WHERE ID = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -348,7 +349,7 @@ public class OrdineModelDS {
 			preparedStatement.setString(8, ordine.getSpedizione());
 			preparedStatement.setInt(9, ordine.getID());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -362,22 +363,24 @@ public class OrdineModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
 	
-	public void doDelete(Ordine ordine) throws SQLException {
+	public void doDelete(Ordine ordine) throws SQLException, DBException {
 		connection = null;
 		preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM ordine WHERE ID = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, ordine.getID());
 
-			preparedStatement.executeUpdate();
+			err =preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -391,6 +394,8 @@ public class OrdineModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 		
 

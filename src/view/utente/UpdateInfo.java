@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import checking.CheckException;
+import checking.DBException;
 import checking.Validazione;
 import utenteManagement.Account;
 import utenteManagement.AccountModelDS;
@@ -102,6 +103,9 @@ public class UpdateInfo extends HttpServlet {
 			} catch (CheckException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (DBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			request.getSession().setAttribute("user", user);
 		}
@@ -170,6 +174,9 @@ public class UpdateInfo extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CheckException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -311,6 +318,9 @@ public class UpdateInfo extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CheckException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

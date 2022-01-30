@@ -154,7 +154,7 @@ public class IndirizzoModelDS {
 	}
 
 	
-	public void doUpdate(Indirizzo indirizzo) throws CheckException, SQLException {
+	public void doUpdate(Indirizzo indirizzo) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkStringaVuota(indirizzo.getProvincia());
 		Validazione.checkStringaVuota(indirizzo.getComune());
@@ -165,7 +165,7 @@ public class IndirizzoModelDS {
 		PreparedStatement preparedStatement = null;
 
 		String updateSQL = "UPDATE indirizzo SET provincia = ?, comune = ?, via = ?, civico = ?, cap = ? WHERE ID = ? AND email = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -180,7 +180,7 @@ public class IndirizzoModelDS {
 			preparedStatement.setInt(6, indirizzo.getID());
 			preparedStatement.setString(7, email);
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -194,16 +194,18 @@ public class IndirizzoModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 		
 	}
 
 	
-	public void doDelete(Indirizzo indirizzo) throws CheckException, SQLException {
+	public void doDelete(Indirizzo indirizzo) throws CheckException, SQLException, DBException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM indirizzo WHERE ID = ? AND email = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -211,7 +213,7 @@ public class IndirizzoModelDS {
 			preparedStatement.setInt(1, indirizzo.getID());
 			preparedStatement.setString(2, email);
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -225,6 +227,8 @@ public class IndirizzoModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 		
 	}
 	

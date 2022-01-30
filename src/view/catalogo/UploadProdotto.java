@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 
 import catalogoManagement.*;
 import checking.CheckException;
+import checking.DBException;
 import checking.Validazione;
 
 
@@ -260,6 +261,9 @@ public class UploadProdotto extends HttpServlet {
 					PhotoModelDS.updatePhoto(prodotto.getCodice(), savePath + File.separator + fileName, ds);
 				} catch (SQLException sqlException) {
 					System.out.println(sqlException);
+				} catch (DBException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		}
