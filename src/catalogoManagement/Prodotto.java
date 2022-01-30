@@ -147,6 +147,10 @@ public class Prodotto implements Serializable{
 	public void addQuantita(int quantita) {
 		this.quantita += quantita;
 	}
+	
+	public String toString() {
+		return this.descrizione;
+	}
 
 	public boolean equals(Object obj) {
 		if (this == obj) return true;

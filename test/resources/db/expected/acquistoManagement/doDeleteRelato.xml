@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+	<Relato prodotto="1" taglia="S" ordine="1" quantita="1" />
+	<Relato prodotto="3" taglia="S" ordine="1" quantita="5" />
+	<Relato prodotto="1" taglia="L" ordine="2" quantita="1" />
+	
+</dataset>

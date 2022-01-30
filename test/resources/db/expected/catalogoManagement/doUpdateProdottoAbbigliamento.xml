@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+	<Prodotto codice="2" tipo="t-shirt" prezzo="15" colore="bianco" descrizione="Hakuna Matata T-Shirt" marca="hz" modello="normale" />
+	<Prodotto codice="3" tipo="felpa" prezzo="25" colore="beige" descrizione="Rosa Felpa" marca="hz" modello="hoodie" />
+	<Prodotto codice="4" tipo="t-shirt" prezzo="15" colore="bianco" descrizione="Aereoplano T-Shirt" marca="hz" modello="normale" />
+	<Prodotto codice="5" tipo="t-shirt" prezzo="15" colore="nero" descrizione="Harry Potter T-Shirt" marca="hz" modello="normale" />
+	<Prodotto codice="6" tipo="borsello" prezzo="8" colore="bianco" descrizione="Coffee Lover" />
+	<Prodotto codice="7" tipo="borsello" prezzo="8" colore="bianco" descrizione="Renna" />
+	<Prodotto codice="8" tipo="cappello" prezzo="8" colore="nero" descrizione="Cloud" />
+	<Prodotto codice="9" tipo="shopper" prezzo="5" colore="bianco" descrizione="Disney Shopper" />
+	<Prodotto codice="10" tipo="grembiule" prezzo="5" colore="bianco" descrizione="Cucina Bene Grembiule" />	
+	
+</dataset>

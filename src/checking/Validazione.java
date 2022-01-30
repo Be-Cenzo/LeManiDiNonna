@@ -46,6 +46,8 @@ public static void checkEmailForUpdate(String email, DataSource ds) throws Check
 	}
 	
 	public static String checkNumero(String phone) throws CheckException {
+		if(phone == null)
+			throw new CheckException("Invalid phone number");
 
 		String format = "((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}";
 		Pattern reg = Pattern.compile(format);
@@ -74,8 +76,10 @@ public static void checkEmailForUpdate(String email, DataSource ds) throws Check
 	public static String checkStringaVuota(String str) throws CheckException{
 		String format = "[ ]*";
 		Pattern reg = Pattern.compile(format);
+		if(str == null || str.equals("")) 
+			throw new CheckException("Empty string");
 		Matcher matcher = reg.matcher(str);
-		if(str == null || str.equals("") || matcher.matches()) 
+		if(matcher.matches())
 			throw new CheckException("Empty string");
 		else
 			return str;

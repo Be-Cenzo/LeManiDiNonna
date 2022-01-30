@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+	<Conservato deposito="1" prodotto="1" taglia="S" disponibilita="50" />
+	<Conservato deposito="2" prodotto="1" taglia="M" disponibilita="30" />
+	<Conservato deposito="1" prodotto="2" taglia="L" disponibilita="15" />
+	<Conservato deposito="2" prodotto="3" taglia="M" disponibilita="40" />
+
+</dataset>

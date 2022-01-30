@@ -76,7 +76,7 @@ public class ProdottoModelDS {
 		String selectSQL = "SELECT * FROM prodotto";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY descrizione " + order;
 		}
 
 		try {
@@ -149,7 +149,7 @@ public class ProdottoModelDS {
 			}
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY descrizione " + order;
 		}
 
 		try {
@@ -257,7 +257,7 @@ public class ProdottoModelDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ?, WHERE codice = ?";
+		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ? WHERE codice = ?";
 		int err;
 		try {
 			connection = ds.getConnection();
@@ -271,7 +271,7 @@ public class ProdottoModelDS {
 			preparedStatement.setString(5, prodotto.getMarca());
 			preparedStatement.setString(6, prodotto.getModello());
 			
-			preparedStatement.setInt(8, prodotto.getCodice());
+			preparedStatement.setInt(7, prodotto.getCodice());
 
 			err = preparedStatement.executeUpdate();
 

@@ -64,7 +64,7 @@ public class DepositoModelDS{
 		String selectSQL = "SELECT * FROM deposito";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY luogo " + order;
 		}
 
 		try {
@@ -97,6 +97,8 @@ public class DepositoModelDS{
 	
 	public void doSave(Deposito deposito) throws CheckException, SQLException {
 		//pre-condition
+		if(deposito == null)
+			throw new CheckException();
 		Validazione.checkStringaVuota(deposito.getLuogo());
 		//fine
 		Connection connection = null;
