@@ -127,7 +127,7 @@ public class DepositoModelDS{
 	}
 
 	
-	public void doUpdate(Deposito deposito) throws CheckException, SQLException {
+	public void doUpdate(Deposito deposito) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkStringaVuota(deposito.getLuogo());
 		//fine
@@ -135,7 +135,7 @@ public class DepositoModelDS{
 		PreparedStatement preparedStatement = null;
 
 		String updateSQL = "UPDATE deposito SET " + "luogo = ? WHERE ID = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -145,7 +145,7 @@ public class DepositoModelDS{
 			
 			preparedStatement.setInt(2, deposito.getID());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -159,22 +159,24 @@ public class DepositoModelDS{
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
 	
-	public void doDelete(Deposito deposito) throws SQLException {
+	public void doDelete(Deposito deposito) throws SQLException, DBException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM deposito WHERE ID = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, deposito.getID());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -188,6 +190,8 @@ public class DepositoModelDS{
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 	
 }

@@ -11,6 +11,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import checking.DBException;
+
 public class PhotoModelDS {
 	public synchronized static byte[] load(int codice, DataSource datasource) throws SQLException {
 
@@ -50,11 +52,11 @@ public class PhotoModelDS {
 		return bt;
 	}
 
-	public synchronized static void updatePhoto(int codice, String photo, DataSource datasource) throws SQLException {
+	public synchronized static void updatePhoto(int codice, String photo, DataSource datasource) throws SQLException, DBException {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		DataSource ds = datasource;
-
+		int err = 0;
 		try {
 			con = ds.getConnection();
 
@@ -66,7 +68,7 @@ public class PhotoModelDS {
 				stmt.setBinaryStream(1, fis, fis.available());
 				stmt.setInt(2, codice);
 				
-				stmt.executeUpdate();
+				err = stmt.executeUpdate();
 				con.commit();
 			} catch (FileNotFoundException e) {
 				System.out.println(e);
@@ -84,5 +86,7 @@ public class PhotoModelDS {
 					con.close();
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}	
 }

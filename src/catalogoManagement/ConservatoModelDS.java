@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import checking.CheckException;
+import checking.DBException;
 
 
 public class ConservatoModelDS {
@@ -89,7 +90,7 @@ public class ConservatoModelDS {
 		}
 	}
 	
-	public void doUpdate(Prodotto prodotto, Deposito deposito, int disponibilita) throws CheckException, SQLException {
+	public void doUpdate(Prodotto prodotto, Deposito deposito, int disponibilita) throws CheckException, SQLException, DBException {
 		//pre-condition
 		if(disponibilita < 0)
 			throw new CheckException("Invalid disponibilità");
@@ -98,7 +99,7 @@ public class ConservatoModelDS {
 		PreparedStatement preparedStatement = null;
 
 		String updateSQL = "UPDATE conservato SET disponibilita = ? WHERE prodotto = ? AND deposito = ? AND taglia = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -109,7 +110,7 @@ public class ConservatoModelDS {
 			preparedStatement.setInt(3, deposito.getID());
 			preparedStatement.setString(4, prodotto.getTaglia());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -123,14 +124,16 @@ public class ConservatoModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 	
-	public void doDelete(Prodotto prodotto, Deposito deposito) throws CheckException, SQLException {
+	public void doDelete(Prodotto prodotto, Deposito deposito) throws CheckException, SQLException, DBException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM conservato WHERE prodotto = ? AND deposito = ? AND taglia = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -139,7 +142,7 @@ public class ConservatoModelDS {
 			preparedStatement.setInt(2, deposito.getID());
 			preparedStatement.setString(3, prodotto.getTaglia());
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -153,6 +156,8 @@ public class ConservatoModelDS {
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 	
 	public ArrayList<Prodotto> checkDisponibilita(ArrayList<Prodotto> prodotti) {

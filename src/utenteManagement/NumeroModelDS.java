@@ -129,7 +129,7 @@ public class NumeroModelDS{
 		}
 	}
 
-	public void doUpdate(String oldNumero, String newNumero) throws CheckException, SQLException {
+	public void doUpdate(String oldNumero, String newNumero) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkNumero(newNumero);
 		//fine
@@ -137,7 +137,7 @@ public class NumeroModelDS{
 		PreparedStatement preparedStatement = null;
 
 		String updateSQL = "UPDATE numtel SET num = ? WHERE num = ? AND email = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -147,7 +147,7 @@ public class NumeroModelDS{
 			preparedStatement.setString(2,oldNumero);
 			preparedStatement.setString(3, email);
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -161,9 +161,11 @@ public class NumeroModelDS{
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
-	public void doDelete(String numero) throws CheckException, SQLException {
+	public void doDelete(String numero) throws CheckException, SQLException, DBException {
 		//pre-condition
 		Validazione.checkStringaVuota(numero);
 		//fine
@@ -171,7 +173,7 @@ public class NumeroModelDS{
 		PreparedStatement preparedStatement = null;
 
 		String deleteSQL = "DELETE FROM numtel WHERE num = ? AND email = ?";
-
+		int err;
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -179,7 +181,7 @@ public class NumeroModelDS{
 			preparedStatement.setString(1, numero);
 			preparedStatement.setString(2, email);
 
-			preparedStatement.executeUpdate();
+			err = preparedStatement.executeUpdate();
 
 			connection.commit();
 
@@ -193,6 +195,8 @@ public class NumeroModelDS{
 				}
 			}
 		}
+		if(err == 0)
+			throw new DBException("Update failed");
 	}
 
 }
