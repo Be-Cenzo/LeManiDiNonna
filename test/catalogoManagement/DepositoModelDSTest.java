@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import checking.CheckException;
+import checking.DBException;
 
 
 public class DepositoModelDSTest {
@@ -296,7 +297,7 @@ public class DepositoModelDSTest {
     @Test
     @DisplayName("TCU2_2_4_2 doUpdateTestNonPresente")
     public void doUpdateTestNonPresente() {
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		Deposito dep = new Deposito();
     		dep.setID(15);
     		dep.setLuogo("Roccarainola");
@@ -349,7 +350,7 @@ public class DepositoModelDSTest {
     @Test
     @DisplayName("TCU2_2_5_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		Deposito del = new Deposito();
         	del.setID(15);
     		depositoModelDS.doDelete(del);

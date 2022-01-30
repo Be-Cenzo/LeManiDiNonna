@@ -28,6 +28,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 import checking.CheckException;
+import checking.DBException;
 
 
 public class ProdottoModelDSTest{
@@ -618,7 +619,7 @@ public class ProdottoModelDSTest{
     			//modello null
     			Arguments.of(4, "t-shirt", 15, "Harry Potter T-Shirt", "nero", "hz", null),
     			//codice non presente nel Database
-    			Arguments.of(15, "t-shirt", 15, "Harry Potter T-Shirt", "nero", "hz", null)
+    			Arguments.of(15, "t-shirt", 15, "Harry Potter T-Shirt", "nero", "hz", "normale")
     			);
     }
     
@@ -644,7 +645,7 @@ public class ProdottoModelDSTest{
     @Test
     @DisplayName("TCU2_1_6_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() throws Exception {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		Prodotto del = new Prodotto();
         	del.setCodice(17); 
 			prodottoModelDS.doDelete(del);

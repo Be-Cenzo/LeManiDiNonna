@@ -32,6 +32,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 import checking.CheckException;
+import checking.DBException;
 
 public class AccountModelDSTest {
 
@@ -334,7 +335,7 @@ public class AccountModelDSTest {
                 .build(AccountModelDSTest.class.getClassLoader().getResourceAsStream(expectedPath + "doUpdateInfoAccountCorretto.xml"))
                 .getTable(table);
     	
-    	Account acc = new Account("vincenzo.offertucci@gmail.com", "Enzo", "Off", "2000-08-15", "", "ProvaIG");
+    	Account acc = new Account("vincenzo.offertucci@gmail.com", "Enzo", "Off", "2000-08-15", "Provaa", "ProvaIG");
     	try {
 			accountModelDS.doUpdateInfo(acc);
 		} catch (SQLException e) {
@@ -408,7 +409,7 @@ public class AccountModelDSTest {
     @Test
     @DisplayName("TCU1_1_6_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {
-        assertThrows(CheckException.class, () -> {
+        assertThrows(DBException.class, () -> {
     		Account del = new Account();
             del.setEmail("vincenzo@gmail.com");
 			accountModelDS.doDelete(del);

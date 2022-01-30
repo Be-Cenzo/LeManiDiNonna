@@ -130,7 +130,7 @@ public class OrdineModelDS {
 		String selectSQL = "SELECT * FROM ordine WHERE email = ?";
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY data " + order;
 		}
 
 		try {

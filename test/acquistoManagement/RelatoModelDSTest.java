@@ -25,6 +25,7 @@ import org.mockito.Mockito;
 
 import catalogoManagement.Prodotto;
 import checking.CheckException;
+import checking.DBException;
 
 public class RelatoModelDSTest {
 
@@ -373,9 +374,9 @@ public class RelatoModelDSTest {
     	int quant = 2;
     	
     	Ordine ord = new Ordine();
-    	ord.setID(1);
+    	ord.setID(5);
     	
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		relatoModelDS.doUpdate(prod, ord, quant);
     	});
     }
@@ -431,7 +432,7 @@ public class RelatoModelDSTest {
     	Ordine ord = new Ordine();
     	ord.setID(1);
     	
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		relatoModelDS.doDelete(prod, ord);
     	});
     }

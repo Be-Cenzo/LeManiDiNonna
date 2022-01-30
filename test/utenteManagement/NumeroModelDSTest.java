@@ -29,6 +29,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 import checking.CheckException;
+import checking.DBException;
 
 public class NumeroModelDSTest {
 
@@ -327,7 +328,7 @@ public class NumeroModelDSTest {
     @Test
     @DisplayName("TCU1_3_5_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		numeroModelDS.doDelete("+393885948");
     	});
     }

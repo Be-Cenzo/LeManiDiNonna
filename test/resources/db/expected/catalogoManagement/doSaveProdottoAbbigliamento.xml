@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 
-	<Prodotto codice="1" tipo="t-shirt" prezzo="15" colore="nero" descrizione="Harry Potter T-Shirt" marca="hz" modello="hoodie" />
+	<Prodotto codice="1" tipo="t-shirt" prezzo="15" colore="nero" descrizione="Harry Potter T-Shirt" marca="hz" modello="normale" />
 	<Prodotto codice="2" tipo="t-shirt" prezzo="15" colore="bianco" descrizione="Hakuna Matata T-Shirt" marca="hz" modello="normale" />
 	<Prodotto codice="3" tipo="felpa" prezzo="25" colore="beige" descrizione="Rosa Felpa" marca="hz" modello="hoodie" />
 	<Prodotto codice="4" tipo="t-shirt" prezzo="15" colore="bianco" descrizione="Aereoplano T-Shirt" marca="hz" modello="normale" />

@@ -28,6 +28,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 import checking.CheckException;
+import checking.DBException;
 
 public class SpedizioneModelDSTest {
 
@@ -326,7 +327,7 @@ public class SpedizioneModelDSTest {
     @Test
     @DisplayName("TCU3_2_5_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {	
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		Spedizione del = new Spedizione("lenta", "", 0);
     		spedizioneModelDS.doDelete(del);
     	});

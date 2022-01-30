@@ -97,6 +97,8 @@ public class DepositoModelDS{
 	
 	public void doSave(Deposito deposito) throws CheckException, SQLException {
 		//pre-condition
+		if(deposito == null)
+			throw new CheckException();
 		Validazione.checkStringaVuota(deposito.getLuogo());
 		//fine
 		Connection connection = null;

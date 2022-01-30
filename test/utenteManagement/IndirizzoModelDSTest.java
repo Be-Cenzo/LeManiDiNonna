@@ -31,6 +31,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 import checking.CheckException;
+import checking.DBException;
 
 public class IndirizzoModelDSTest{
 
@@ -342,7 +343,7 @@ public class IndirizzoModelDSTest{
     public void doDeleteTestNonPresente() {
     	Indirizzo del = new Indirizzo(15, "vincenzo.offertucci@gmail.com", "Napoli", "Ottaviano", "Caracelli", 8, "80044");
     	
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		indirizzoModelDS.doDelete(del);
     	});
     }

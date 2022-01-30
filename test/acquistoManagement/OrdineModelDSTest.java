@@ -31,6 +31,7 @@ import org.mockito.Mockito;
 
 import catalogoManagement.Prodotto;
 import checking.CheckException;
+import checking.DBException;
 
 public class OrdineModelDSTest {
 
@@ -530,7 +531,7 @@ public class OrdineModelDSTest {
     @Test
     @DisplayName("TCU3_1_6_2 doDeleteTestNonPresente")
     public void doDeleteTestNonPresente() {
-    	assertThrows(Exception.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		Ordine del = new Ordine();
         	del.setID(10);
         	

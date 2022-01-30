@@ -152,8 +152,8 @@ values	("+393358782855", "vincenzo.offertucci@gmail.com"),
         ("+393312193955", "giovanni.sicilia@gmail.com");
 
 insert into Corriere
-values	("DHL", "7 giorni", 7.00),
-		("Bartolini", "4 giorni", 10.00);
+values	("Spedizione Lenta", "7 giorni", 7.00),
+		("Spedizione Veloce", "4 giorni", 10.00);
 
 insert into Deposito (luogo)
 values	("San Gennarello"),
@@ -262,12 +262,12 @@ values 	("Giuseppe Armenante", current_timestamp(), 10, 4, 25.00),
         ("Giuseppe Armenante", "2021-01-28 16:30:22", 20, 1, 200.00);
 
 insert into Ordine(data, prezzo, costoSped, note, stato, email, indirizzo, corriere)
-values	("2020-11-30 09:15:54", 63, 7, null, "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "DHL"),
-		("2021-01-11 15:37:14", 30, 10, null, "Contabilizzato", "christian.gambardella@gmail.com", 1, "Bartolini"),
-        ("2020-07-27 12:22:05", 36, 7, null, "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "DHL"),
-        ("2020-10-15 16:57:26", 24, 10, null, "Contabilizzato", "salvatore.sirica@gmail.com", 1, "Bartolini"),
-        ("2021-01-22 11:31:18", 47, 7, null, "Annullato", "giovanni.sicilia@gmail.com", 1, "DHL"),
-        (current_timestamp(), 5, 10, null, "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "Bartolini");
+values	("2020-11-30 09:15:54", 63, 7, null, "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "Spedizione Lenta"),
+		("2021-01-11 15:37:14", 30, 10, null, "Contabilizzato", "christian.gambardella@gmail.com", 1, "Spedizione Veloce"),
+        ("2020-07-27 12:22:05", 36, 7, null, "Contabilizzato", "vincenzo.offertucci@gmail.com", 2, "Spedizione Lenta"),
+        ("2020-10-15 16:57:26", 24, 10, null, "Contabilizzato", "salvatore.sirica@gmail.com", 1, "Spedizione Veloce"),
+        ("2021-01-22 11:31:18", 47, 7, null, "Annullato", "giovanni.sicilia@gmail.com", 1, "Spedizione Lenta"),
+        (current_timestamp(), 5, 10, null, "Contabilizzato", "vincenzo.offertucci@gmail.com", 1, "Spedizione Veloce");
 
 insert into Relato
 values	(1, "S", 1, 3),

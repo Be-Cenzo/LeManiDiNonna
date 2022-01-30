@@ -257,7 +257,7 @@ public class ProdottoModelDS {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ?, WHERE codice = ?";
+		String updateSQL = "UPDATE prodotto SET " + " tipo = ?, descrizione = ?, prezzo = ?, colore = ?, marca = ?, modello = ? WHERE codice = ?";
 		int err;
 		try {
 			connection = ds.getConnection();

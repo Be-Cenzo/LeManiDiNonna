@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import checking.CheckException;
+import checking.DBException;
 
 public class ConservatoModelDSTest {
 
@@ -195,7 +196,7 @@ public class ConservatoModelDSTest {
     @Test
     @DisplayName("TCU2_4_3_2 doUpdateTestNonSalva")
     public void doUpdateTestNonSalva() {
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		Prodotto prod = new Prodotto();
         	prod.setCodice(1);
         	prod.setTaglia("S");
@@ -247,7 +248,7 @@ public class ConservatoModelDSTest {
     @Test
     @DisplayName("TCU2_4_4_2 doDeleteTestNonSalva")
     public void doDeleteTestNonSalva() {
-    	assertThrows(CheckException.class, () -> {
+    	assertThrows(DBException.class, () -> {
     		Prodotto prod = new Prodotto();
         	prod.setCodice(1);
         	prod.setTaglia("S");
