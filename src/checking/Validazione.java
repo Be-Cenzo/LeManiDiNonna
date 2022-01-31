@@ -35,7 +35,7 @@ public class Validazione {
 
 	}
 	
-public static void checkEmailForUpdate(String email, DataSource ds) throws CheckException {
+public static void checkEmailForUpdate(String email) throws CheckException {
 		
 		String format = "\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+";
 		Pattern reg = Pattern.compile(format);
